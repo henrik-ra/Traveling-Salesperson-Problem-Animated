@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:02,612
+This circle is drawn as I speak.
+
+2
+00:00:02,716 --> 00:00:05,520
+Let's shift it to the left 2 units.
+
+3
+00:00:05,633 --> 00:00:08,749
+Now, let's transform it into a square.
+
+4
+00:00:08,850 --> 00:00:12,182
+You can also change the pitch of my voice like this.
+
+5
+00:00:12,266 --> 00:00:14,278
+Thank you for watching.
+

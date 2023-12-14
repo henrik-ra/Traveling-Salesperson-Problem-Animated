@@ -1,0 +1,441 @@
+[
+  {
+    "input_text": "This circle is drawn as I speak.",
+    "input_data": {
+      "input_text": "This circle is drawn as I speak.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">This circle is drawn as I speak.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">This circle is drawn as I speak.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 212,
+        "text_offset": 0,
+        "word_length": 4,
+        "text": "This",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 2875000,
+        "duration_milliseconds": 375,
+        "text_offset": 5,
+        "word_length": 6,
+        "text": "circle",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 6750000,
+        "duration_milliseconds": 125,
+        "text_offset": 12,
+        "word_length": 2,
+        "text": "is",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 8125000,
+        "duration_milliseconds": 300,
+        "text_offset": 15,
+        "word_length": 5,
+        "text": "drawn",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 11250000,
+        "duration_milliseconds": 112,
+        "text_offset": 21,
+        "word_length": 2,
+        "text": "as",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 12625000,
+        "duration_milliseconds": 100,
+        "text_offset": 24,
+        "word_length": 1,
+        "text": "I",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 13875000,
+        "duration_milliseconds": 475,
+        "text_offset": 26,
+        "word_length": 5,
+        "text": "speak",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 18875000,
+        "duration_milliseconds": 100,
+        "text_offset": 31,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "this-circle-is-drawn-as-i-speak-2ce702fe.mp3",
+    "final_audio": "this-circle-is-drawn-as-i-speak-2ce702fe.mp3"
+  },
+  {
+    "input_text": "Let's shift it to the left 2 units.",
+    "input_data": {
+      "input_text": "Let's shift it to the left 2 units.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Let's shift it to the left 2 units.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Let's shift it to the left 2 units.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 275,
+        "text_offset": 0,
+        "word_length": 5,
+        "text": "Let's",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3375000,
+        "duration_milliseconds": 300,
+        "text_offset": 6,
+        "word_length": 5,
+        "text": "shift",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 6500000,
+        "duration_milliseconds": 112,
+        "text_offset": 12,
+        "word_length": 2,
+        "text": "it",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 7875000,
+        "duration_milliseconds": 100,
+        "text_offset": 15,
+        "word_length": 2,
+        "text": "to",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 9000000,
+        "duration_milliseconds": 125,
+        "text_offset": 18,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 10500000,
+        "duration_milliseconds": 275,
+        "text_offset": 22,
+        "word_length": 4,
+        "text": "left",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 13500000,
+        "duration_milliseconds": 162,
+        "text_offset": 27,
+        "word_length": 1,
+        "text": "2",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 15375000,
+        "duration_milliseconds": 512,
+        "text_offset": 29,
+        "word_length": 5,
+        "text": "units",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 20625000,
+        "duration_milliseconds": 100,
+        "text_offset": 34,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "let-s-shift-it-to-the-left-2-units-336f021c.mp3",
+    "final_audio": "let-s-shift-it-to-the-left-2-units-336f021c.mp3"
+  },
+  {
+    "input_text": "Now, let's transform it into a square.",
+    "input_data": {
+      "input_text": "Now, let's transform it into a square.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Now, let's transform it into a square.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Now, let's transform it into a square.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 350,
+        "text_offset": 0,
+        "word_length": 3,
+        "text": "Now",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 5000000,
+        "duration_milliseconds": 125,
+        "text_offset": 3,
+        "word_length": 1,
+        "text": ",",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 6250000,
+        "duration_milliseconds": 175,
+        "text_offset": 5,
+        "word_length": 5,
+        "text": "let's",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 8125000,
+        "duration_milliseconds": 575,
+        "text_offset": 11,
+        "word_length": 9,
+        "text": "transform",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 14125000,
+        "duration_milliseconds": 100,
+        "text_offset": 21,
+        "word_length": 2,
+        "text": "it",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 15375000,
+        "duration_milliseconds": 212,
+        "text_offset": 24,
+        "word_length": 4,
+        "text": "into",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 17625000,
+        "duration_milliseconds": 62,
+        "text_offset": 29,
+        "word_length": 1,
+        "text": "a",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 18375000,
+        "duration_milliseconds": 512,
+        "text_offset": 31,
+        "word_length": 6,
+        "text": "square",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 23625000,
+        "duration_milliseconds": 100,
+        "text_offset": 37,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "now-let-s-transform-it-into-a-square-a94d04b5.mp3",
+    "final_audio": "now-let-s-transform-it-into-a-square-a94d04b5.mp3"
+  },
+  {
+    "input_text": "You can also change the pitch of my voice like this.",
+    "input_data": {
+      "input_text": "You can also change the pitch of my voice like this.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <prosody pitch=\"+40Hz\"><mstts:express-as style=\"newscast-casual\">You can also change the pitch of my voice like this.</mstts:express-as></prosody>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <prosody pitch=\"+40Hz\"><mstts:express-as style=\"newscast-casual\">You can also change the pitch of my voice like this.</mstts:express-as></prosody>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 175,
+        "text_offset": 0,
+        "word_length": 3,
+        "text": "You",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 2375000,
+        "duration_milliseconds": 137,
+        "text_offset": 4,
+        "word_length": 3,
+        "text": "can",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 4000000,
+        "duration_milliseconds": 262,
+        "text_offset": 8,
+        "word_length": 4,
+        "text": "also",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 6875000,
+        "duration_milliseconds": 337,
+        "text_offset": 13,
+        "word_length": 6,
+        "text": "change",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 10500000,
+        "duration_milliseconds": 112,
+        "text_offset": 20,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 11875000,
+        "duration_milliseconds": 212,
+        "text_offset": 24,
+        "word_length": 5,
+        "text": "pitch",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 14250000,
+        "duration_milliseconds": 100,
+        "text_offset": 30,
+        "word_length": 2,
+        "text": "of",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 15500000,
+        "duration_milliseconds": 125,
+        "text_offset": 33,
+        "word_length": 2,
+        "text": "my",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 16875000,
+        "duration_milliseconds": 262,
+        "text_offset": 36,
+        "word_length": 5,
+        "text": "voice",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 19750000,
+        "duration_milliseconds": 187,
+        "text_offset": 42,
+        "word_length": 4,
+        "text": "like",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 21875000,
+        "duration_milliseconds": 375,
+        "text_offset": 47,
+        "word_length": 4,
+        "text": "this",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 25875000,
+        "duration_milliseconds": 100,
+        "text_offset": 51,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "you-can-also-change-the-pitch-of-my-voice-like-d122c449.mp3",
+    "final_audio": "you-can-also-change-the-pitch-of-my-voice-like-d122c449.mp3"
+  },
+  {
+    "input_text": "Thank you for watching.",
+    "input_data": {
+      "input_text": "Thank you for watching.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Thank you for watching.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Thank you for watching.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 325,
+        "text_offset": 0,
+        "word_length": 5,
+        "text": "Thank",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3875000,
+        "duration_milliseconds": 125,
+        "text_offset": 6,
+        "word_length": 3,
+        "text": "you",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 5375000,
+        "duration_milliseconds": 187,
+        "text_offset": 10,
+        "word_length": 3,
+        "text": "for",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 7500000,
+        "duration_milliseconds": 500,
+        "text_offset": 14,
+        "word_length": 8,
+        "text": "watching",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 12750000,
+        "duration_milliseconds": 100,
+        "text_offset": 22,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "thank-you-for-watching-a5a53c02.mp3",
+    "final_audio": "thank-you-for-watching-a5a53c02.mp3"
+  }
+]

@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:02,732
+This circle is drawn as I speak.
+
+2
+00:00:02,832 --> 00:00:06,356
+Es kann tausende Verbindungen geben.
+
