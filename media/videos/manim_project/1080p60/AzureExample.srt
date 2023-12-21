@@ -3,18 +3,18 @@
 This circle is drawn as I speak.
 
 2
-00:00:02,716 --> 00:00:05,520
+00:00:02,712 --> 00:00:05,516
 Let's shift it to the left 2 units.
 
 3
-00:00:05,633 --> 00:00:08,749
+00:00:05,616 --> 00:00:08,732
 Now, let's transform it into a square.
 
 4
-00:00:08,850 --> 00:00:12,182
+00:00:08,832 --> 00:00:12,164
 You can also change the pitch of my voice like this.
 
 5
-00:00:12,266 --> 00:00:14,278
+00:00:12,264 --> 00:00:14,276
 Thank you for watching.
 
