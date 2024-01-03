@@ -1,0 +1,72 @@
+1
+00:00:01,000 --> 00:00:04,095
+Welcome back, folks! Today, we're diving
+
+2
+00:00:04,195 --> 00:00:07,212
+into the Traveling Salesperson Problem.
+
+3
+00:00:07,300 --> 00:00:10,073
+Imagine we have a traveling salesperson - tasked
+
+4
+00:00:10,173 --> 00:00:12,768
+with selling your products in various cities.
+
+5
+00:00:12,866 --> 00:00:16,630
+This guy is Alex, a salesperson with a big challenge.
+
+6
+00:00:16,716 --> 00:00:20,563
+Alex has to sell products in various cities and wants to take
+
+7
+00:00:20,663 --> 00:00:24,509
+the shortest route to save time. But how does Alex figure out
+
+8
+00:00:24,609 --> 00:00:28,520
+the best route? Let's dive in and help Alex solve this puzzle.
+
+9
+00:00:28,616 --> 00:00:31,612
+Let's say he needs to visit 4 cities.
+
+10
+00:00:31,700 --> 00:00:35,803
+Sounds straightforward, right? What do you think happens if
+
+11
+00:00:35,903 --> 00:00:38,440
+we add one more city to Alex's route?
+
+12
+00:00:43,700 --> 00:00:47,363
+Of course, if we add more cities it get's more complex. So how
+
+13
+00:00:47,463 --> 00:00:51,976
+do you determine the shortest possible route that connects all these cities?
+
+14
+00:00:52,066 --> 00:00:56,120
+One approach is to try out every possible route. But here lies
+
+15
+00:00:56,220 --> 00:01:00,476
+the problem: Complexity! So, with every new city Alex adds to the
+
+16
+00:01:00,576 --> 00:01:05,166
+trip, the challenge of finding the shortest route grows significantly.
+
+17
+00:01:08,066 --> 00:01:11,257
+The Problem to find the shortest way between multiple
+
+18
+00:01:11,357 --> 00:01:14,734
+points is called the Traveling Salesperson Problem (TSP)
+

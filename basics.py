@@ -12,6 +12,7 @@ from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 
+
 class CustomGraph(Graph):
     def __init__(self, vertices, edges, layout="circular", layout_scale=2.5, label_color=WHITE, *args, **kwargs):
         # Standardkonfigurationen für Knoten und Kanten
@@ -40,20 +41,28 @@ class CustomGraph(Graph):
         # Initialisieren des Basis-Graphen
         super().__init__(vertices, edges, vertex_config=default_vertex_config, edge_config=default_edge_config, *args, **kwargs)
 
-
-
-        # Hinzufügen der Labels mit der gewünschten Farbe
+        # Adding labels
         self.label_color = label_color
         self.add_labels()
 
+         # Make edges invisible initially
+        for edge in self.edges:
+            self.edges[edge].set_opacity(0)
+
+
+    def get_edges_with_initial_opacity_zero(self):
+    # Set initial opacity of edges to 0 and return them
+        for edge in self.edges.values():
+            edge.set_opacity(0)
+        return self.edges.values()
+    
     def add_labels(self):
+        labels = VGroup()
         for vertex in self.vertices:
-            label = Tex(str(vertex), color=self.label_color)
+            label = Text(str(vertex), color=self.label_color, font_size=24)
             label.move_to(self[vertex].get_center())
-            self.add(label)
-            
-
-
+            labels.add(label)
+        return labels  # Return the group of labels
 
 
 # class Graph_TSP(Graph):
