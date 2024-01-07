@@ -1,0 +1,16 @@
+1
+00:00:00,000 --> 00:00:02,335
+Now we will explain the difference between
+
+2
+00:00:02,435 --> 00:00:05,756
+the symmetrical and asymmetrical Traveling Salesman Problem
+
+3
+00:00:05,856 --> 00:00:08,300
+This is the symmetrical one
+
+4
+00:00:09,856 --> 00:00:12,300
+This is the asymmetrical
+

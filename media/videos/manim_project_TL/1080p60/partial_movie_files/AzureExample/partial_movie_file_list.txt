@@ -1,0 +1,11 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1413466013_181931283_223132457.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_345352296_267122242.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_3813642600_1284674866.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_4100021659_3547520947.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_2614685074_3828168139.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_190800790_1806159117.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_722060892_1085572655.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_2976234379_2518773252.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_190800790_463525763.mp4'
+file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/manim_project_TL/1080p60/partial_movie_files/AzureExample/1672018281_1897774247_3946541808.mp4'
