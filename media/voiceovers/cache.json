@@ -75643,5 +75643,246 @@
     ],
     "original_audio": "this-is-the-asymmetrical-41a6600d.mp3",
     "final_audio": "this-is-the-asymmetrical-41a6600d.mp3"
+  },
+  {
+    "input_text": "Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem",
+    "input_data": {
+      "input_text": "Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 262,
+        "text_offset": 0,
+        "word_length": 3,
+        "text": "Now",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3250000,
+        "duration_milliseconds": 125,
+        "text_offset": 4,
+        "word_length": 2,
+        "text": "we",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 4750000,
+        "duration_milliseconds": 137,
+        "text_offset": 7,
+        "word_length": 4,
+        "text": "will",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 6375000,
+        "duration_milliseconds": 387,
+        "text_offset": 12,
+        "word_length": 7,
+        "text": "explain",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 10500000,
+        "duration_milliseconds": 125,
+        "text_offset": 20,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 12000000,
+        "duration_milliseconds": 387,
+        "text_offset": 24,
+        "word_length": 10,
+        "text": "difference",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 16125000,
+        "duration_milliseconds": 312,
+        "text_offset": 35,
+        "word_length": 7,
+        "text": "between",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 19500000,
+        "duration_milliseconds": 100,
+        "text_offset": 43,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 20750000,
+        "duration_milliseconds": 650,
+        "text_offset": 47,
+        "word_length": 11,
+        "text": "symmetrical",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 27375000,
+        "duration_milliseconds": 100,
+        "text_offset": 59,
+        "word_length": 3,
+        "text": "and",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 28625000,
+        "duration_milliseconds": 750,
+        "text_offset": 63,
+        "word_length": 12,
+        "text": "asymmetrical",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 36375000,
+        "duration_milliseconds": 412,
+        "text_offset": 76,
+        "word_length": 9,
+        "text": "Traveling",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 40750000,
+        "duration_milliseconds": 475,
+        "text_offset": 86,
+        "word_length": 8,
+        "text": "Salesman",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 45625000,
+        "duration_milliseconds": 437,
+        "text_offset": 95,
+        "word_length": 7,
+        "text": "Problem",
+        "boundary_type": "Word"
+      }
+    ],
+    "original_audio": "now-we-will-explain-the-difference-between-the-5167c6fc.mp3",
+    "final_audio": "now-we-will-explain-the-difference-between-the-5167c6fc.mp3"
+  },
+  {
+    "input_text": "This is the symmetrical one",
+    "input_data": {
+      "input_text": "This is the symmetrical one",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">This is the symmetrical one</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">This is the symmetrical one</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 300,
+        "text_offset": 0,
+        "word_length": 4,
+        "text": "This",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3625000,
+        "duration_milliseconds": 150,
+        "text_offset": 5,
+        "word_length": 2,
+        "text": "is",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 5375000,
+        "duration_milliseconds": 112,
+        "text_offset": 8,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 6750000,
+        "duration_milliseconds": 650,
+        "text_offset": 12,
+        "word_length": 11,
+        "text": "symmetrical",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 13500000,
+        "duration_milliseconds": 337,
+        "text_offset": 24,
+        "word_length": 3,
+        "text": "one",
+        "boundary_type": "Word"
+      }
+    ],
+    "original_audio": "this-is-the-symmetrical-one-7247bf94.mp3",
+    "final_audio": "this-is-the-symmetrical-one-7247bf94.mp3"
+  },
+  {
+    "input_text": "This is the asymmetrical",
+    "input_data": {
+      "input_text": "This is the asymmetrical",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">This is the asymmetrical</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural ",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural \">\n        <mstts:express-as style=\"newscast-casual\">This is the asymmetrical</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 312,
+        "text_offset": 0,
+        "word_length": 4,
+        "text": "This",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3750000,
+        "duration_milliseconds": 150,
+        "text_offset": 5,
+        "word_length": 2,
+        "text": "is",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 5500000,
+        "duration_milliseconds": 125,
+        "text_offset": 8,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 7000000,
+        "duration_milliseconds": 975,
+        "text_offset": 12,
+        "word_length": 12,
+        "text": "asymmetrical",
+        "boundary_type": "Word"
+      }
+    ],
+    "original_audio": "this-is-the-asymmetrical-41a6600d.mp3",
+    "final_audio": "this-is-the-asymmetrical-41a6600d.mp3"
   }
 ]
