@@ -28,6 +28,24 @@ class IntroNew(VoiceoverScene):
             )
         ) 
 
+        c = Circle(2, color= RED, fill_opacity = 0.1)
+        self.play(DrawBorderThenFill(c), run_time = 0.5)
+
+        title0 = Text("TSP", font_size = 96, slant = "ITALIC")
+
+        title = Text("Traveling", font_size = 48, slant = "ITALIC").shift(UP*0.5)
+        subtitle = Text("Salesperson", font_size = 48, slant="ITALIC").shift(DOWN*0.2)
+        subsubtitle = Text("Problem", font_size = 48, slant="ITALIC").shift(DOWN*0.9)
+
+        # self.play(Write(title), Write(subtitle), Write(subsubtitle))
+        self.play(Write(title0))
+
+
+        a = Arc(2.2, TAU * 1/4, -TAU*2.6/4, color= BLUE, stroke_width=15)
+        self.play(Create(a))
+
+        self.wait(3)
+
         svg_object = SVGMobject("world.svg").scale(3).set_color(WHITE)
         self.add(svg_object)
         self.wait(1)
@@ -214,14 +232,14 @@ class IntroNew(VoiceoverScene):
             self.play(Write(intro_text))
 
 
-class Assumptions(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
+# class Assumptions(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
         
         with self.voiceover(text="To solve it, we'll think of each city as a point, or 'node', on a graph. The edges symbolize possible paths Alex can take. "):
         # Define vertices and edges
