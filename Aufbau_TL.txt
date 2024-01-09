@@ -1,0 +1,31 @@
+Sym vs asym
+symmetrischen Graphen mit km Zeichen
+erklären, dass in beide Richtung gleich ist
+dann selben Graphen zeigen mit 2 kannten mit verschiedenen km Anzahl
+In Realität meist asym, doch zur vereinfachten Darstellung verwenden wir sym
+(kann auch an eine andere Stelle im Video)
+
+Lower Bound
+sagen, dass optimale Lösung schwer zu erreichen ist(wenn noch nd davor gesagt)
+deshalb heuristisch
+und dann um zu verstehen, ob die heuristische Lösung gut/korrekt sein kann den mit lower bound vergleichen
+sagen, dass lower bound die kleinste Länge der Kanten in einem Spannbaum ist
+Visualisierung ähnlich wie im video mit den >= Zeichen, aber konkrete zahlen
+Eventuell mit graph aber vielleicht schwer den unterschied zwischen heuristisch 
+und optimal darzustellen, wenn der graph klein ist, da brut force reicht 
+
+Christofides 
+Mit pseudocode erklären im voice und dabei schritt für schritt den Graphen aufbauen
+(Je nach platz Stichpunkte an die Seite zum besseren Verständnis)
+dann nach links schieben und konkreten code dazu zeigen(eventuell die momentan erstellten 
+kannten nochmal farbig aufzeigen oder so zur Verdeutlichung) 
+Erklärung:
+Erstellen eines Minimal Spanning Tree
+Finden von Knoten mit ungeradem Grad
+Matching der Knoten mit ungeradem Grad, so dass sie einen Geraden haben
+=> Euler Kreis
+Hamilton Round Finden
+
+Eventuell bei jedem schritt die O Komplexität aufführen und schlussendlich angeben 
+
+
