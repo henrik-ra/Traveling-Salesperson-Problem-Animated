@@ -1,5 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/IntroNew/uncached_00000.mp4'
-file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/IntroNew/uncached_00001.mp4'
-file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/IntroNew/uncached_00002.mp4'
-file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/IntroNew/uncached_00003.mp4'

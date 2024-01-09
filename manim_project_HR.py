@@ -46,6 +46,10 @@ class IntroNew(VoiceoverScene):
 
         self.wait(3)
 
+        self.remove(a)
+        self.remove(c)
+        self.remove(title0)
+
         svg_object = SVGMobject("world.svg").scale(3).set_color(WHITE)
         self.add(svg_object)
         self.wait(1)
@@ -226,7 +230,7 @@ class IntroNew(VoiceoverScene):
         #     self.remove(point, label)
         
         self.play(FadeOut(svg_object))
-
+ 
         with self.voiceover(text="The Problem to find the shortest way between multiple points is called the Traveling Salesperson Problem (TSP)") as tracker:
             intro_text = Text("Traveling Salesman Problem (TSP)").to_edge(UP)
             self.play(Write(intro_text))
