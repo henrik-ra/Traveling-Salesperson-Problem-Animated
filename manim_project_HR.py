@@ -16,6 +16,7 @@ from scipy.spatial import KDTree
 from basics import CustomGraph
 
 from scipy.special import gamma
+import math
 
 # voices: https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts
 
@@ -433,11 +434,75 @@ class IntroNew(VoiceoverScene):
             # Transition text
             self.wait(2)
           
+
         self.wait(1)
 
 
 
-class Exp_Graph(VoiceoverScene):
+# class Exp_Graph(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
+
+        axes = Axes(
+            x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
+            y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+            y_length=5,
+            x_length=8,
+            tips=False,  
+            axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+        )
+
+                # Hinzufügen der Achsen und des Graphen zur Szene
+        self.add(axes)
+        # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
+        self.wait(2)  # Warten am Ende der Animation
+
+        bold_template = TexTemplate()
+        bold_template.add_to_preamble(r"\usepackage{bm}")
+
+        def plot_function(function, color, label, position=RIGHT, range=[0,20]):
+            function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
+            return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+
+        # constant
+        constant, constant_tag  = plot_function(lambda x: 1, BLUE, r"$\bm{O(1)}$")
+        self.play(LaggedStart(constant.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(constant_tag))
+
+        # linear
+        linear, linear_tag  = plot_function(lambda x: x, GREEN, r"$\bm{O(n)}$")
+        self.play(LaggedStart(linear.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(linear_tag))
+
+        # quad
+        quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
+        self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(quad_tag))
+
+        # poly
+        poly, poly_tag  = plot_function(lambda x: 3 * x**2 + 2 * x, ORANGE, r"$\bm{O(3n^2+2n)}$", range=[0,9.66])
+        self.play(LaggedStart(poly.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(poly_tag))
+
+        # exponential
+        exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+        self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(exp_tag))
+
+        diagram = VGroup(axes, constant_tag, linear_tag, quad_tag, poly_tag, exp_tag, constant, linear, quad, poly, exp)
+
+        self.wait(2)
+        self.play(diagram.animate.shift(LEFT*2).scale(0.6))
+        self.wait(2)
+        self.play(FadeOut(axes), FadeOut(constant, constant_tag, linear, linear_tag, quad, quad_tag, poly, poly_tag, exp, exp_tag))
+        self.wait(2)
+
+class Algorithms(VoiceoverScene):
     def construct(self):
         self.set_speech_service(
             AzureService(
@@ -445,23 +510,36 @@ class Exp_Graph(VoiceoverScene):
                 style="newscast-casual",
             )
         )
+        # Create the first box
+        box1 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(LEFT*2.5)
+        box1_text = Text("Optimal", color=WHITE).scale(0.5)
+        box1_text.move_to(box1.get_center())
+        box1_label = Text("Brute Force\n\nBranch and Bound", color=WHITE, font_size=40).scale(0.5)
+        box1_label.next_to(box1, DOWN)
 
-        axes = Axes(
-            x_range=[0, 5],  # x-Achsenbereich von 0 bis 5
-            y_range=[0, 10],  # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
-            axis_config={"include_ticks": False, "color": BLUE},  # Achsenfarbe
-        )
+        # Create the second box
+        box2 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(RIGHT*2.5)
+        # box1_text.move_to(box1.get_center())
+        # box2.next_to(box1, RIGHT*2, buff=1)
+        box2_text = Text("Approximation", color=WHITE).scale(0.5)
+        box2_text.move_to(box2.get_center())
+        box2_label = Text("kNN\n\nChristofides\n\nLin Kernighan", color=WHITE, font_size=40).scale(0.5)
+        box2_label.next_to(box2, DOWN)
 
-        # Erstellen des Plots für die Funktion 2^x, begrenzt auf den x_range
-        exponential_curve = axes.plot(lambda x: 2**x, x_range=[0, 3], color=RED)
+        # Animate
+        self.play(DrawBorderThenFill(box1))
+        self.play(Write(box1_text))
 
-        # Erstellen eines Beschriftungstextes für die Funktion
-        exponential_label = axes.get_graph_label(exponential_curve, label='2^{x}')
+        self.play(DrawBorderThenFill(box2))
+        self.play(Write(box2_text))
 
-        # Hinzufügen der Achsen und des Graphen zur Szene
-        self.add(axes)
-        self.play(Create(exponential_curve), Write(exponential_label))
-        self.wait(2)  # Warten am Ende der Animation
+        self.wait(3)
+        self.play(Write(box1_label))
+
+        self.wait(3)
+        self.play(Write(box2_label))
+
+        self.wait(2)
 
 
 class BruteForce(VoiceoverScene):
@@ -472,27 +550,81 @@ class BruteForce(VoiceoverScene):
                 style="newscast-casual",
             )
         )
-        # the graph class expects a list of vertices and edges
-        vertices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        edges = [(1, 2), (2, 3), (3, 4), (2, 4), (2, 5), (6, 5),
-                 (1, 7), (5, 7), (2, 8), (1, 9)]
 
-        h = CustomGraph(vertices, edges).shift(RIGHT * 0)
+        def find_hamiltonian_paths(vertices):
+            """ Find all Hamiltonian paths in the graph. """
+            paths = []
+            for perm in permutations(vertices):
+                # Add path if it's not in the paths list
+                if perm not in paths:
+                    paths.append(perm)
+            return paths
 
-        # Verschieben des gesamten Graphen
-        self.play(Create(h))
+        # Create vertices and edges
+        vertices = [1, 2, 3, 4, 5]
+        edges = [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i + 1, len(vertices))]
 
-        self.wait(4)
-        h.scale(0.5)
+        # Find all Hamiltonian paths
+        hamiltonian_paths = find_hamiltonian_paths(vertices)
 
-        # Animation für das Hervorheben von bestimmten Kanten
-        for edge in h.edges:
-            self.play(h.edges[edge].animate.set_color(RED), run_time=0.5)
+        for path in hamiltonian_paths:
+            # Create a graph for the current path
+            path_edges = [(path[i], path[i + 1]) for i in range(len(path) - 1)]
+            h = CustomGraph(vertices, path_edges).shift(RIGHT * 2)
+
+            labels = h.add_labels()
+
+            # Animate the graph creation
+            self.play(Create(h), FadeIn(labels), run_time=0.1)         
+
+            for edge in h.get_edges_with_initial_opacity_zero():
+                self.play(edge.animate.set_opacity(1), run_time=0.1)
+
+            self.wait(0.5)
+            
+            # Clear the graph before next animation
+            self.play(FadeOut(h, labels), run_time=0.1)
             self.wait(0.1)
-            self.play(h.edges[edge].animate.set_color(GREEN), run_time=0.5)
 
-        self.wait(1)
+        self.wait(2)
 
+        # # the graph class expects a list of vertices and edges
+        # vertices = [1, 2, 3, 4, 5]
+        # edges = [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i + 1, len(vertices))]
+
+        # h = CustomGraph(vertices, edges).shift(RIGHT * 0)
+
+        # self.play(Create(h))
+
+        # for edge in h.get_edges_with_initial_opacity_zero():
+        #     self.play(edge.animate.set_opacity(1), run_time=0.1)
+        # # Verschieben des gesamten Graphen
+        
+
+        # self.wait(4)
+        
+            
+        # point_indices = range(len(points))  
+        # all_routes = list(permutations(point_indices))
+
+        # # Animate each route
+        # for route in all_routes[:100]:
+        #     # Create a path for the current route
+        #     path = VMobject(color=BLUE)
+        #     path.set_points_as_corners([points[i].get_center() for i in route] + [points[route[0]].get_center()])
+        #     self.play(Create(path), run_time=0.1)
+        #     self.wait(0.05)
+        #     # Remove the path before drawing the next one
+        #     self.remove(path)
+
+
+
+        # for point in points:
+        #     self.remove(point)
+        # # for point, label in zip(points, label_objects):
+        # #     self.remove(point, label)
+        
+        # self.play(FadeOut(svg_object))
 
 class PointskNN(VoiceoverScene):
     def construct(self):
@@ -748,4 +880,4 @@ class AzureExample(VoiceoverScene):
 
 
 if __name__ == "__main__":
-    os.system(f"manim -pqh --disable_caching {__file__} IntroNew")
+    os.system(f"manim -pqh --disable_caching {__file__} BruteForce")
