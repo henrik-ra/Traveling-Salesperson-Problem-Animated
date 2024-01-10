@@ -1,0 +1,76 @@
+1
+00:00:00,000 --> 00:00:03,144
+Another way of solving the TSP is with the help of
+
+2
+00:00:03,244 --> 00:00:06,908
+the branch and bound method. Let's start with a simple TSP
+
+3
+00:00:07,008 --> 00:00:10,153
+example. Again we have a set of cities and need to
+
+4
+00:00:10,253 --> 00:00:14,372
+find the shortest possible route visiting each city exactly once.
+
+5
+00:00:20,000 --> 00:00:24,200
+The Branch-and-Bound method begins by constructing a tree of
+
+6
+00:00:24,300 --> 00:00:27,856
+all possibilities. First we need a Graph. Let's use
+
+7
+00:00:27,956 --> 00:00:30,508
+the same graph and start at node one.
+
+8
+00:00:30,600 --> 00:00:36,066
+Now we have to look at the next possible nodes. In this case we
+
+9
+00:00:36,166 --> 00:00:40,484
+have four options. We can go to node 2, 3, 4 or 5.
+
+10
+00:00:41,600 --> 00:00:45,256
+At the same time we can tranform the graph on the right to
+
+11
+00:00:45,356 --> 00:00:48,947
+a tree with node one as the root. This tree will show all
+
+12
+00:00:49,047 --> 00:00:54,258
+the possible routes that the salesperson can use. As explained, starting with node
+
+13
+00:00:54,358 --> 00:00:57,820
+one the next possible nodes could be node 2, 3, 4 or 5.
+
+14
+00:00:57,916 --> 00:01:01,306
+This would be the first version of the tree. Now we
+
+15
+00:01:01,406 --> 00:01:04,591
+have to take a look at the next steps. Let's say
+
+16
+00:01:04,691 --> 00:01:07,944
+we choose node 2 as the second node to travel to.
+
+17
+00:01:08,033 --> 00:01:13,021
+Starting from node 2, the next options would be node 3, 4 or 5.
+
+18
+00:01:15,033 --> 00:01:19,295
+Now we can create the next step at the tree. Again the next
+
+19
+00:01:19,395 --> 00:01:23,213
+possible nodes to travel to would be node 3, 4 and 5.
+
