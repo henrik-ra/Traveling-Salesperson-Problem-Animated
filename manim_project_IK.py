@@ -282,7 +282,7 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Restore(self.camera.frame))
 
 
-        with self.voiceover(text="Lets continue creating one possible route. We decide to travel to node 5 as our next city. ") as tracker:
+        with self.voiceover(text="Let's continue creating one possible route. We decide to travel to node 5 as our next city. ") as tracker:
 
             self.wait(3)
 
@@ -294,34 +294,61 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Create(linie_zwischen_kreis2_und_5_weiß))
 
 
-        with self.voiceover(text="That means that we have to continue on node 5 on the tree. After travelling to node 5, there are two nodes left, node 3 and 4.") as tracker:
+
+        with self.voiceover(text="Starting from node 5, there are two cities left that have not been visited yet. Node 3 and 4.") as tracker:
+
+            self.wait(2)
+
+            kreis_um_knoten5 = Circle(color=RED)
+            kreis_um_knoten5.surround(graph.vertices[5])
+
+            kreis_um_knoten3 = Circle(color=RED)
+            kreis_um_knoten3.surround(graph.vertices[3])
+
+            kreis_um_knoten4 = Circle(color=RED)
+            kreis_um_knoten4.surround(graph.vertices[4])
+
+            # Zeichne eine rote Linie zwischen den Mittelpunkten der Kreise
+            linie_zwischen_kreis5_und_3 = Line(kreis_um_knoten5.get_center(), kreis_um_knoten3.get_center(), buff=0.3)
+            linie_zwischen_kreis5_und_3.set_color(RED)
+
+            linie_zwischen_kreis5_und_4 = Line(kreis_um_knoten5.get_center(), kreis_um_knoten4.get_center(), buff=0.3)
+            linie_zwischen_kreis5_und_4.set_color(RED)
+
+            self.play(Create(kreis_um_knoten5))
+
+            self.play(Create(linie_zwischen_kreis5_und_3))
+            self.play(Create(kreis_um_knoten3))
+            
+            self.play(Create(linie_zwischen_kreis5_und_4))
+            self.play(Create(kreis_um_knoten4))
+            
+
+
+        with self.voiceover(text="Let's go back to the tree. The next nodes that we can travel to are node 3 and node 4.") as tracker:
 
             self.camera.frame.save_state()
 
             # Bewege die Kamera zu Knoten 2 und zoome hinein
             self.play(
-                self.camera.frame.animate.move_to(DOWN * 0.5).scale(0.7)
+                self.camera.frame.animate.move_to(DOWN * 1 + 0.5 * RIGHT).scale(0.7)
             )
-
-            self.wait(2)
+            self.wait(4)
 
             vertex4 = [3, 4]
             graph4 = CustomGraph(vertex4, [])
 
-            
-
-            relative_positionen = {
-                3: LEFT * 1.5 + DOWN * 1.5,  # Position von Knoten 3 relativ zu Knoten 2
-                4: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+            relative_positionen4 = {
+                3: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 3 relativ zu Knoten 2
+                4: RIGHT * 0.75 + DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
             }
 
             # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
-            for node in vertex3:
-                graph4.vertices[node].move_to(graph3.vertices[5].get_center() + relative_positionen[node])
-
+            for node in vertex4:
+                graph4.vertices[node].move_to(graph3.vertices[5].get_center() + relative_positionen4[node])
 
             for vertex in graph4.vertices.values():
-                self.play(GrowFromCenter(vertex4), run_time=0.2)
+                self.play(GrowFromCenter(vertex), run_time=0.2)
 
 
             for node in vertex4:
@@ -337,10 +364,58 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Restore(self.camera.frame))
 
 
+        with self.voiceover(text="This time we choose node 3 as the next city.") as tracker:
 
-            
+            self.wait(3)
 
+            linie_zwischen_kreis5_und_3_weiß = Line(kreis_um_knoten5.get_center(), kreis_um_knoten3.get_center(), buff=0.2)
+
+
+            self.play(FadeOut(kreis_um_knoten5, kreis_um_knoten3, kreis_um_knoten4, linie_zwischen_kreis5_und_3, linie_zwischen_kreis5_und_4))
             
+            self.play(Create(linie_zwischen_kreis5_und_3_weiß))
+
+
+        with self.voiceover(text="As you can see the last city, that we have not visited is city 4. Let's finish our route by traveling to city 4.") as tracker:
+
+            self.wait(4)
+            linie_zwischen_kreis3_und_4_weiß = Line(kreis_um_knoten3.get_center(), kreis_um_knoten4.get_center(), buff=0.2)
+
+            self.play(Create(linie_zwischen_kreis3_und_4_weiß))
+
+
+        with self.voiceover(text="Now we can also finish our route on the tree by adding node 4 as our last node.") as tracker:
+
+
+            self.camera.frame.save_state()
+
+            self.play(
+                self.camera.frame.animate.move_to(DOWN * 2).scale(0.7)
+            )
+
+            vertex5 = [4]
+            graph5 = CustomGraph(vertex5, [])
+
+            relative_positionen5 = {
+                4: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+            }
+
+            # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+            for node in vertex5:
+                graph5.vertices[node].move_to(graph4.vertices[3].get_center() + relative_positionen5[node])
+
+            for vertex in graph5.vertices.values():
+                self.play(GrowFromCenter(vertex), run_time=0.2)
+
+            for node in vertex5:
+                kante_von_3_zu_node = Line(graph4.vertices[3].get_center(), graph5.vertices[node].get_center(), buff=0.3)
+                kante_von_3_zu_node.set_stroke(WHITE, width=2)
+                self.play(Create(kante_von_3_zu_node), run_time=0.5)
+            
+            labels = graph5.add_labels()
+            self.add(labels)
+            self.play(FadeIn(labels), run_time=0.5)
+
             
 
 
