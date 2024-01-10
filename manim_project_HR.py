@@ -15,6 +15,8 @@ from manim_voiceover.services.azure import AzureService
 from scipy.spatial import KDTree
 from basics import CustomGraph
 
+from scipy.special import gamma
+
 # voices: https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts
 
 DARK_BLUE_COLOR = "#00008b"
@@ -28,39 +30,39 @@ class IntroNew(VoiceoverScene):
             )
         ) 
 
-        c = Circle(2, color= RED, fill_opacity = 0.1)
-        self.play(DrawBorderThenFill(c), run_time = 0.5)
-
-        title0 = Text("TSP", font_size = 96, slant = "ITALIC")
-
-        title = Text("Traveling", font_size = 48, slant = "ITALIC").shift(UP*0.5)
-        subtitle = Text("Salesperson", font_size = 48, slant="ITALIC").shift(DOWN*0.2)
-        subsubtitle = Text("Problem", font_size = 48, slant="ITALIC").shift(DOWN*0.9)
-
-        # self.play(Write(title), Write(subtitle), Write(subsubtitle))
-        self.play(Write(title0))
+        with self.voiceover(text="Welcome back guys! Today, we're diving into the Traveling Salesperson Problem.") as tracker:
 
 
-        a = Arc(2.2, TAU * 1/4, -TAU*2.6/4, color= BLUE, stroke_width=15)
-        self.play(Create(a))
+            c = Circle(2, color= RED, fill_opacity = 0.1)
+            self.play(DrawBorderThenFill(c), run_time = 0.5)
 
-        self.wait(3)
+            title0 = Text("TSP", font_size = 96, slant = "ITALIC")
 
-        self.remove(a)
-        self.remove(c)
-        self.remove(title0)
+            title = Text("Traveling", font_size = 48, slant = "ITALIC").shift(UP*0.5)
+            subtitle = Text("Salesperson", font_size = 48, slant="ITALIC").shift(DOWN*0.2)
+            subsubtitle = Text("Problem", font_size = 48, slant="ITALIC").shift(DOWN*0.9)
+
+            # self.play(Write(title), Write(subtitle), Write(subsubtitle))
+            self.play(Write(title0))
+
+
+            a = Arc(2.2, TAU * 1/4, -TAU*2.6/4, color= BLUE, stroke_width=15)
+            self.play(Create(a))
+
+            self.wait(3)
+
+            self.remove(a)
+            self.remove(c)
 
         svg_object = SVGMobject("world.svg").scale(3).set_color(WHITE)
-        self.add(svg_object)
-        self.wait(1)
- 
+        # self.add(svg_object)
+        # self.wait(1)
+        self.remove(title0)
 
-        # with self.voiceover(text="Imagine you're a traveling salesperson - tasked with selling your products in various cities. Your goal?") as tracker:
-        with self.voiceover(text="Welcome back, folks! Today, we're diving into the Traveling Salesperson Problem.") as tracker:
-            None
+
         with self.voiceover(text="Imagine we have a traveling salesperson - tasked with selling your products in various cities.") as tracker:
             # remove map
-            self.remove(svg_object)
+            # self.remove(svg_object)
 
             # Salesperson
             image = ImageMobject("Salesman.png").scale(0.3)
@@ -87,7 +89,11 @@ class IntroNew(VoiceoverScene):
             self.add(image)
 
             move_up_right = start_pos + 0.5*DOWN + 2.6*RIGHT
+            move_2 = start_pos + 0.5*UP
+
             move_down_left = start_pos + 1.5*DOWN + 2*LEFT
+            move_4 = start_pos + 1.5*DOWN + 2*LEFT
+
             move_up_left = start_pos + 1.5*UP + 2.5*LEFT
 
 
@@ -108,14 +114,15 @@ class IntroNew(VoiceoverScene):
 
         with self.voiceover(text="Let's say he needs to visit 4 cities.") as tracker:
             
-            pin_svg_path = "map-pin.svg"
+            # pin_svg_path = "map-pin.svg"
+            warehouse_png = "warehouse.png"
             # Definieren Sie die Punkte (Städte)
 
             points0 = [
-                SVGMobject(pin_svg_path).scale(0.25).move_to(np.array([0, 0.5, 0])), # DE
-                SVGMobject(pin_svg_path).scale(0.25).move_to(np.array([3, -1.75, 0])), # Australia
-                SVGMobject(pin_svg_path).scale(0.25).move_to(np.array([0.5, -1.75, 0])), # Afrika
-                SVGMobject(pin_svg_path).scale(0.25).move_to(np.array([-3.35, 0, 0])), # USA
+                ImageMobject(warehouse_png).scale(0.2).move_to(np.array([0, 0.5, 0])), # DE
+                ImageMobject(warehouse_png).scale(0.2).move_to(np.array([3, -1.75, 0])), # Australia
+                ImageMobject(warehouse_png).scale(0.2).move_to(np.array([0.5, -1.75, 0])), # Afrika
+                ImageMobject(warehouse_png).scale(0.2).move_to(np.array([-3.35, 0, 0])), # USA
             ]
 
            # points0 = [
@@ -161,12 +168,12 @@ class IntroNew(VoiceoverScene):
                 # temp_plane.rotate(angle)
 
                 # Animate the line creation and the plane moving along it
-                self.play(Create(line), MoveAlongPath(temp_plane, line), run_time=1.5)
+                self.play(Create(line), MoveAlongPath(temp_plane, line), run_time=0.5)
 
                 # Optionally fade out the plane at the end of its path
-                self.play(FadeOut(temp_plane))
+                self.play(FadeOut(temp_plane), run_time=0.05)
 
-            self.wait(2)
+            self.wait(4)
 
             # Entfernen der Linien und Punkte von der Szene
             for line in lines:
@@ -232,7 +239,7 @@ class IntroNew(VoiceoverScene):
         self.play(FadeOut(svg_object))
  
         with self.voiceover(text="The Problem to find the shortest way between multiple points is called the Traveling Salesperson Problem (TSP)") as tracker:
-            intro_text = Text("Traveling Salesman Problem (TSP)").to_edge(UP)
+            intro_text = Text("Traveling Salesperson Problem (TSP)").to_edge(UP)
             self.play(Write(intro_text))
 
 
@@ -248,6 +255,8 @@ class IntroNew(VoiceoverScene):
         with self.voiceover(text="To solve it, we'll think of each city as a point, or 'node', on a graph. The edges symbolize possible paths Alex can take. "):
         # Define vertices and edges
                     # Define vertices and edges
+            self.remove(intro_text)
+
             vertices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
             # edges = [(1, 2), (2, 3), (3, 4), (2, 4), (2, 5), (6, 5),
             #         (1, 7), (5, 7), (2, 8), (1, 9)]
@@ -428,6 +437,33 @@ class IntroNew(VoiceoverScene):
 
 
 
+class Exp_Graph(VoiceoverScene):
+    def construct(self):
+        self.set_speech_service(
+            AzureService(
+                voice="en-US-GuyNeural ",
+                style="newscast-casual",
+            )
+        )
+
+        axes = Axes(
+            x_range=[0, 5],  # x-Achsenbereich von 0 bis 5
+            y_range=[0, 10],  # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+            axis_config={"include_ticks": False, "color": BLUE},  # Achsenfarbe
+        )
+
+        # Erstellen des Plots für die Funktion 2^x, begrenzt auf den x_range
+        exponential_curve = axes.plot(lambda x: 2**x, x_range=[0, 3], color=RED)
+
+        # Erstellen eines Beschriftungstextes für die Funktion
+        exponential_label = axes.get_graph_label(exponential_curve, label='2^{x}')
+
+        # Hinzufügen der Achsen und des Graphen zur Szene
+        self.add(axes)
+        self.play(Create(exponential_curve), Write(exponential_label))
+        self.wait(2)  # Warten am Ende der Animation
+
+
 class BruteForce(VoiceoverScene):
     def construct(self):
         self.set_speech_service(
@@ -458,7 +494,6 @@ class BruteForce(VoiceoverScene):
         self.wait(1)
 
 
-
 class PointskNN(VoiceoverScene):
     def construct(self):
         self.set_speech_service(
@@ -467,7 +502,6 @@ class PointskNN(VoiceoverScene):
                 style="newscast-casual",
             )
         )
-
         # Erstelle 50 zufällige Punkte
         np_random = np.random.RandomState(42)
         points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0])) for _ in range(50)]
