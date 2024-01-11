@@ -551,42 +551,44 @@ class BruteForce(VoiceoverScene):
             )
         )
 
-        def find_hamiltonian_paths(vertices):
-            """ Find all Hamiltonian paths in the graph. """
-            paths = []
-            for perm in permutations(vertices):
-                # Add path if it's not in the paths list
-                if perm not in paths:
-                    paths.append(perm)
-            return paths
+        # Erstellen einer Liste von Städten (Knoten) und deren Koordinaten
+        cities = {
+            "A": [0, 0, 0],
+            "B": [2, 1, 0],
+            "C": [2, -1, 0],
+            "D": [4, 0, 0]
+        }
 
-        # Create vertices and edges
-        vertices = [1, 2, 3, 4, 5]
-        edges = [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i + 1, len(vertices))]
+        # Erstellen des Graphen
+        G = Graph(cities.keys(), [], layout=cities, labels=True)
+        self.play(Create(G))
 
-        # Find all Hamiltonian paths
-        hamiltonian_paths = find_hamiltonian_paths(vertices)
+        # Berechnen aller möglichen Routen (Permutationen)
+        routes = itertools.permutations(cities.keys())
+        shortest_distance = np.inf
+        shortest_route = None
 
-        for path in hamiltonian_paths:
-            # Create a graph for the current path
-            path_edges = [(path[i], path[i + 1]) for i in range(len(path) - 1)]
-            h = CustomGraph(vertices, path_edges).shift(RIGHT * 2)
+        # Durchlaufen aller Routen und Berechnen der Distanz
+        for route in routes:
+            distance = 0
+            for i in range(len(route)):
+                start_city = route[i]
+                end_city = route[(i + 1) % len(route)]
+                distance += np.linalg.norm(np.array(cities[start_city]) - np.array(cities[end_city]))
 
-            labels = h.add_labels()
+                # Hinzufügen der Kanten zum Graphen
+                if not G.has_edge(start_city, end_city):
+                    G.add_edges((start_city, end_city))
 
-            # Animate the graph creation
-            self.play(Create(h), FadeIn(labels), run_time=0.1)         
+                self.play(G.animate.change_layout({k: cities[k] for k in route}))
 
-            for edge in h.get_edges_with_initial_opacity_zero():
-                self.play(edge.animate.set_opacity(1), run_time=0.1)
+            # Prüfen, ob dies die kürzeste Route ist
+            if distance < shortest_distance:
+                shortest_distance = distance
+                shortest_route = route
 
-            self.wait(0.5)
-            
-            # Clear the graph before next animation
-            self.play(FadeOut(h, labels), run_time=0.1)
-            self.wait(0.1)
-
-        self.wait(2)
+        # Ausgabe der kürzesten Route
+        self.play(FadeIn(Text(f"Shortest route: {' -> '.join(shortest_route)}", scale=0.5).to_edge(DOWN)))
 
         # # the graph class expects a list of vertices and edges
         # vertices = [1, 2, 3, 4, 5]
