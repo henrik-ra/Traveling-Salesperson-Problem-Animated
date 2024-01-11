@@ -72,7 +72,7 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             for edge in graph.get_edges_with_initial_opacity_zero():
                 self.play(edge.animate.set_opacity(1), run_time=0.5)
 
-            self.wait(3)
+            
 
             for edge in graph.get_edges_with_initial_opacity_zero():
                 self.play(FadeOut(edge), run_time=0.5)
@@ -80,6 +80,10 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
 
             # Group the graph and labels together
             graph_with_labels = VGroup(graph, labels) 
+
+            self.play(
+                self.camera.frame.animate.scale(1.1)
+            )
 
             self.play(graph_with_labels.animate.shift(LEFT*5).scale(0.5), run_time=1)
 
@@ -161,14 +165,14 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.wait(3)
             
             # Bewegung von Knoten 1 in die obere Mitte
-            self.play(vertex_groups[1].animate.move_to(UP * 2 + RIGHT * 2))
+            self.play(vertex_groups[1].animate.move_to(UP * 3.75 + RIGHT * 2))
 
             # Bewegung der restlichen Knoten unterhalb von Knoten 1
             positions = [
-                    LEFT  + UP * 0.5,  # Knoten 2
-                    RIGHT + UP * 0.5,  # Knoten 3
-                    RIGHT * 3 + UP * 0.5,  # Knoten 4
-                    RIGHT * 5 + UP * 0.5  # Knoten 5
+                    LEFT  + UP * 2.25,  # Knoten 2
+                    RIGHT + UP * 2.25,  # Knoten 3
+                    RIGHT * 3 + UP * 2.25,  # Knoten 4
+                    RIGHT * 5 + UP * 2.25  # Knoten 5
             ]
             for i, node in enumerate([2, 3, 4, 5], start=0):
                 self.play(vertex_groups[node].animate.move_to(positions[i]))
@@ -244,7 +248,7 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
 
             # Bewege die Kamera zu Knoten 2 und zoome hinein
             self.play(
-                self.camera.frame.animate.move_to(LEFT * 0.5 + DOWN * 0.5).scale(0.7)
+                self.camera.frame.animate.move_to(LEFT * 0.5).scale(0.7)
             )
 
             self.wait(2)
@@ -376,15 +380,15 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Create(linie_zwischen_kreis5_und_3_weiß))
 
 
-        with self.voiceover(text="As you can see the last city, that we have not visited is city 4. Let's finish our route by traveling to city 4.") as tracker:
+        with self.voiceover(text="As you can see the last city, that we have not visited is city 4.") as tracker:
 
-            self.wait(4)
+            self.wait(2)
             linie_zwischen_kreis3_und_4_weiß = Line(kreis_um_knoten3.get_center(), kreis_um_knoten4.get_center(), buff=0.2)
 
             self.play(Create(linie_zwischen_kreis3_und_4_weiß))
 
 
-        with self.voiceover(text="Now we can also finish our route on the tree by adding node 4 as our last node.") as tracker:
+        with self.voiceover(text="Let's also add node 4 in the tree. Now we have visited every city.") as tracker:
 
 
             self.camera.frame.save_state()
@@ -416,41 +420,1668 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.add(labels)
             self.play(FadeIn(labels), run_time=0.5)
 
+            self.play(Restore(self.camera.frame))
+
+        with self.voiceover(text="At the end we have to travel to the city where we started. Let's finish our route by traveling back to city 1.") as tracker:
+
+            self.wait(3)
+
+            linie_zwischen_kreis4_und_1_weiß = Line(kreis_um_knoten4.get_center(), kreis_um_knoten1.get_center(), buff=0.2)
             
+            self.play(Create(linie_zwischen_kreis4_und_1_weiß))
+
+        with self.voiceover(text="Now we can also finish our route on the tree by adding node 1 as our last node.") as tracker:
+
+            self.camera.frame.save_state()
+
+            self.play(
+                self.camera.frame.animate.move_to(DOWN * 3 + RIGHT * 0.5).scale(0.7)
+            )
+
+            vertex6 = [1]
+            graph6 = CustomGraph(vertex6, [])
+
+            relative_positionen6 = {
+                1: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+            }
+
+            # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+            for node in vertex6:
+                graph6.vertices[node].move_to(graph5.vertices[4].get_center() + relative_positionen6[node])
+
+            for vertex in graph6.vertices.values():
+                self.play(GrowFromCenter(vertex), run_time=0.2)
+
+            for node in vertex6:
+                kante_von_4_zu_node = Line(graph5.vertices[4].get_center(), graph6.vertices[node].get_center(), buff=0.3)
+                kante_von_4_zu_node.set_stroke(WHITE, width=2)
+                self.play(Create(kante_von_4_zu_node), run_time=0.5)
+            
+            labels = graph6.add_labels()
+            self.add(labels)
+            self.play(FadeIn(labels), run_time=0.5)
+
+            self.play(Restore(self.camera.frame))
+
+
+
+
+        with self.voiceover(text="As you can see this is one possible route and the tree is not complete. Let's create the complete tree.") as tracker:
+
+            self.wait(7)
+
+        gesamter_baum = VGroup()
+
+        self.camera.frame.save_state()
+
+        self.play(
+        *[FadeOut(mob)for mob in self.mobjects]
+        )
+            
+        self.play(
+            self.camera.frame.animate.scale(2.2)
+        )
+
+        vertex1_1 = [1]
+
+        graph1_1 = CustomGraph(vertex1_1, [])
+
+        relative_positionen1_1 = {
+            1: UP * 6,         # Position von Knoten 1 relativ zu Knoten 1
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex1_1:
+            graph1_1.vertices[node].move_to(relative_positionen1_1[node])
+
+        for vertex in graph1_1.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        labels1_1 = graph1_1.add_labels()
+        self.add(labels1_1)
+        self.play(FadeIn(labels1_1), run_time=0.05)                
+            
+        vertex2_1 = [2, 3, 4, 5]
+
+        graph2_1 = CustomGraph(vertex2_1, [])
+
+        relative_positionen2_1 = {
+            2: LEFT * 12 + DOWN * 2.5,  # Position von Knoten 2 relativ zu Knoten 1
+            3: LEFT * 4 + DOWN * 2.5,         # Position von Knoten 3 relativ zu Knoten 1
+            4: RIGHT * 4 + DOWN * 2.5,  # Position von Knoten 4 relativ zu Knoten 1
+            5: RIGHT * 12 + DOWN * 2.5  # Position von Knoten 5 relativ zu Knoten 1
+        }
+
+            # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex2_1:
+            graph2_1.vertices[node].move_to(graph1_1.vertices[1].get_center() + relative_positionen2_1[node])
+
+        for vertex in graph2_1.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex2_1:
+            kante_von_1_zu_node = Line(graph1_1.vertices[1].get_center(), graph2_1.vertices[node].get_center(), buff=0.3)
+            kante_von_1_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_1_zu_node)
+            self.play(Create(kante_von_1_zu_node), run_time=0.1)
+
+        labels2_1 = graph2_1.add_labels()
+        self.add(labels2_1)
+        self.play(FadeIn(labels2_1), run_time=0.05)
+
+        vertex3_1 = [3, 4, 5]
+
+        graph3_1 = CustomGraph(vertex3_1, [])
+
+        relative_positionen3_1 = {
+            3: LEFT * 2.5 + DOWN * 2,  # Position von Knoten 3 relativ zu Knoten 2
+            4: DOWN * 2,         # Position von Knoten 4 relativ zu Knoten 2
+            5: RIGHT * 2.5 + DOWN * 2  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex3_1:
+            graph3_1.vertices[node].move_to(graph2_1.vertices[2].get_center() + relative_positionen3_1[node])
+
+        for vertex in graph3_1.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex3_1:
+            kante_von_2_zu_node = Line(graph2_1.vertices[2].get_center(), graph3_1.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels3_1 = graph3_1.add_labels()
+        self.add(labels3_1)
+        self.play(FadeIn(labels3_1), run_time=0.05)
+
+        # Vorbereitung: Sammle alle Animationsbefehle in einer Liste
+        # animations = []
+
+        # # Füge die Knoten- und Label-Animationen für jeden Graphen hinzu
+        # for vertex in graph2_1.vertices.values():
+        #     animations.append(GrowFromCenter(vertex))
+        # animations.extend([FadeIn(label) for label in labels2_1])
+
+        # for vertex in graph3_1.vertices.values():
+        #     animations.append(GrowFromCenter(vertex))
+        # animations.extend([FadeIn(label) for label in labels3_1])
+
+        # # Füge die Kantenanimationen hinzu
+        # for node in vertex2_1:
+        #     kante_von_1_zu_node = Line(graph1_1.vertices[1].get_center(), graph2_1.vertices[node].get_center(), buff=0.3)
+        #     kante_von_1_zu_node.set_stroke(WHITE, width=2)
+        #     animations.append(Create(kante_von_1_zu_node))
+
+        # for node in vertex3_1:
+        #     kante_von_2_zu_node = Line(graph2_1.vertices[2].get_center(), graph3_1.vertices[node].get_center(), buff=0.3)
+        #     kante_von_2_zu_node.set_stroke(WHITE, width=2)
+        #     animations.append(Create(kante_von_2_zu_node))
+
+        # # Spiele alle Animationen gleichzeitig ab mit einer Gesamtdauer von einer Sekunde
+        # self.play(*animations, run_time=1)
+
+
+        # big_graph = VGroup(graph1_1, graph2_1, graph3_1, labels1_1, labels2_1, labels3_1)
+        # self.play(FadeIn(big_graph), run_time=0.1)
+
+
+        vertex3_2 = [2, 4, 5]
+
+        graph3_2 = CustomGraph(vertex3_2, [])
+
+        relative_positionen3_2 = {
+            2: LEFT * 2.5 + DOWN * 2,  # Position von Knoten 2 relativ zu Knoten 3
+            4: DOWN * 2,         # Position von Knoten 4 relativ zu Knoten 3
+            5: RIGHT * 2.5 + DOWN * 2  # Position von Knoten 5 relativ zu Knoten 3
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex3_2:
+            graph3_2.vertices[node].move_to(graph2_1.vertices[3].get_center() + relative_positionen3_2[node])
+
+        for vertex in graph3_2.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex3_2:
+            kante_von_3_zu_node = Line(graph2_1.vertices[3].get_center(), graph3_2.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.1)
+
+
+        labels3_2 = graph3_2.add_labels()
+        self.add(labels3_2)
+        self.play(FadeIn(labels3_2), run_time=0.05)
+
+        vertex3_3 = [2, 3, 5]
+
+        graph3_3 = CustomGraph(vertex3_3, [])
+
+        relative_positionen3_3 = {
+            2: LEFT * 2.5 + DOWN * 2,  # Position von Knoten 2 relativ zu Knoten 4
+            3: DOWN * 2,         # Position von Knoten 3 relativ zu Knoten 4
+            5: RIGHT * 2.5 + DOWN * 2  # Position von Knoten 5 relativ zu Knoten 4
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex3_3:
+            graph3_3.vertices[node].move_to(graph2_1.vertices[4].get_center() + relative_positionen3_3[node])
+
+        for vertex in graph3_3.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex3_3:
+            kante_von_4_zu_node = Line(graph2_1.vertices[4].get_center(), graph3_3.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.1)
+
+        labels3_3 = graph3_3.add_labels()
+        self.add(labels3_3)
+        self.play(FadeIn(labels3_3), run_time=0.05)
+
+        vertex3_4 = [2, 3, 4]
+
+        graph3_4 = CustomGraph(vertex3_4, [])
+
+        relative_positionen3_4 = {
+            2: LEFT * 2.5 + DOWN * 2,  # Position von Knoten 2 relativ zu Knoten 5
+            3: DOWN * 2,         # Position von Knoten 3 relativ zu Knoten 5
+            4: RIGHT * 2.5 + DOWN * 2  # Position von Knoten 4 relativ zu Knoten 5
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex3_4:
+            graph3_4.vertices[node].move_to(graph2_1.vertices[5].get_center() + relative_positionen3_4[node])
+
+        for vertex in graph3_4.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex3_4:
+            kante_von_5_zu_node = Line(graph2_1.vertices[5].get_center(), graph3_4.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels3_4 = graph3_4.add_labels()
+        self.add(labels3_4)
+        self.play(FadeIn(labels3_4), run_time=0.05)
+
+
+        vertex4_1 = [4, 5]
+
+        graph4_1 = CustomGraph(vertex4_1, [])
+
+        relative_positionen4_1 = {
+            4: LEFT * 0.75 + DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+            5: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex4_1:
+            graph4_1.vertices[node].move_to(graph3_1.vertices[3].get_center() + relative_positionen4_1[node])
+
+        for vertex in graph4_1.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_1:
+            kante_von_3_zu_node = Line(graph3_1.vertices[3].get_center(), graph4_1.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.04)
+
+        labels4_1 = graph4_1.add_labels()
+        self.add(labels4_1)
+        self.play(FadeIn(labels4_1), run_time=0.02)
+
+        vertex4_2 = [3, 5]	
+
+        graph4_2 = CustomGraph(vertex4_2, [])
+
+        relative_positionen4_2 = {
+            3: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 3 relativ zu Knoten 2
+            5: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex4_2:
+            graph4_2.vertices[node].move_to(graph3_1.vertices[4].get_center() + relative_positionen4_2[node])
+
+        for vertex in graph4_2.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_2:
+            kante_von_2_zu_node = Line(graph3_1.vertices[4].get_center(), graph4_2.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels4_2 = graph4_2.add_labels()
+        self.add(labels4_2)
+        self.play(FadeIn(labels4_2), run_time=0.02)
+
+        vertex4_3 = [3, 4]
+
+        graph4_3 = CustomGraph(vertex4_3, [])
+
+        relative_positionen4_3 = {
+            3: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 3 relativ zu Knoten 2
+            4: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex4_3:
+            graph4_3.vertices[node].move_to(graph3_1.vertices[5].get_center() + relative_positionen4_3[node])
+
+        for vertex in graph4_3.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_3:
+            kante_von_2_zu_node = Line(graph3_1.vertices[5].get_center(), graph4_3.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels4_3 = graph4_3.add_labels()
+        self.add(labels4_3)
+        self.play(FadeIn(labels4_3), run_time=0.02)
+
+        vertex4_4 = [4,5]
+
+        graph4_4 = CustomGraph(vertex4_4, [])
+
+        relative_positionen4_4 = {
+            4: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 4 relativ zu Knoten 2
+            5: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex4_4:
+            graph4_4.vertices[node].move_to(graph3_2.vertices[2].get_center() + relative_positionen4_4[node])
+
+        for vertex in graph4_4.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_4:
+            kante_von_2_zu_node = Line(graph3_2.vertices[2].get_center(), graph4_4.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels4_4 = graph4_4.add_labels()
+        self.add(labels4_4)
+        self.play(FadeIn(labels4_4), run_time=0.02)
+
+        vertex4_5 = [2, 5]
+
+        graph4_5 = CustomGraph(vertex4_5, [])
+
+        relative_positionen4_5 = {
+            2: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 2 relativ zu Knoten 2
+            5: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph4 angeordnet sind
+        for node in vertex4_5:
+            graph4_5.vertices[node].move_to(graph3_2.vertices[4].get_center() + relative_positionen4_5[node])
+
+        for vertex in graph4_5.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_5:
+            kante_von_4_zu_node = Line(graph3_2.vertices[4].get_center(), graph4_5.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.04)
+
+        labels4_5 = graph4_5.add_labels()
+        self.add(labels4_5)
+        self.play(FadeIn(labels4_5), run_time=0.02)
+
+        vertex4_6 = [2, 4]
+
+        graph4_6 = CustomGraph(vertex4_6, [])
+
+        relative_positionen4_6 = {
+            2: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 2 relativ zu Knoten 2
+            4: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph4 angeordnet sind
+        for node in vertex4_6:
+            graph4_6.vertices[node].move_to(graph3_2.vertices[5].get_center() + relative_positionen4_6[node])
+
+        for vertex in graph4_6.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_6:
+            kante_von_4_zu_node = Line(graph3_2.vertices[5].get_center(), graph4_6.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.04)
+
+        labels4_6 = graph4_6.add_labels()
+        self.add(labels4_6)
+        self.play(FadeIn(labels4_6), run_time=0.02)
+
+        vertex4_7 = [3, 5]
+
+        graph4_7 = CustomGraph(vertex4_7, [])
+
+        relative_positionen4_7 = {
+            3: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 3 relativ zu Knoten 2
+            5: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph4 angeordnet sind
+        for node in vertex4_7:
+            graph4_7.vertices[node].move_to(graph3_3.vertices[2].get_center() + relative_positionen4_7[node])
+            
+        for vertex in graph4_7.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_7:
+            kante_von_2_zu_node = Line(graph3_3.vertices[2].get_center(), graph4_7.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels4_7 = graph4_7.add_labels()
+        self.add(labels4_7)
+        self.play(FadeIn(labels4_7), run_time=0.02)
+
+        vertex4_8 = [2, 5]
+
+        graph4_8 = CustomGraph(vertex4_8, [])
+
+        relative_positionen4_8 = {
+            2: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 2 relativ zu Knoten 2
+            5: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 5 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph4 angeordnet sind
+        for node in vertex4_8:
+            graph4_8.vertices[node].move_to(graph3_3.vertices[3].get_center() + relative_positionen4_8[node])
+
+        for vertex in graph4_8.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_8:
+            kante_von_3_zu_node = Line(graph3_3.vertices[3].get_center(), graph4_8.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.04)
+
+        labels4_8 = graph4_8.add_labels()
+        self.add(labels4_8)
+        self.play(FadeIn(labels4_8), run_time=0.02)
+
+        vertex4_9 = [2, 3]
+
+        graph4_9 = CustomGraph(vertex4_9, [])
+
+        relative_positionen4_9 = {
+            2: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 2 relativ zu Knoten 2
+            3: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 3 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph4 angeordnet sind
+        for node in vertex4_9:
+            graph4_9.vertices[node].move_to(graph3_3.vertices[5].get_center() + relative_positionen4_9[node])
+
+        for vertex in graph4_9.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_9:
+            kante_von_3_zu_node = Line(graph3_3.vertices[5].get_center(), graph4_9.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.04)
+
+        labels4_9 = graph4_9.add_labels()
+        self.add(labels4_9)
+        self.play(FadeIn(labels4_9), run_time=0.02)
+
+        vertex4_10 = [3, 4]
+
+        graph4_10 = CustomGraph(vertex4_10, [])
+
+        relative_positionen4_10 = {
+            3: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 3 relativ zu Knoten 2
+            4: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph4 angeordnet sind
+        for node in vertex4_10:
+            graph4_10.vertices[node].move_to(graph3_4.vertices[2].get_center() + relative_positionen4_10[node])
+
+        for vertex in graph4_10.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+            
+        for node in vertex4_10:
+            kante_von_2_zu_node = Line(graph3_4.vertices[2].get_center(), graph4_10.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels4_10 = graph4_10.add_labels()
+        self.add(labels4_10)
+        self.play(FadeIn(labels4_10), run_time=0.02)
+
+        vertex4_11 = [2, 4]
+            
+        graph4_11 = CustomGraph(vertex4_11, [])
+
+        relative_positionen4_11 = {
+            2: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 2 relativ zu Knoten 2
+            4: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+            # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph4 angeordnet sind
+        for node in vertex4_11:
+            graph4_11.vertices[node].move_to(graph3_4.vertices[3].get_center() + relative_positionen4_11[node])
+
+        for vertex in graph4_11.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_11:
+            kante_von_3_zu_node = Line(graph3_4.vertices[3].get_center(), graph4_11.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.04)
+
+        labels4_11 = graph4_11.add_labels()
+        self.add(labels4_11)
+        self.play(FadeIn(labels4_11), run_time=0.02)
+
+        vertex4_12 = [2, 3]
+            
+        graph4_12 = CustomGraph(vertex4_12, [])
+
+        relative_positionen4_12 = {
+            2: LEFT * 0.75 + DOWN * 1.5,  # Position von Knoten 2 relativ zu Knoten 2
+            3: RIGHT * 0.75 + DOWN * 1.5  # Position von Knoten 3 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph4 angeordnet sind
+        for node in vertex4_12:
+            graph4_12.vertices[node].move_to(graph3_4.vertices[4].get_center() + relative_positionen4_12[node])
+
+        for vertex in graph4_12.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex4_12:
+            kante_von_3_zu_node = Line(graph3_4.vertices[4].get_center(), graph4_12.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.04)
+
+        labels4_12 = graph4_12.add_labels()
+        self.add(labels4_12)
+        self.play(FadeIn(labels4_12), run_time=0.02)
+
+        vertex5_1 = [5]
+
+        graph5_1 = CustomGraph(vertex5_1, [])
+
+        relative_positionen5_1 = {
+            5: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 2 von graph2 angeordnet sind
+        for node in vertex5_1:
+            graph5_1.vertices[node].move_to(graph4_1.vertices[4].get_center() + relative_positionen5_1[node])
+
+        for vertex in graph5_1.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_1:
+            kante_von_4_zu_node = Line(graph4_1.vertices[4].get_center(), graph5_1.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.04)
+
+        labels5_1 = graph5_1.add_labels()
+        self.add(labels5_1)
+        self.play(FadeIn(labels5_1), run_time=0.02)
+
+        vertex5_2 = [4]
+
+        graph5_2 = CustomGraph(vertex5_2, [])
+
+        relative_positionen5_2 = {
+            4: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph2 angeordnet sind
+        for node in vertex5_2:
+            graph5_2.vertices[node].move_to(graph4_1.vertices[5].get_center() + relative_positionen5_2[node])
+
+        for vertex in graph5_2.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_2:
+            kante_von_2_zu_node = Line(graph4_1.vertices[5].get_center(), graph5_2.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels5_2 = graph5_2.add_labels()
+        self.add(labels5_2)
+        self.play(FadeIn(labels5_2), run_time=0.02)
+
+        vertex5_3 = [5]
+
+        graph5_3 = CustomGraph(vertex5_3, [])
+
+        relative_positionen5_3 = {
+            5: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph2 angeordnet sind
+        for node in vertex5_3:
+            graph5_3.vertices[node].move_to(graph4_2.vertices[3].get_center() + relative_positionen5_3[node])
+
+        for vertex in graph5_3.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_3:
+            kante_von_4_zu_node = Line(graph4_2.vertices[3].get_center(), graph5_3.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.04)
+
+        labels5_3 = graph5_3.add_labels()
+        self.add(labels5_3)
+        self.play(FadeIn(labels5_3), run_time=0.02)
+
+        vertex5_4 = [3]
+
+        graph5_4 = CustomGraph(vertex5_4, [])
+
+        relative_positionen5_4 = {
+            3: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph2 angeordnet sind
+        for node in vertex5_4:
+            graph5_4.vertices[node].move_to(graph4_2.vertices[5].get_center() + relative_positionen5_4[node])
+
+        for vertex in graph5_4.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_4:
+            kante_von_2_zu_node = Line(graph4_2.vertices[5].get_center(), graph5_4.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels5_4 = graph5_4.add_labels()
+        self.add(labels5_4)
+        self.play(FadeIn(labels5_4), run_time=0.02)
+
+        vertex5_5 = [4]
+
+        graph5_5 = CustomGraph(vertex5_5, [])
+
+        relative_positionen5_5 = {
+            4: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph2 angeordnet sind
+
+        for node in vertex5_5:
+            graph5_5.vertices[node].move_to(graph4_3.vertices[3].get_center() + relative_positionen5_5[node])
+
+        for vertex in graph5_5.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_5:
+            kante_von_3_zu_node = Line(graph4_3.vertices[3].get_center(), graph5_5.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.04)
+
+        labels5_5 = graph5_5.add_labels()
+        self.add(labels5_5)
+        self.play(FadeIn(labels5_5), run_time=0.02)
+
+        vertex5_6 = [3]
+
+        graph5_6 = CustomGraph(vertex5_6, [])
+
+        relative_positionen5_6 = {
+            3: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph2 angeordnet sind
+
+        for node in vertex5_6:
+            graph5_6.vertices[node].move_to(graph4_3.vertices[4].get_center() + relative_positionen5_6[node])
+
+        for vertex in graph5_6.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_6:
+            kante_von_2_zu_node = Line(graph4_3.vertices[4].get_center(), graph5_6.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels5_6 = graph5_6.add_labels()
+        self.add(labels5_6)
+        self.play(FadeIn(labels5_6), run_time=0.02)
+
+        vertex5_7 = [5]
+
+        graph5_7 = CustomGraph(vertex5_7, [])
+
+        relative_positionen5_7 = {
+            5: DOWN * 1.5,         # Position von Knoten 4 relativ zu Knoten 2
+        }
+
+        # Verschiebe graph3 so, dass Knoten 3, 4 und 5 um Knoten 4 von graph2 angeordnet sind
+
+        for node in vertex5_7:
+            graph5_7.vertices[node].move_to(graph4_4.vertices[4].get_center() + relative_positionen5_7[node])
+
+        for vertex in graph5_7.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.02)
+
+        for node in vertex5_7:
+            kante_von_2_zu_node = Line(graph4_4.vertices[4].get_center(), graph5_7.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.04)
+
+        labels5_7 = graph5_7.add_labels()
+        self.add(labels5_7)
+        self.play(FadeIn(labels5_7), run_time=0.02)
+
+        vertex5_8 = [4]
+        graph5_8 = CustomGraph(vertex5_8, [])
+        relative_positionen5_8 = {
+            4: DOWN * 1.5,         
+        }
+
+        for node in vertex5_8:
+            graph5_8.vertices[node].move_to(graph4_4.vertices[5].get_center() + relative_positionen5_8[node])
+
+        for vertex in graph5_8.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_8:
+            kante_von_3_zu_node = Line(graph4_4.vertices[5].get_center(), graph5_8.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.1)
+
+        labels5_8 = graph5_8.add_labels()
+        self.add(labels5_8)
+        self.play(FadeIn(labels5_8), run_time=0.05)
+
+        vertex5_9 = [5]
+        graph5_9 = CustomGraph(vertex5_9, [])
+        relative_positionen5_9 = {
+            5: DOWN * 1.5,         
+        }
+
+        for node in vertex5_9:
+            graph5_9.vertices[node].move_to(graph4_5.vertices[2].get_center() + relative_positionen5_9[node])
+
+        for vertex in graph5_9.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_9:
+            kante_von_2_zu_node = Line(graph4_5.vertices[2].get_center(), graph5_9.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_9 = graph5_9.add_labels()
+        self.add(labels5_9)
+        self.play(FadeIn(labels5_9), run_time=0.05)
+
+        vertex5_10 = [2]
+        graph5_10 = CustomGraph(vertex5_10, [])
+        relative_positionen5_10 = {
+            2: DOWN * 1.5,         
+        }
+
+        for node in vertex5_10:
+            graph5_10.vertices[node].move_to(graph4_5.vertices[5].get_center() + relative_positionen5_10[node])
+
+        for vertex in graph5_10.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_10:
+            kante_von_3_zu_node = Line(graph4_5.vertices[5].get_center(), graph5_10.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.1)
+
+        labels5_10 = graph5_10.add_labels()
+        self.add(labels5_10)
+        self.play(FadeIn(labels5_10), run_time=0.05)
+
+        vertex5_11 = [4]
+        graph5_11 = CustomGraph(vertex5_11, [])
+        relative_positionen5_11 = {
+            4: DOWN * 1.5,         
+        }
+
+        for node in vertex5_11:
+            graph5_11.vertices[node].move_to(graph4_6.vertices[2].get_center() + relative_positionen5_11[node])
+
+        for vertex in graph5_11.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_11:
+            kante_von_2_zu_node = Line(graph4_6.vertices[2].get_center(), graph5_11.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_11 = graph5_11.add_labels()
+        self.add(labels5_11)
+        self.play(FadeIn(labels5_11), run_time=0.05)
+
+        vertex5_12 = [2]
+        graph5_12 = CustomGraph(vertex5_12, [])
+        relative_positionen5_12 = {
+            2: DOWN * 1.5,         
+        }
+
+        for node in vertex5_12:
+            graph5_12.vertices[node].move_to(graph4_6.vertices[4].get_center() + relative_positionen5_12[node])
+
+        for vertex in graph5_12.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_12:
+            kante_von_4_zu_node = Line(graph4_6.vertices[4].get_center(), graph5_12.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.1)
+
+        labels5_12 = graph5_12.add_labels()
+        self.add(labels5_12)
+        self.play(FadeIn(labels5_12), run_time=0.05)
+
+        vertex5_13 = [5]
+        graph5_13 = CustomGraph(vertex5_13, [])
+        relative_positionen5_13 = {
+            5: DOWN * 1.5,         
+        }
+
+        for node in vertex5_13:
+            graph5_13.vertices[node].move_to(graph4_7.vertices[3].get_center() + relative_positionen5_13[node])
+
+        for vertex in graph5_13.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_13:
+            kante_von_4_zu_node = Line(graph4_7.vertices[3].get_center(), graph5_13.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.1)
+
+        labels5_13 = graph5_13.add_labels()
+        self.add(labels5_13)
+        self.play(FadeIn(labels5_13), run_time=0.05)
+
+        vertex5_14 = [3]
+        graph5_14 = CustomGraph(vertex5_14, [])
+        relative_positionen5_14 = {
+            3: DOWN * 1.5,         
+        }
+
+        for node in vertex5_14:
+            graph5_14.vertices[node].move_to(graph4_7.vertices[5].get_center() + relative_positionen5_14[node])
+
+        for vertex in graph5_14.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_14:
+            kante_von_4_zu_node = Line(graph4_7.vertices[5].get_center(), graph5_14.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.1)
+
+        labels5_14 = graph5_14.add_labels()
+        self.add(labels5_14)
+        self.play(FadeIn(labels5_14), run_time=0.05)
+
+        vertex5_15 = [5]
+        graph5_15 = CustomGraph(vertex5_15, [])
+        relative_positionen5_15 = {
+            5: DOWN * 1.5,         
+        }
+
+        for node in vertex5_15:
+            graph5_15.vertices[node].move_to(graph4_8.vertices[2].get_center() + relative_positionen5_15[node])
+
+        for vertex in graph5_15.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_15:
+            kante_von_2_zu_node = Line(graph4_8.vertices[2].get_center(), graph5_15.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_15 = graph5_15.add_labels()
+        self.add(labels5_15)
+        self.play(FadeIn(labels5_15), run_time=0.05)
+
+        vertex5_16 = [2]
+        graph5_16 = CustomGraph(vertex5_16, [])
+        relative_positionen5_16 = {
+            2: DOWN * 1.5,         
+        }
+
+        for node in vertex5_16:
+            graph5_16.vertices[node].move_to(graph4_8.vertices[5].get_center() + relative_positionen5_16[node])
+
+        for vertex in graph5_16.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_16:
+            kante_von_3_zu_node = Line(graph4_8.vertices[5].get_center(), graph5_16.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.1)
+
+        labels5_16 = graph5_16.add_labels()
+        self.add(labels5_16)
+        self.play(FadeIn(labels5_16), run_time=0.05)
+
+        vertex5_17 = [3]
+        graph5_17 = CustomGraph(vertex5_17, [])
+        relative_positionen5_17 = {
+            3: DOWN * 1.5,         
+        }
+
+        for node in vertex5_17:
+            graph5_17.vertices[node].move_to(graph4_9.vertices[2].get_center() + relative_positionen5_17[node])
+
+        for vertex in graph5_17.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_17:
+            kante_von_2_zu_node = Line(graph4_9.vertices[2].get_center(), graph5_17.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_17 = graph5_17.add_labels()
+        self.add(labels5_17)
+        self.play(FadeIn(labels5_17), run_time=0.05)
+
+        vertex5_18 = [2]
+        graph5_18 = CustomGraph(vertex5_18, [])
+        relative_positionen5_18 = {
+            2: DOWN * 1.5,         
+        }
+
+        for node in vertex5_18:
+            graph5_18.vertices[node].move_to(graph4_9.vertices[3].get_center() + relative_positionen5_18[node])
+
+        for vertex in graph5_18.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_18:
+            kante_von_3_zu_node = Line(graph4_9.vertices[3].get_center(), graph5_18.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.1)
+
+        labels5_18 = graph5_18.add_labels()
+        self.add(labels5_18)
+        self.play(FadeIn(labels5_18), run_time=0.05)
+
+        vertex5_19 = [4]
+        graph5_19 = CustomGraph(vertex5_19, [])
+        relative_positionen5_19 = {
+            4: DOWN * 1.5,         
+        }
+
+        for node in vertex5_19:
+            graph5_19.vertices[node].move_to(graph4_10.vertices[3].get_center() + relative_positionen5_19[node])
+
+        for vertex in graph5_19.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_19:
+            kante_von_2_zu_node = Line(graph4_10.vertices[3].get_center(), graph5_19.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_19 = graph5_19.add_labels()
+        self.add(labels5_19)
+        self.play(FadeIn(labels5_19), run_time=0.05)
+
+        vertex5_20 = [3]
+        graph5_20 = CustomGraph(vertex5_20, [])
+        relative_positionen5_20 = {
+            3: DOWN * 1.5,         
+        }
+
+        for node in vertex5_20:
+            graph5_20.vertices[node].move_to(graph4_10.vertices[4].get_center() + relative_positionen5_20[node])
+
+        for vertex in graph5_20.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_20:
+            kante_von_4_zu_node = Line(graph4_10.vertices[4].get_center(), graph5_20.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.1)
+
+        labels5_20 = graph5_20.add_labels()
+        self.add(labels5_20)
+        self.play(FadeIn(labels5_20), run_time=0.05)
+
+        vertex5_21 = [4]
+        graph5_21 = CustomGraph(vertex5_21, [])
+        relative_positionen5_21 = {
+            4: DOWN * 1.5,         
+        }
+
+        for node in vertex5_21:
+            graph5_21.vertices[node].move_to(graph4_11.vertices[2].get_center() + relative_positionen5_21[node])
+
+        for vertex in graph5_21.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_21:
+            kante_von_2_zu_node = Line(graph4_11.vertices[2].get_center(), graph5_21.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_21 = graph5_21.add_labels()
+        self.add(labels5_21)
+        self.play(FadeIn(labels5_21), run_time=0.05)
+
+        vertex5_22 = [2]
+        graph5_22 = CustomGraph(vertex5_22, [])
+        relative_positionen5_22 = {
+            2: DOWN * 1.5,         
+        }
+
+        for node in vertex5_22:
+            graph5_22.vertices[node].move_to(graph4_11.vertices[4].get_center() + relative_positionen5_22[node])
+
+        for vertex in graph5_22.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_22:
+            kante_von_4_zu_node = Line(graph4_11.vertices[4].get_center(), graph5_22.vertices[node].get_center(), buff=0.3)
+            kante_von_4_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_4_zu_node)
+            self.play(Create(kante_von_4_zu_node), run_time=0.1)
+
+        labels5_22 = graph5_22.add_labels()
+        self.add(labels5_22)
+        self.play(FadeIn(labels5_22), run_time=0.05)
+
+        vertex5_23 = [3]
+        graph5_23 = CustomGraph(vertex5_23, [])
+        relative_positionen5_23 = {
+            3: DOWN * 1.5,         
+        }
+
+        for node in vertex5_23:
+            graph5_23.vertices[node].move_to(graph4_12.vertices[2].get_center() + relative_positionen5_23[node])
+
+        for vertex in graph5_23.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex5_23:
+            kante_von_2_zu_node = Line(graph4_12.vertices[2].get_center(), graph5_23.vertices[node].get_center(), buff=0.3)
+            kante_von_2_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_2_zu_node)
+            self.play(Create(kante_von_2_zu_node), run_time=0.1)
+
+        labels5_23 = graph5_23.add_labels()
+        self.add(labels5_23)
+        self.play(FadeIn(labels5_23), run_time=0.05)
+
+        vertex5_24 = [2]
+        graph5_24 = CustomGraph(vertex5_24, [])
+        relative_positionen5_24 = {
+            2: DOWN * 1.5,         
+        }
+
+        for node in vertex5_24:
+            graph5_24.vertices[node].move_to(graph4_12.vertices[3].get_center() + relative_positionen5_24[node])
+
+        for vertex in graph5_24.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+        
+        for node in vertex5_24:
+            kante_von_3_zu_node = Line(graph4_12.vertices[3].get_center(), graph5_24.vertices[node].get_center(), buff=0.3)
+            kante_von_3_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_3_zu_node)
+            self.play(Create(kante_von_3_zu_node), run_time=0.1)
+
+        labels5_24 = graph5_24.add_labels()
+        self.add(labels5_24)
+        self.play(FadeIn(labels5_24), run_time=0.05)
+
+        # node one as last node
+
+        vertex6_1 = [1]
+        graph6_1 = CustomGraph(vertex6_1, [])
+        relative_positionen6_1 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_1:
+            graph6_1.vertices[node].move_to(graph5_1.vertices[5].get_center() + relative_positionen6_1[node])
+
+        for vertex in graph6_1.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_1:
+            kante_von_5_zu_node = Line(graph5_1.vertices[5].get_center(), graph6_1.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_1 = graph6_1.add_labels()
+        self.add(labels6_1)
+        self.play(FadeIn(labels6_1), run_time=0.05)
+
+        vertex6_2 = [1]
+        graph6_2 = CustomGraph(vertex6_2, [])
+        relative_positionen6_2 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_2:
+            graph6_2.vertices[node].move_to(graph5_2.vertices[4].get_center() + relative_positionen6_2[node])
+
+        for vertex in graph6_2.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_2:
+            kante_von_5_zu_node = Line(graph5_2.vertices[4].get_center(), graph6_2.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_2 = graph6_2.add_labels()
+        self.add(labels6_2)
+        self.play(FadeIn(labels6_2), run_time=0.05)
+
+        vertex6_3 = [1]
+        graph6_3 = CustomGraph(vertex6_3, [])
+        relative_positionen6_3 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_3:
+            graph6_3.vertices[node].move_to(graph5_3.vertices[5].get_center() + relative_positionen6_3[node])
+
+        for vertex in graph6_3.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_3:
+            kante_von_5_zu_node = Line(graph5_3.vertices[5].get_center(), graph6_3.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_3 = graph6_3.add_labels()
+        self.add(labels6_3)
+        self.play(FadeIn(labels6_3), run_time=0.05)
+
+        vertex6_4 = [1]
+        graph6_4 = CustomGraph(vertex6_4, [])
+        relative_positionen6_4 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_4:
+            graph6_4.vertices[node].move_to(graph5_4.vertices[3].get_center() + relative_positionen6_4[node])
+
+        for vertex in graph6_4.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_4:
+            kante_von_5_zu_node = Line(graph5_4.vertices[3].get_center(), graph6_4.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_4 = graph6_4.add_labels()
+        self.add(labels6_4)
+        self.play(FadeIn(labels6_4), run_time=0.05)
+
+        vertex6_5 = [1]
+        graph6_5 = CustomGraph(vertex6_5, [])
+        relative_positionen6_5 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_5:
+            graph6_5.vertices[node].move_to(graph5_5.vertices[4].get_center() + relative_positionen6_5[node])
+
+        for vertex in graph6_5.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_5:
+            kante_von_5_zu_node = Line(graph5_5.vertices[4].get_center(), graph6_5.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_5 = graph6_5.add_labels()
+        self.add(labels6_5)
+        self.play(FadeIn(labels6_5), run_time=0.05)
+
+        vertex6_6 = [1]
+        graph6_6 = CustomGraph(vertex6_6, [])
+        relative_positionen6_6 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_6:
+            graph6_6.vertices[node].move_to(graph5_6.vertices[3].get_center() + relative_positionen6_6[node])
+
+        for vertex in graph6_6.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_6:
+            kante_von_5_zu_node = Line(graph5_6.vertices[3].get_center(), graph6_6.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_6 = graph6_6.add_labels()
+        self.add(labels6_6)
+        self.play(FadeIn(labels6_6), run_time=0.05)
+
+        vertex6_7 = [1]
+        graph6_7 = CustomGraph(vertex6_7, [])
+        relative_positionen6_7 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_7:
+            graph6_7.vertices[node].move_to(graph5_7.vertices[5].get_center() + relative_positionen6_7[node])
+
+        for vertex in graph6_7.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_7:
+            kante_von_5_zu_node = Line(graph5_7.vertices[5].get_center(), graph6_7.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_7 = graph6_7.add_labels()
+        self.add(labels6_7)
+        self.play(FadeIn(labels6_7), run_time=0.05)
+
+        vertex6_8 = [1]
+        graph6_8 = CustomGraph(vertex6_8, [])
+        relative_positionen6_8 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_8:
+            graph6_8.vertices[node].move_to(graph5_8.vertices[4].get_center() + relative_positionen6_8[node])
+
+        for vertex in graph6_8.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_8:
+            kante_von_5_zu_node = Line(graph5_8.vertices[4].get_center(), graph6_8.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_8 = graph6_8.add_labels()
+        self.add(labels6_8)
+        self.play(FadeIn(labels6_8), run_time=0.05)
+
+        vertex6_9 = [1]
+        graph6_9 = CustomGraph(vertex6_9, [])
+        relative_positionen6_9 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_9:
+            graph6_9.vertices[node].move_to(graph5_9.vertices[5].get_center() + relative_positionen6_9[node])
+        
+        for vertex in graph6_9.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_9:
+            kante_von_5_zu_node = Line(graph5_9.vertices[5].get_center(), graph6_9.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_9 = graph6_9.add_labels()
+        self.add(labels6_9)
+        self.play(FadeIn(labels6_9), run_time=0.05)
+
+        vertex6_10 = [1]
+        graph6_10 = CustomGraph(vertex6_10, [])
+        relative_positionen6_10 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_10:
+            graph6_10.vertices[node].move_to(graph5_10.vertices[2].get_center() + relative_positionen6_10[node])
+
+        for vertex in graph6_10.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_10:
+            kante_von_5_zu_node = Line(graph5_10.vertices[2].get_center(), graph6_10.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_10 = graph6_10.add_labels()
+        self.add(labels6_10)
+        self.play(FadeIn(labels6_10), run_time=0.05)
+
+        vertex6_11 = [1]
+        graph6_11 = CustomGraph(vertex6_11, [])
+        relative_positionen6_11 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_11:
+            graph6_11.vertices[node].move_to(graph5_11.vertices[4].get_center() + relative_positionen6_11[node])
+
+        for vertex in graph6_11.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_11:
+            kante_von_5_zu_node = Line(graph5_11.vertices[4].get_center(), graph6_11.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_11 = graph6_11.add_labels()
+        self.add(labels6_11)
+        self.play(FadeIn(labels6_11), run_time=0.05)
+
+        vertex6_12 = [1]
+        graph6_12 = CustomGraph(vertex6_12, [])
+        relative_positionen6_12 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_12:
+            graph6_12.vertices[node].move_to(graph5_12.vertices[2].get_center() + relative_positionen6_12[node])
+
+        for vertex in graph6_12.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_12:
+            kante_von_5_zu_node = Line(graph5_12.vertices[2].get_center(), graph6_12.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_12 = graph6_12.add_labels()
+        self.add(labels6_12)
+        self.play(FadeIn(labels6_12), run_time=0.05)
+
+        vertex6_13 = [1]
+        graph6_13 = CustomGraph(vertex6_13, [])
+        relative_positionen6_13 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_13:
+            graph6_13.vertices[node].move_to(graph5_13.vertices[5].get_center() + relative_positionen6_13[node])
+
+        for vertex in graph6_13.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_13:
+            kante_von_5_zu_node = Line(graph5_13.vertices[5].get_center(), graph6_13.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_13 = graph6_13.add_labels()
+        self.add(labels6_13)
+        self.play(FadeIn(labels6_13), run_time=0.05)
+
+        vertex6_14 = [1]
+        graph6_14 = CustomGraph(vertex6_14, [])
+        relative_positionen6_14 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_14:
+            graph6_14.vertices[node].move_to(graph5_14.vertices[3].get_center() + relative_positionen6_14[node])
+
+        for vertex in graph6_14.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_14:
+            kante_von_5_zu_node = Line(graph5_14.vertices[3].get_center(), graph6_14.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_14 = graph6_14.add_labels()
+        self.add(labels6_14)
+        self.play(FadeIn(labels6_14), run_time=0.05)
+
+        vertex6_15 = [1]
+        graph6_15 = CustomGraph(vertex6_15, [])
+        relative_positionen6_15 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_15:
+            graph6_15.vertices[node].move_to(graph5_15.vertices[5].get_center() + relative_positionen6_15[node])
+
+        for vertex in graph6_15.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_15:
+            kante_von_5_zu_node = Line(graph5_15.vertices[5].get_center(), graph6_15.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_15 = graph6_15.add_labels()
+        self.add(labels6_15)
+        self.play(FadeIn(labels6_15), run_time=0.05)
+
+        vertex6_16 = [1]
+        graph6_16 = CustomGraph(vertex6_16, [])
+        relative_positionen6_16 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_16:
+            graph6_16.vertices[node].move_to(graph5_16.vertices[2].get_center() + relative_positionen6_16[node])
+
+        for vertex in graph6_16.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_16:
+            kante_von_5_zu_node = Line(graph5_16.vertices[2].get_center(), graph6_16.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_16 = graph6_16.add_labels()
+        self.add(labels6_16)
+        self.play(FadeIn(labels6_16), run_time=0.05)
+
+        vertex6_17 = [1]
+        graph6_17 = CustomGraph(vertex6_17, [])
+        relative_positionen6_17 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_17:
+            graph6_17.vertices[node].move_to(graph5_17.vertices[3].get_center() + relative_positionen6_17[node])
+
+        for vertex in graph6_17.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_17:
+            kante_von_5_zu_node = Line(graph5_17.vertices[3].get_center(), graph6_17.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_17 = graph6_17.add_labels()
+        self.add(labels6_17)
+        self.play(FadeIn(labels6_17), run_time=0.05)
+
+        vertex6_18 = [1]
+        graph6_18 = CustomGraph(vertex6_18, [])
+        relative_positionen6_18 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_18:
+            graph6_18.vertices[node].move_to(graph5_18.vertices[2].get_center() + relative_positionen6_18[node])
+
+        for vertex in graph6_18.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_18:
+            kante_von_5_zu_node = Line(graph5_18.vertices[2].get_center(), graph6_18.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_18 = graph6_18.add_labels()
+        self.add(labels6_18)
+        self.play(FadeIn(labels6_18), run_time=0.05)
+
+        vertex6_19 = [1]
+        graph6_19 = CustomGraph(vertex6_19, [])
+        relative_positionen6_19 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_19:
+            graph6_19.vertices[node].move_to(graph5_19.vertices[4].get_center() + relative_positionen6_19[node])
+
+        for vertex in graph6_19.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_19:
+            kante_von_5_zu_node = Line(graph5_19.vertices[4].get_center(), graph6_19.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_19 = graph6_19.add_labels()
+        self.add(labels6_19)
+        self.play(FadeIn(labels6_19), run_time=0.05)
+
+        vertex6_20 = [1]
+        graph6_20 = CustomGraph(vertex6_20, [])
+        relative_positionen6_20 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_20:
+            graph6_20.vertices[node].move_to(graph5_20.vertices[3].get_center() + relative_positionen6_20[node])
+
+        for vertex in graph6_20.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_20:
+            kante_von_5_zu_node = Line(graph5_20.vertices[3].get_center(), graph6_20.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_20 = graph6_20.add_labels()
+        self.add(labels6_20)
+        self.play(FadeIn(labels6_20), run_time=0.05)
+
+        vertex6_21 = [1]
+        graph6_21 = CustomGraph(vertex6_21, [])
+        relative_positionen6_21 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_21:
+            graph6_21.vertices[node].move_to(graph5_21.vertices[4].get_center() + relative_positionen6_21[node])
+
+        for vertex in graph6_21.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+        
+        for node in vertex6_21:
+            kante_von_5_zu_node = Line(graph5_21.vertices[4].get_center(), graph6_21.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_21 = graph6_21.add_labels()
+        self.add(labels6_21)
+        self.play(FadeIn(labels6_21), run_time=0.05)
+
+        vertex6_22 = [1]
+        graph6_22 = CustomGraph(vertex6_22, [])
+        relative_positionen6_22 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_22:
+            graph6_22.vertices[node].move_to(graph5_22.vertices[2].get_center() + relative_positionen6_22[node])
+
+        for vertex in graph6_22.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_22:
+            kante_von_5_zu_node = Line(graph5_22.vertices[2].get_center(), graph6_22.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_22 = graph6_22.add_labels()
+        self.add(labels6_22)
+        self.play(FadeIn(labels6_22), run_time=0.05)
+
+        vertex6_23 = [1]
+        graph6_23 = CustomGraph(vertex6_23, [])
+        relative_positionen6_23 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_23:
+            graph6_23.vertices[node].move_to(graph5_23.vertices[3].get_center() + relative_positionen6_23[node])
+
+        for vertex in graph6_23.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_23:
+            kante_von_5_zu_node = Line(graph5_23.vertices[3].get_center(), graph6_23.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_23 = graph6_23.add_labels()
+        self.add(labels6_23)
+        self.play(FadeIn(labels6_23), run_time=0.05)
+
+        vertex6_24 = [1]
+        graph6_24 = CustomGraph(vertex6_24, [])
+        relative_positionen6_24 = {
+            1: DOWN * 1.5,         
+        }
+
+        for node in vertex6_24:
+            graph6_24.vertices[node].move_to(graph5_24.vertices[2].get_center() + relative_positionen6_24[node])
+
+        for vertex in graph6_24.vertices.values():
+            self.play(GrowFromCenter(vertex), run_time=0.05)
+
+        for node in vertex6_24:
+            kante_von_5_zu_node = Line(graph5_24.vertices[2].get_center(), graph6_24.vertices[node].get_center(), buff=0.3)
+            kante_von_5_zu_node.set_stroke(WHITE, width=2)
+            gesamter_baum.add(kante_von_5_zu_node)
+            self.play(Create(kante_von_5_zu_node), run_time=0.1)
+
+        labels6_24 = graph6_24.add_labels()
+        self.add(labels6_24)
+        self.play(FadeIn(labels6_24), run_time=0.05)
+
+        # group whole graph with all nodes, labels and edges
+
+        gesamter_baum.add(graph1_1, graph2_1, graph3_1, graph3_2, graph3_3, graph3_4, graph4_1, graph4_2, graph4_3, graph4_4, graph4_5, graph4_6, graph4_7, graph4_8, graph4_9, graph4_10, graph4_11, graph4_12, graph5_1, graph5_2, graph5_3, graph5_4, graph5_5, graph5_6, graph5_7, graph5_8, graph5_9, graph5_10, graph5_11, graph5_12, graph5_13, graph5_14, graph5_15, graph5_16, graph5_17, graph5_18, graph5_19, graph5_20, graph5_21, graph5_22, graph5_23, graph5_24, graph6_1, graph6_2, graph6_3, graph6_4, graph6_5, graph6_6, graph6_7, graph6_8, graph6_9, graph6_10, graph6_11, graph6_12, graph6_13, graph6_14, graph6_15, graph6_16, graph6_17, graph6_18, graph6_19, graph6_20, graph6_21, graph6_22, graph6_23, graph6_24, labels1_1, labels2_1, labels3_1, labels3_2, labels3_3, labels3_4, labels4_1, labels4_2, labels4_3, labels4_4, labels4_5, labels4_6, labels4_7, labels4_8, labels4_9, labels4_10, labels4_11, labels4_12, labels5_1, labels5_2, labels5_3, labels5_4, labels5_5, labels5_6, labels5_7, labels5_8, labels5_9, labels5_10, labels5_11, labels5_12, labels5_13, labels5_14, labels5_15, labels5_16, labels5_17, labels5_18, labels5_19, labels5_20, labels5_21, labels5_22, labels5_23, labels5_24, labels6_1, labels6_2, labels6_3, labels6_4, labels6_5, labels6_6, labels6_7, labels6_8, labels6_9, labels6_10, labels6_11, labels6_12, labels6_13, labels6_14, labels6_15, labels6_16, labels6_17, labels6_18, labels6_19, labels6_20, labels6_21, labels6_22, labels6_23, labels6_24)
+
+        self.play(gesamter_baum.animate.scale(0.5).to_edge(LEFT), run_time=2)
+
+        
+
+
+
+
+
+
+
+
+
             
 
-
-# class AzureExample(VoiceoverScene):
-#     def construct(self):
-#         self.set_speech_service(
-#             AzureService(
-#                 voice="en-US-GuyNeural ",
-#                 style="newscast-casual",
-#             )
-#         )
-
-#         circle = Circle()
-#         square = Square().shift(2 * RIGHT)
-
-#         with self.voiceover(text="This circle is drawn as I speak.") as tracker:
-#             self.play(Create(circle), run_time=tracker.duration)
-
-#         with self.voiceover(text="Let's shift it to the left 2 units.") as tracker:
-#             self.play(circle.animate.shift(2 * LEFT), run_time=tracker.duration)
-
-#         with self.voiceover(text="Now, let's transform it into a square.") as tracker:
-#             self.play(Transform(circle, square), run_time=tracker.duration)
-
-#         with self.voiceover(
-#             text="You can also change the pitch of my voice like this.",
-#             prosody={"pitch": "+40Hz"},
-#         ) as tracker:
-#             pass
-
-#         with self.voiceover(text="Thank you for watching."):
-#             self.play(Uncreate(circle))
-
-#         self.wait(5)
 
 
 if __name__ == "__main__":
