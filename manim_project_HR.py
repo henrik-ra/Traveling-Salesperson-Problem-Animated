@@ -22,7 +22,7 @@ import math
 
 DARK_BLUE_COLOR = "#00008b"
 
-class IntroNew(VoiceoverScene):
+class All(VoiceoverScene):
     def construct(self):
         self.set_speech_service(
             AzureService(
@@ -437,7 +437,8 @@ class IntroNew(VoiceoverScene):
 
         self.wait(1)
 
-
+        self.clear()
+        self.wait(10)
 
 # class Exp_Graph(VoiceoverScene):
 #     def construct(self):
@@ -502,14 +503,17 @@ class IntroNew(VoiceoverScene):
         self.play(FadeOut(axes), FadeOut(constant, constant_tag, linear, linear_tag, quad, quad_tag, poly, poly_tag, exp, exp_tag))
         self.wait(2)
 
-class Algorithms(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
+        self.clear()
+        self.wait(10)
+
+# class Algorithms(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
         # Create the first box
         box1 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(LEFT*2.5)
         box1_text = Text("Optimal", color=WHITE).scale(0.5)
@@ -541,71 +545,123 @@ class Algorithms(VoiceoverScene):
 
         self.wait(2)
 
+        self.clear()
+        self.wait(10)
 
-class BruteForce(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
+# class BruteForce(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
 
-        # Erstellen einer Liste von Städten (Knoten) und deren Koordinaten
-        cities = {
-            "A": [0, 0, 0],
-            "B": [2, 1, 0],
-            "C": [2, -1, 0],
-            "D": [4, 0, 0]
-        }
+        vertices = [1, 2, 3, 4, 5]
+        edges = [(i, j) for i in vertices for j in vertices if i != j]
 
-        # Erstellen des Graphen
-        G = Graph(cities.keys(), [], layout=cities, labels=True)
-        self.play(Create(G))
+        original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.5).shift(LEFT * 5)
+        self.play(Create(original_graph))
+        # labels = original_graph.add_labels()
+        # self.add(labels)
 
-        # Berechnen aller möglichen Routen (Permutationen)
-        routes = itertools.permutations(cities.keys())
-        shortest_distance = np.inf
-        shortest_route = None
 
-        # Durchlaufen aller Routen und Berechnen der Distanz
-        for route in routes:
-            distance = 0
-            for i in range(len(route)):
-                start_city = route[i]
-                end_city = route[(i + 1) % len(route)]
-                distance += np.linalg.norm(np.array(cities[start_city]) - np.array(cities[end_city]))
+        shift_value = [UP * 2 + RIGHT * 4, UP * 2 + RIGHT * 6, UP * 2 + RIGHT * 8, UP * 2 + RIGHT * 10, 
+                       RIGHT * 4, RIGHT * 6, RIGHT * 8, RIGHT * 10, 
+                       DOWN * 2 + RIGHT * 4, DOWN * 2 + RIGHT * 6, DOWN * 2 + RIGHT * 8, DOWN * 2 + RIGHT * 10]
 
-                # Hinzufügen der Kanten zum Graphen
-                if not G.has_edge(start_city, end_city):
-                    G.add_edges((start_city, end_city))
+        # Definieren Sie die 12 einzigartigen Hamiltonschen Kreise
+        hamiltonian_cycles = [
+            [1, 2, 3, 4, 5, 1],
+            [1, 2, 3, 5, 4, 1],
+            [1, 2, 4, 3, 5, 1],
+            [1, 2, 4, 5, 3, 1],
+            [1, 2, 5, 3, 4, 1],
+            [1, 2, 5, 4, 3, 1],
+            [1, 3, 2, 4, 5, 1],
+            [1, 3, 2, 5, 4, 1],
+            [1, 3, 4, 2, 5, 1],
+            [1, 3, 5, 2, 4, 1],
+            [1, 4, 3, 2, 5, 1],
+            [1, 4, 2, 3, 5, 1],
 
-                self.play(G.animate.change_layout({k: cities[k] for k in route}))
+        ]
 
-            # Prüfen, ob dies die kürzeste Route ist
-            if distance < shortest_distance:
-                shortest_distance = distance
-                shortest_route = route
+        for i, cycle in enumerate(hamiltonian_cycles):
+            graph = original_graph.copy()
+            self.add(graph)
 
-        # Ausgabe der kürzesten Route
-        self.play(FadeIn(Text(f"Shortest route: {' -> '.join(shortest_route)}", scale=0.5).to_edge(DOWN)))
+            # Animieren des Hamiltonschen Kreises
+            for j in range(len(cycle) - 1):
+                edge = (cycle[j], cycle[j + 1])
+                if edge in graph.edges:
+                    self.play(graph.edges[edge].animate.set_opacity(1), run_time=0.1)
+                elif (edge[1], edge[0]) in graph.edges:
+                    self.play(graph.edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.1)
 
-        # # the graph class expects a list of vertices and edges
-        # vertices = [1, 2, 3, 4, 5]
-        # edges = [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i + 1, len(vertices))]
+            self.wait(0.5)
 
-        # h = CustomGraph(vertices, edges).shift(RIGHT * 0)
-
-        # self.play(Create(h))
-
-        # for edge in h.get_edges_with_initial_opacity_zero():
-        #     self.play(edge.animate.set_opacity(1), run_time=0.1)
-        # # Verschieben des gesamten Graphen
-        
-
-        # self.wait(4)
-        
+            self.play(graph.animate.shift(shift_value[i]).scale(0.5))
+                      
             
+        self.wait(3)
+        self.clear()
+        self.wait(3)
+
+
+        # STILL DUPLICATES!!!
+
+        # vertices = [1, 2, 3, 4, 5]
+        # edges = [(i, j) for i in vertices for j in vertices if i != j]
+
+        # start_vertex = 1
+        # perms = itertools.permutations(vertices[1:])  # Permutationen ohne den Startknoten
+        # print(perms)
+        # original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.5).shift(LEFT * 5)
+        # self.play(Create(original_graph))
+
+        # shift_value = [UP * 2 + RIGHT * 4, UP * 2 + RIGHT * 6, UP * 2 + RIGHT * 8, UP * 2 + RIGHT * 10, RIGHT * 4, RIGHT * 6, RIGHT * 8, RIGHT * 10, DOWN * 2 + RIGHT * 4, DOWN * 2 + RIGHT * 6, DOWN * 2 + RIGHT * 8, DOWN * 2 + RIGHT * 10]
+        
+        # animated_paths = set()  # Set zum Speichern bereits animierter Pfade
+
+        # for i, perm in enumerate(perms):
+        #     if i >= 12:  # Beschränkung auf 12 Pfade
+        #         break
+
+        #     path = [start_vertex] + list(perm) + [start_vertex]
+        #     path_tuple = tuple(path)
+        #     reversed_path_tuple = tuple(path[::-1])  # Umgekehrter Pfad
+
+        #     if path_tuple in animated_paths or reversed_path_tuple in animated_paths:
+        #         continue
+
+        #     animated_paths.add(path_tuple)
+
+        #     graph = original_graph.copy()
+        #     self.add(graph)
+
+        #     for j in range(len(path) - 1):
+        #         edge = (path[j], path[j + 1])
+        #         if edge in graph.edges:
+        #             self.play(graph.edges[edge].animate.set_opacity(1), run_time=0.1)
+        #         elif (edge[1], edge[0]) in graph.edges:
+        #             self.play(graph.edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.1)
+
+        #     self.wait(0.5)
+        #     self.play(graph.animate.shift(shift_value[i]).scale(0.5))
+        #     # self.remove(graph)
+
+        # self.wait(3)
+        # self.clear()
+        # self.wait(3)
+
+
+
+
+
+        # Zoom out
+        # self.play(self.camera.frame.animate.scale(4), run_time=2)
+
         # point_indices = range(len(points))  
         # all_routes = list(permutations(point_indices))
 
@@ -628,14 +684,79 @@ class BruteForce(VoiceoverScene):
         
         # self.play(FadeOut(svg_object))
 
-class PointskNN(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
+
+        self.clear()
+        self.wait(10)
+# class PointskNN1(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
+        # Erstelle 50 zufällige Punkte
+        # Erstelle 50 zufällige Punkte
+        # Erstelle 5 zufällige Punkte
+        # Erstelle 5 zufällige Punkte
+        np_random = np.random.RandomState(42)
+        points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0]), 
+                      color=DARK_BLUE, radius=0.15, stroke_color=WHITE, stroke_width=1.5, fill_opacity=1) 
+                  for _ in range(10)]
+        self.add(*points)
+
+        # Wähle einen Startpunkt
+        current_point = random.choice(points)
+        start_point = current_point
+        visited = {current_point}
+
+        # Funktion, um die Distanz zwischen zwei Punkten zu berechnen
+        def distance(p1, p2):
+            return np.linalg.norm(p1.get_center() - p2.get_center())
+
+        # Suche den nächsten unbesuchten Punkt und zeichne Linien
+        for _ in range(len(points) - 1):
+            unvisited_points = [p for p in points if p not in visited]
+
+            temp_lines = []  # Temporäre Linien speichern
+            for p in unvisited_points:
+                line = Line(current_point.get_center(), p.get_center(), color=WHITE).set_opacity(0.3)
+                temp_lines.append(line)
+                self.play(Create(line), run_time=0.1)
+
+            # Wähle den nächsten Punkt basierend auf der kürzesten Entfernung
+            next_point = min(unvisited_points, key=lambda p: distance(current_point, p))
+            visited.add(next_point)
+
+            # Zeichne eine Linie zum nächsten Punkt
+            line_to_next = Line(current_point.get_center(), next_point.get_center(), color=ORANGE)
+            self.play(Transform(temp_lines[unvisited_points.index(next_point)], line_to_next), run_time=0.5)
+
+            # Entferne alle temporären Linien außer der kürzesten
+            temp_lines.remove(temp_lines[unvisited_points.index(next_point)])
+            for line in temp_lines:
+                self.remove(line)
+            self.wait(0.5)
+            # Aktualisiere den aktuellen Punkt
+            current_point = next_point
+
+        # Zeichne eine Linie zurück zum Startpunkt
+        line_to_start = Line(current_point.get_center(), start_point.get_center(), color=ORANGE)
+        self.play(Create(line_to_start), run_time=0.1)
+
+        self.wait(2)
+
+        self.clear()
+        self.wait(10)
+
+# class PointskNN2(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
         # Erstelle 50 zufällige Punkte
         np_random = np.random.RandomState(42)
         points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0])) for _ in range(50)]
@@ -672,34 +793,34 @@ class PointskNN(VoiceoverScene):
         self.wait(2)
 
         
-class GraphkNN(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
-        # the graph class expects a list of vertices and edges
-        vertices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        edges = [(1, 2), (2, 3), (3, 4), (2, 4), (2, 5), (6, 5),
-                 (1, 7), (5, 7), (2, 8), (1, 9)]
+# class GraphkNN(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
+#         # the graph class expects a list of vertices and edges
+#         vertices = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+#         edges = [(1, 2), (2, 3), (3, 4), (2, 4), (2, 5), (6, 5),
+#                  (1, 7), (5, 7), (2, 8), (1, 9)]
 
-        h = CustomGraph(vertices, edges).shift(RIGHT * 0)
+#         h = CustomGraph(vertices, edges).shift(RIGHT * 0)
 
-        # Verschieben des gesamten Graphen
-        self.play(Create(h))
+#         # Verschieben des gesamten Graphen
+#         self.play(Create(h))
 
-        self.wait(4)
-        h.scale(0.5)
+#         self.wait(4)
+#         h.scale(0.5)
 
-        # Animation für das Hervorheben von bestimmten Kanten
-        for edge in h.edges:
-            self.play(h.edges[edge].animate.set_color(RED), run_time=0.5)
-            self.wait(0.1)
-            self.play(h.edges[edge].animate.set_color(GREEN), run_time=0.5)
+#         # Animation für das Hervorheben von bestimmten Kanten
+#         for edge in h.edges:
+#             self.play(h.edges[edge].animate.set_color(RED), run_time=0.5)
+#             self.wait(0.1)
+#             self.play(h.edges[edge].animate.set_color(GREEN), run_time=0.5)
 
-        self.wait(1)
+#         self.wait(1)
 
 
 # class Intro(VoiceoverScene):
@@ -847,39 +968,7 @@ class GraphkNN(VoiceoverScene):
 #         route.append(start_index)  # Rückkehr zum Startpunkt
 
 
-# USE TRACKER_DURATION
-class AzureExample(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
-
-        circle = Circle()
-        square = Square().shift(2 * RIGHT)
-
-        with self.voiceover(text="This circle is drawn as I speak.") as tracker:
-            self.play(Create(circle), run_time=tracker.duration)
-
-        with self.voiceover(text="Let's shift it to the left 2 units.") as tracker:
-            self.play(circle.animate.shift(2 * LEFT), run_time=tracker.duration)
-
-        with self.voiceover(text="Now, let's transform it into a square.") as tracker:
-            self.play(Transform(circle, square), run_time=tracker.duration)
-
-        with self.voiceover(
-            text="You can also change the pitch of my voice like this.",
-            prosody={"pitch": "+40Hz"},
-        ) as tracker:
-            pass
-
-        with self.voiceover(text="Thank you for watching."):
-            self.play(Uncreate(circle))
-
-        self.wait(5)
 
 
 if __name__ == "__main__":
-    os.system(f"manim -pqh --disable_caching {__file__} BruteForce")
+    os.system(f"manim -pqh --disable_caching {__file__} All")
