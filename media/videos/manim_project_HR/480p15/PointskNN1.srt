@@ -1,0 +1,28 @@
+1
+00:00:00,000 --> 00:00:02,937
+We start at a specific city (any city can be the
+
+2
+00:00:03,037 --> 00:00:06,797
+starting point). Then we check the shortest path and add this
+
+3
+00:00:06,897 --> 00:00:09,835
+point to the tour. Same for the next node and so
+
+4
+00:00:09,935 --> 00:00:13,316
+on ... we repeat this until there is no unvisited node.
+
+5
+00:00:19,133 --> 00:00:22,921
+Finally, we draw a connection back to the starting point.
+
+6
+00:00:28,000 --> 00:00:31,548
+If we add more cities, the time complexity still stays good,
+
+7
+00:00:31,648 --> 00:00:35,076
+but in most cases we won't find the optimal shortest path.
+

@@ -1,0 +1,48 @@
+1
+00:00:00,000 --> 00:00:04,315
+The Brute Force method is a straightforward but time-consuming approach to
+
+2
+00:00:04,415 --> 00:00:08,730
+solving the TSP. It involves trying out all possible orders (permutations)
+
+3
+00:00:08,830 --> 00:00:12,370
+in which the cities can be visited and calculating the length
+
+4
+00:00:12,470 --> 00:00:15,651
+of the tour for each of these orders. The shortest tour
+
+5
+00:00:15,751 --> 00:00:19,172
+found among these permutations is accepted as the solution.
+
+6
+00:00:19,266 --> 00:00:23,075
+First of all we generate all possible permutations of the cities.
+
+7
+00:00:23,175 --> 00:00:26,924
+This means creating all different orders in which the cities can
+
+8
+00:00:27,024 --> 00:00:31,314
+be visited. Then, For each generated permutation, we calculate the length
+
+9
+00:00:31,414 --> 00:00:35,163
+of the tour by summing the distances between the visited cities.
+
+10
+00:00:35,263 --> 00:00:38,651
+Now, we need to Identify the tour with the shortest length
+
+11
+00:00:38,751 --> 00:00:42,139
+among all the calculated tours and the tour found with the
+
+12
+00:00:42,239 --> 00:00:45,206
+shortest length is the optimal solution to the TSP.
+

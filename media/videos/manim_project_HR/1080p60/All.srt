@@ -118,3 +118,147 @@ With these rules in mind, let's explore
 00:01:49,334 --> 00:01:51,559
 how Alex can find the shortest route.
 
+31
+00:01:55,650 --> 00:01:57,853
+To solve TSP, we have two primary
+
+32
+00:01:57,953 --> 00:02:01,622
+approaches: the Optimal and the Approximation methods.
+
+33
+00:02:01,716 --> 00:02:04,637
+In the Optimal category, we have two prominent
+
+34
+00:02:04,737 --> 00:02:07,592
+algorithms: Brute Force and Branch and Bound.
+
+35
+00:02:07,683 --> 00:02:11,331
+Moving on to the Approximation approach, we'll explain the
+
+36
+00:02:11,431 --> 00:02:15,466
+three algorithms k nearest neighbors (kNN), Christofides and Lin
+
+37
+00:02:15,566 --> 00:02:19,343
+Kernighan. But let's start with the optimal solutions first.
+
+38
+00:02:22,433 --> 00:02:26,748
+The Brute Force method is a straightforward but time-consuming approach to
+
+39
+00:02:26,848 --> 00:02:31,163
+solving the TSP. It involves trying out all possible orders (permutations)
+
+40
+00:02:31,263 --> 00:02:34,803
+in which the cities can be visited and calculating the length
+
+41
+00:02:34,903 --> 00:02:38,085
+of the tour for each of these orders. The shortest tour
+
+42
+00:02:38,185 --> 00:02:41,605
+found among these permutations is accepted as the solution.
+
+43
+00:02:41,700 --> 00:02:44,857
+First of all we generate all possible permutations
+
+44
+00:02:44,957 --> 00:02:47,984
+of the cities. This means creating all different
+
+45
+00:02:48,084 --> 00:02:50,720
+orders in which the cities can be visited.
+
+46
+00:03:00,100 --> 00:03:03,956
+Then, For each generated permutation, we calculate the length of
+
+47
+00:03:04,056 --> 00:03:07,728
+the tour by summing the distances between the visited cities.
+
+48
+00:03:10,816 --> 00:03:13,934
+Now, we need to Identify the tour with the shortest length
+
+49
+00:03:14,034 --> 00:03:17,151
+among all the calculated tours and the tour found with the
+
+50
+00:03:17,251 --> 00:03:19,980
+shortest length is the optimal solution to the TSP.
+
+51
+00:03:26,066 --> 00:03:28,582
+We can calculate the time complexity as the
+
+52
+00:03:28,682 --> 00:03:31,624
+number of possible permutations of n elements when
+
+53
+00:03:31,724 --> 00:03:34,726
+each permutation is counted as a separate operation
+
+54
+00:03:34,816 --> 00:03:37,519
+For the example we've seen before we used
+
+55
+00:03:37,619 --> 00:03:40,116
+5 nodes, so we get 12 possible routes.
+
+56
+00:03:40,200 --> 00:03:42,825
+If we just increase the number of nodes
+
+57
+00:03:42,925 --> 00:03:45,620
+by 1, we already get 60 possible routes.
+
+58
+00:03:45,716 --> 00:03:51,986
+For 10 nodes, it's already 181440 potential shortest paths!!
+
+59
+00:03:52,086 --> 00:03:58,144
+This is because we got an ??exponential?? time complexity.
+
+60
+00:04:26,233 --> 00:04:29,170
+We start at a specific city (any city can be the
+
+61
+00:04:29,270 --> 00:04:33,031
+starting point). Then we check the shortest path and add this
+
+62
+00:04:33,131 --> 00:04:36,068
+point to the tour. Same for the next node and so
+
+63
+00:04:36,168 --> 00:04:39,549
+on ... we repeat this until there is no unvisited node.
+
+64
+00:04:43,833 --> 00:04:47,621
+Finally, we draw a connection back to the starting point.
+
+65
+00:04:52,716 --> 00:04:56,265
+If we add more cities, the time complexity still stays good,
+
+66
+00:04:56,365 --> 00:04:59,792
+but in most cases we won't find the optimal shortest path.
+

@@ -8,3 +8,5 @@ file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project
 file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/Algorithms/uncached_00006.mp4'
 file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/Algorithms/uncached_00007.mp4'
 file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/Algorithms/uncached_00008.mp4'
+file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/Algorithms/uncached_00009.mp4'
+file 'file:C:/Users/Henrik/Documents/GitHub/TSP_manim/media/videos/manim_project_HR/1080p60/partial_movie_files/Algorithms/uncached_00010.mp4'

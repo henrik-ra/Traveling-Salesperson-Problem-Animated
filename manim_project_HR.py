@@ -438,73 +438,7 @@ class All(VoiceoverScene):
         self.wait(1)
 
         self.clear()
-        self.wait(10)
-
-# class Exp_Graph(VoiceoverScene):
-#     def construct(self):
-#         self.set_speech_service(
-#             AzureService(
-#                 voice="en-US-GuyNeural ",
-#                 style="newscast-casual",
-#             )
-#         )
-
-        axes = Axes(
-            x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
-            y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
-            y_length=5,
-            x_length=8,
-            tips=False,  
-            axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
-        )
-
-                # Hinzufügen der Achsen und des Graphen zur Szene
-        self.add(axes)
-        # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
-        self.wait(2)  # Warten am Ende der Animation
-
-        bold_template = TexTemplate()
-        bold_template.add_to_preamble(r"\usepackage{bm}")
-
-        def plot_function(function, color, label, position=RIGHT, range=[0,20]):
-            function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
-            return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
-
-        # constant
-        constant, constant_tag  = plot_function(lambda x: 1, BLUE, r"$\bm{O(1)}$")
-        self.play(LaggedStart(constant.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(constant_tag))
-
-        # linear
-        linear, linear_tag  = plot_function(lambda x: x, GREEN, r"$\bm{O(n)}$")
-        self.play(LaggedStart(linear.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(linear_tag))
-
-        # quad
-        quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
-        self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(quad_tag))
-
-        # poly
-        poly, poly_tag  = plot_function(lambda x: 3 * x**2 + 2 * x, ORANGE, r"$\bm{O(3n^2+2n)}$", range=[0,9.66])
-        self.play(LaggedStart(poly.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(poly_tag))
-
-        # exponential
-        exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
-        self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(exp_tag))
-
-        diagram = VGroup(axes, constant_tag, linear_tag, quad_tag, poly_tag, exp_tag, constant, linear, quad, poly, exp)
-
-        self.wait(2)
-        self.play(diagram.animate.shift(LEFT*2).scale(0.6))
-        self.wait(2)
-        self.play(FadeOut(axes), FadeOut(constant, constant_tag, linear, linear_tag, quad, quad_tag, poly, poly_tag, exp, exp_tag))
-        self.wait(2)
-
-        self.clear()
-        self.wait(10)
+        self.wait(3)
 
 # class Algorithms(VoiceoverScene):
 #     def construct(self):
@@ -514,39 +448,46 @@ class All(VoiceoverScene):
 #                 style="newscast-casual",
 #             )
 #         )
-        # Create the first box
-        box1 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(LEFT*2.5)
-        box1_text = Text("Optimal", color=WHITE).scale(0.5)
-        box1_text.move_to(box1.get_center())
-        box1_label = Text("Brute Force\n\nBranch and Bound", color=WHITE, font_size=40).scale(0.5)
-        box1_label.next_to(box1, DOWN)
+        
+        with self.voiceover(text="To solve TSP, we have two primary approaches: the Optimal and the Approximation methods.") as tracker:
+            self.wait(2)
+            # Create the first box
+            box1 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(LEFT*2.5)
+            box1_text = Text("Optimal", color=WHITE).scale(0.5)
+            box1_text.move_to(box1.get_center())
+            box1_label = Text("Brute Force\n\nBranch and Bound", color=WHITE, font_size=40).scale(0.5)
+            box1_label.next_to(box1, DOWN)
 
-        # Create the second box
-        box2 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(RIGHT*2.5)
-        # box1_text.move_to(box1.get_center())
-        # box2.next_to(box1, RIGHT*2, buff=1)
-        box2_text = Text("Approximation", color=WHITE).scale(0.5)
-        box2_text.move_to(box2.get_center())
-        box2_label = Text("kNN\n\nChristofides\n\nLin Kernighan", color=WHITE, font_size=40).scale(0.5)
-        box2_label.next_to(box2, DOWN)
+            # Create the second box
+            box2 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(RIGHT*2.5)
+            # box1_text.move_to(box1.get_center())
+            # box2.next_to(box1, RIGHT*2, buff=1)
+            box2_text = Text("Approximation", color=WHITE).scale(0.5)
+            box2_text.move_to(box2.get_center())
+            box2_label = Text("kNN\n\nChristofides\n\nLin Kernighan", color=WHITE, font_size=40).scale(0.5)
+            box2_label.next_to(box2, DOWN)
 
-        # Animate
-        self.play(DrawBorderThenFill(box1))
-        self.play(Write(box1_text))
+            # Animate
+            self.play(DrawBorderThenFill(box1, run_time=0.5))
+            self.play(Write(box1_text))
 
-        self.play(DrawBorderThenFill(box2))
-        self.play(Write(box2_text))
+            self.play(DrawBorderThenFill(box2, run_time=0.5))
+            self.play(Write(box2_text))
+        
+        with self.voiceover(text="In the Optimal category, we have two prominent algorithms: Brute Force and Branch and Bound.") as tracker:
 
-        self.wait(3)
-        self.play(Write(box1_label))
+            
+            self.wait(3)
+            self.add(box1_label)
 
-        self.wait(3)
-        self.play(Write(box2_label))
+        with self.voiceover(text="Moving on to the Approximation approach, we'll explain the three algorithms k nearest neighbors (kNN), Christofides and Lin Kernighan. But let's start with the optimal solutions first.") as tracker:
 
-        self.wait(2)
+            self.wait(3)
+            self.add(box2_label)
+
 
         self.clear()
-        self.wait(10)
+        self.wait(3)
 
 # class BruteForce(VoiceoverScene):
 #     def construct(self):
@@ -556,58 +497,90 @@ class All(VoiceoverScene):
 #                 style="newscast-casual",
 #             )
 #         )
+        
+        with self.voiceover(text="The Brute Force method is a straightforward but time-consuming approach to solving the TSP. It involves trying out all possible orders (permutations) in which the cities can be visited and calculating the length of the tour for each of these orders. The shortest tour found among these permutations is accepted as the solution.") as tracker:
+            intro_text = Text("Brute Force").to_edge(UP)
+            self.play(Write(intro_text))
 
-        vertices = [1, 2, 3, 4, 5]
-        edges = [(i, j) for i in vertices for j in vertices if i != j]
+        with self.voiceover(text="First of all we generate all possible permutations of the cities. This means creating all different orders in which the cities can be visited.") as tracker:
 
-        original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.5).shift(LEFT * 5)
-        self.play(Create(original_graph))
-        # labels = original_graph.add_labels()
-        # self.add(labels)
+            vertices = [1, 2, 3, 4, 5]
+            edges = [(i, j) for i in vertices for j in vertices if i != j]
+
+            original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.5).shift(LEFT * 5)
+            self.play(Create(original_graph))
+            # labels = original_graph.add_labels()
+            # self.add(labels)
 
 
-        shift_value = [UP * 2 + RIGHT * 4, UP * 2 + RIGHT * 6, UP * 2 + RIGHT * 8, UP * 2 + RIGHT * 10, 
-                       RIGHT * 4, RIGHT * 6, RIGHT * 8, RIGHT * 10, 
-                       DOWN * 2 + RIGHT * 4, DOWN * 2 + RIGHT * 6, DOWN * 2 + RIGHT * 8, DOWN * 2 + RIGHT * 10]
+            shift_value = [UP * 1.5 + RIGHT * 4, UP * 1.5 + RIGHT * 6, UP * 1.5 + RIGHT * 8, UP * 1.5 + RIGHT * 10, 
+                        RIGHT * 4 + DOWN*0.5, RIGHT * 6 + DOWN*0.5, RIGHT * 8 + DOWN*0.5, RIGHT * 10 + DOWN*0.5, 
+                        DOWN * 2.5 + RIGHT * 4, DOWN * 2.5 + RIGHT * 6, DOWN * 2.5 + RIGHT * 8, DOWN * 2.5 + RIGHT * 10]
 
-        # Definieren Sie die 12 einzigartigen Hamiltonschen Kreise
-        hamiltonian_cycles = [
-            [1, 2, 3, 4, 5, 1],
-            [1, 2, 3, 5, 4, 1],
-            [1, 2, 4, 3, 5, 1],
-            [1, 2, 4, 5, 3, 1],
-            [1, 2, 5, 3, 4, 1],
-            [1, 2, 5, 4, 3, 1],
-            [1, 3, 2, 4, 5, 1],
-            [1, 3, 2, 5, 4, 1],
-            [1, 3, 4, 2, 5, 1],
-            [1, 3, 5, 2, 4, 1],
-            [1, 4, 3, 2, 5, 1],
-            [1, 4, 2, 3, 5, 1],
+            values_distance = ["5", "5.83", "5.83", "6.24", "6.24", "5.83","5.83", "6.24", "6.24", "7.07", "5.83", "6.24"]
 
-        ]
+            # Definieren Sie die 12 einzigartigen Hamiltonschen Kreise
+            hamiltonian_cycles = [
+                [1, 2, 3, 4, 5, 1],
+                [1, 2, 3, 5, 4, 1],
+                [1, 2, 4, 3, 5, 1],
+                [1, 2, 4, 5, 3, 1],
+                [1, 2, 5, 3, 4, 1],
+                [1, 2, 5, 4, 3, 1],
+                [1, 3, 2, 4, 5, 1],
+                [1, 3, 2, 5, 4, 1],
+                [1, 3, 4, 2, 5, 1],
+                [1, 3, 5, 2, 4, 1],
+                [1, 4, 3, 2, 5, 1],
+                [1, 4, 2, 3, 5, 1],
 
-        for i, cycle in enumerate(hamiltonian_cycles):
-            graph = original_graph.copy()
-            self.add(graph)
+            ]
+            value_pos = []
+            for i, cycle in enumerate(hamiltonian_cycles):
+                graph = original_graph.copy()
+                self.add(graph)
 
-            # Animieren des Hamiltonschen Kreises
-            for j in range(len(cycle) - 1):
-                edge = (cycle[j], cycle[j + 1])
-                if edge in graph.edges:
-                    self.play(graph.edges[edge].animate.set_opacity(1), run_time=0.1)
-                elif (edge[1], edge[0]) in graph.edges:
-                    self.play(graph.edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.1)
+                # Animieren des Hamiltonschen Kreises
+                for j in range(len(cycle) - 1):
+                    edge = (cycle[j], cycle[j + 1])
+                    if edge in graph.edges:
+                        self.play(graph.edges[edge].animate.set_opacity(1), run_time=0.05)
+                    elif (edge[1], edge[0]) in graph.edges:
+                        self.play(graph.edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.05)
 
-            self.wait(0.5)
+                self.wait(0.2)
 
-            self.play(graph.animate.shift(shift_value[i]).scale(0.5))
-                      
+                self.play(graph.animate.shift(shift_value[i]).scale(0.42), run_time=0.5)
+
+                
+                value_text = Text(values_distance[i], font_size=15)
+                value_text.next_to(graph, DOWN)
+                value_pos.append(value_text)
+                # self.play(Write(value_text))
+
+                self.wait(0.5)
+
+            # for i in range(len(values_distance)):
+                # value_text = Text(values_distance[i])
+                # value_text.shift(shift_value[i])
+                # self.play(Write(value_text))
+
+        with self.voiceover(text="Then, For each generated permutation, we calculate the length of the tour by summing the distances between the visited cities.") as tracker:
+            for i in value_pos:
+                self.play(Write(i), run_time=0.1)
             
+            
+        self.wait(3)
+
+        with self.voiceover(text="Now, we need to Identify the tour with the shortest length among all the calculated tours and the tour found with the shortest length is the optimal solution to the TSP.") as tracker:
+            self.wait(2)
+            empty_rectangle = Rectangle(width=1.7, height=1.7, fill_opacity=0, color=ORANGE).shift(UP*1.3+LEFT*0.8)
+
+            # Animieren Sie das leere Rechteck
+            self.play(Create(empty_rectangle))
         self.wait(3)
         self.clear()
         self.wait(3)
-
 
         # STILL DUPLICATES!!!
 
@@ -684,9 +657,139 @@ class All(VoiceoverScene):
         
         # self.play(FadeOut(svg_object))
 
+# class Complexity(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
+        
+        with self.voiceover(text="We can calculate the time complexity as the number of possible permutations of n elements when each permutation is counted as a separate operation") as tracker:
+
+
+            # Animierte Laufzeitformel
+            formula_text = MathTex(r"\frac{(n-1)!}{2}").scale(1)
+            formula_text.move_to(UP * 2)
+            self.play(Write(formula_text))
+            self.wait(2)
+
+        with self.voiceover(text="For the example we've seen before we used 5 nodes, so we get 12 possible routes.") as tracker:
+
+            # Transformiere zur "\frac{(n-1)!}{2} = 12"
+            transformed_formula = MathTex(r"\frac{(5-1)!}{2} = 12").scale(1)
+            transformed_formula.next_to(formula_text, DOWN)
+            # number = Text("n: 5")
+            # number.next_to(transformed_formula, LEFT)
+            
+            self.play(Transform(formula_text, transformed_formula))
+            # self.add(number)
+            self.wait(2)
+
+
+        with self.voiceover(text="If we just increase the number of nodes by 1, we already get 60 possible routes.") as tracker:
+
+            # Transformiere zur "\frac{(n-1)!}{2} = 12"
+            transformed_formula = MathTex(r"\frac{(6-1)!}{2} = 60").scale(1.5)
+            # transformed_formula.next_to(formula_text, DOWN)
+            self.play(Transform(formula_text, transformed_formula))
+            self.wait(2)
+        
+        with self.voiceover(text="For 10 nodes, it's already 181440 potential shortest paths!! This is because we got an ??exponential?? time complexity.") as tracker:
+
+            # Transformiere zur "\frac{(n-1)!}{2} = 12"
+            transformed_formula = MathTex(r"\frac{(10-1)!}{2} = 181440").scale(2)
+            # transformed_formula.next_to(formula_text, DOWN)
+            self.play(Transform(formula_text, transformed_formula))
+            self.wait(2)
+
+        # # Beispiel mit n=30
+        # n = 30
+        # example_text_30 = Text(f"Example for n = {n}").scale(1.5)
+        # example_text_30.move_to(UP * 2)
+        # self.play(Transform(formula_text, example_text_30))
+        # self.wait(2)
+
+        # n_factorial = math.factorial(n - 1)
+        # runtime = n_factorial / 2
+        # runtime_text_30 = Text(f"Runtime for n = {n}: {runtime}").scale(1.2)
+        # runtime_text_30.next_to(example_text_30, DOWN)
+        # self.play(Write(runtime_text_30))
+        # self.wait(2)  
+        
+        self.clear()
+        self.wait(3)
+
+# class Exp_Graph(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
+
+
+
+        axes = Axes(
+            x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
+            y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+            y_length=5,
+            x_length=8,
+            tips=False,  
+            axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+        )
+
+                # Hinzufügen der Achsen und des Graphen zur Szene
+        self.add(axes)
+        # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
+        self.wait(2)  # Warten am Ende der Animation
+
+        bold_template = TexTemplate()
+        bold_template.add_to_preamble(r"\usepackage{bm}")
+
+        def plot_function(function, color, label, position=RIGHT, range=[0,20]):
+            function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
+            return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+
+        # constant
+        constant, constant_tag  = plot_function(lambda x: 1, BLUE, r"$\bm{O(1)}$")
+        self.play(LaggedStart(constant.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(constant_tag))
+
+        # linear
+        linear, linear_tag  = plot_function(lambda x: x, GREEN, r"$\bm{O(n)}$")
+        self.play(LaggedStart(linear.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(linear_tag))
+
+        # quad
+        quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
+        self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(quad_tag))
+
+        # poly
+        poly, poly_tag  = plot_function(lambda x: 3 * x**2 + 2 * x, ORANGE, r"$\bm{O(3n^2+2n)}$", range=[0,9.66])
+        self.play(LaggedStart(poly.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(poly_tag))
+
+        # exponential
+        exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+        self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+        self.play(FadeIn(exp_tag))
+
+        diagram = VGroup(axes, constant_tag, linear_tag, quad_tag, poly_tag, exp_tag, constant, linear, quad, poly, exp)
+
+        self.wait(2)
+        self.play(diagram.animate.shift(LEFT*2).scale(0.6))
+        self.wait(2)
+        self.play(FadeOut(axes), FadeOut(constant, constant_tag, linear, linear_tag, quad, quad_tag, poly, poly_tag, exp, exp_tag))
+        self.wait(2)
 
         self.clear()
-        self.wait(10)
+        self.wait(5)
+
+
 # class PointskNN1(VoiceoverScene):
 #     def construct(self):
 #         self.set_speech_service(
@@ -695,59 +798,64 @@ class All(VoiceoverScene):
 #                 style="newscast-casual",
 #             )
 #         )
-        # Erstelle 50 zufällige Punkte
-        # Erstelle 50 zufällige Punkte
-        # Erstelle 5 zufällige Punkte
-        # Erstelle 5 zufällige Punkte
-        np_random = np.random.RandomState(42)
-        points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0]), 
-                      color=DARK_BLUE, radius=0.15, stroke_color=WHITE, stroke_width=1.5, fill_opacity=1) 
-                  for _ in range(10)]
-        self.add(*points)
+        
+        with self.voiceover(text="We start at a specific city (any city can be the starting point). Then we check the shortest path and add this point to the tour. Same for the next node and so on ... we repeat this until there is no unvisited node.") as tracker:
 
-        # Wähle einen Startpunkt
-        current_point = random.choice(points)
-        start_point = current_point
-        visited = {current_point}
+            self.wait(4)
 
-        # Funktion, um die Distanz zwischen zwei Punkten zu berechnen
-        def distance(p1, p2):
-            return np.linalg.norm(p1.get_center() - p2.get_center())
+            np_random = np.random.RandomState(42)
+            points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0]), 
+                        color=DARK_BLUE, radius=0.15, stroke_color=WHITE, stroke_width=1.5, fill_opacity=1) 
+                    for _ in range(10)]
+            self.add(*points)
 
-        # Suche den nächsten unbesuchten Punkt und zeichne Linien
-        for _ in range(len(points) - 1):
-            unvisited_points = [p for p in points if p not in visited]
+            # Wähle einen Startpunkt
+            current_point = random.choice(points)
+            start_point = current_point
+            visited = {current_point}
 
-            temp_lines = []  # Temporäre Linien speichern
-            for p in unvisited_points:
-                line = Line(current_point.get_center(), p.get_center(), color=WHITE).set_opacity(0.3)
-                temp_lines.append(line)
-                self.play(Create(line), run_time=0.1)
+            # Funktion, um die Distanz zwischen zwei Punkten zu berechnen
+            def distance(p1, p2):
+                return np.linalg.norm(p1.get_center() - p2.get_center())
 
-            # Wähle den nächsten Punkt basierend auf der kürzesten Entfernung
-            next_point = min(unvisited_points, key=lambda p: distance(current_point, p))
-            visited.add(next_point)
+            # Suche den nächsten unbesuchten Punkt und zeichne Linien
+            for _ in range(len(points) - 1):
+                unvisited_points = [p for p in points if p not in visited]
 
-            # Zeichne eine Linie zum nächsten Punkt
-            line_to_next = Line(current_point.get_center(), next_point.get_center(), color=ORANGE)
-            self.play(Transform(temp_lines[unvisited_points.index(next_point)], line_to_next), run_time=0.5)
+                temp_lines = []  # Temporäre Linien speichern
+                for p in unvisited_points:
+                    line = Line(current_point.get_center(), p.get_center(), color=WHITE).set_opacity(0.3)
+                    temp_lines.append(line)
+                    self.play(Create(line), run_time=0.1)
 
-            # Entferne alle temporären Linien außer der kürzesten
-            temp_lines.remove(temp_lines[unvisited_points.index(next_point)])
-            for line in temp_lines:
-                self.remove(line)
-            self.wait(0.5)
-            # Aktualisiere den aktuellen Punkt
-            current_point = next_point
+                # Wähle den nächsten Punkt basierend auf der kürzesten Entfernung
+                next_point = min(unvisited_points, key=lambda p: distance(current_point, p))
+                visited.add(next_point)
 
-        # Zeichne eine Linie zurück zum Startpunkt
-        line_to_start = Line(current_point.get_center(), start_point.get_center(), color=ORANGE)
-        self.play(Create(line_to_start), run_time=0.1)
+                # Zeichne eine Linie zum nächsten Punkt
+                line_to_next = Line(current_point.get_center(), next_point.get_center(), color=ORANGE)
+                self.play(Transform(temp_lines[unvisited_points.index(next_point)], line_to_next), run_time=0.5)
+
+                # Entferne alle temporären Linien außer der kürzesten
+                temp_lines.remove(temp_lines[unvisited_points.index(next_point)])
+                for line in temp_lines:
+                    self.remove(line)
+                self.wait(0.5)
+                # Aktualisiere den aktuellen Punkt
+                current_point = next_point
+
+            # Zeichne eine Linie zurück zum Startpunkt
+            line_to_start = Line(current_point.get_center(), start_point.get_center(), color=ORANGE)
+            self.play(Create(line_to_start), run_time=0.1)
+
+
+        with self.voiceover(text="Finally, we draw a connection back to the starting point.") as tracker:
+            None
 
         self.wait(2)
 
         self.clear()
-        self.wait(10)
+        self.wait(3)
 
 # class PointskNN2(VoiceoverScene):
 #     def construct(self):
@@ -757,40 +865,43 @@ class All(VoiceoverScene):
 #                 style="newscast-casual",
 #             )
 #         )
-        # Erstelle 50 zufällige Punkte
-        np_random = np.random.RandomState(42)
-        points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0])) for _ in range(50)]
-        self.add(*points)
+            
+        with self.voiceover(text="If we add more cities, the time complexity still stays good, but in most cases we won't find the optimal shortest path.") as tracker:
 
-        # Wähle einen Startpunkt
-        current_point = random.choice(points)
-        start_point = current_point  # Speichere den Startpunkt für später
-        visited = {current_point}
+            # Erstelle 50 zufällige Punkte
+            np_random = np.random.RandomState(42)
+            points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0])) for _ in range(50)]
+            self.add(*points)
 
-        # Funktion, um die Distanz zwischen zwei Punkten zu berechnen
-        def distance(p1, p2):
-            return np.linalg.norm(p1.get_center() - p2.get_center())
+            # Wähle einen Startpunkt
+            current_point = random.choice(points)
+            start_point = current_point  # Speichere den Startpunkt für später
+            visited = {current_point}
 
-        # Suche den nächsten unbesuchten Punkt
-        for _ in range(len(points) - 1):
-            next_point = min(
-                (p for p in points if p not in visited),
-                key=lambda p: distance(current_point, p)
-            )
-            visited.add(next_point)
+            # Funktion, um die Distanz zwischen zwei Punkten zu berechnen
+            def distance(p1, p2):
+                return np.linalg.norm(p1.get_center() - p2.get_center())
 
-            # Zeichne eine Linie zum nächsten Punkt
-            line = Line(current_point.get_center(), next_point.get_center(), color=BLUE)
-            self.play(Create(line), run_time=0.1)
+            # Suche den nächsten unbesuchten Punkt
+            for _ in range(len(points) - 1):
+                next_point = min(
+                    (p for p in points if p not in visited),
+                    key=lambda p: distance(current_point, p)
+                )
+                visited.add(next_point)
 
-            # Aktualisiere den aktuellen Punkt
-            current_point = next_point
+                # Zeichne eine Linie zum nächsten Punkt
+                line = Line(current_point.get_center(), next_point.get_center(), color=BLUE)
+                self.play(Create(line), run_time=0.1)
 
-        # Zeichne eine Linie zurück zum Startpunkt
-        line_to_start = Line(current_point.get_center(), start_point.get_center(), color=BLUE)
-        self.play(Create(line_to_start), run_time=0.1)
+                # Aktualisiere den aktuellen Punkt
+                current_point = next_point
 
-        self.wait(2)
+            # Zeichne eine Linie zurück zum Startpunkt
+            line_to_start = Line(current_point.get_center(), start_point.get_center(), color=BLUE)
+            self.play(Create(line_to_start), run_time=0.1)
+
+            self.wait(2)
 
         
 # class GraphkNN(VoiceoverScene):
@@ -971,4 +1082,4 @@ class All(VoiceoverScene):
 
 
 if __name__ == "__main__":
-    os.system(f"manim -pqh --disable_caching {__file__} All")
+    os.system(f"manim --disable_caching  -pqh {__file__} All")

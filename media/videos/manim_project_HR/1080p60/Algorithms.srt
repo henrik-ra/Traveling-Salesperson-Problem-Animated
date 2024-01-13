@@ -1,0 +1,28 @@
+1
+00:00:00,000 --> 00:00:02,203
+To solve TSP, we have two primary
+
+2
+00:00:02,303 --> 00:00:05,972
+approaches: the Optimal and the Approximation methods.
+
+3
+00:00:06,066 --> 00:00:08,987
+In the Optimal category, we have two prominent
+
+4
+00:00:09,087 --> 00:00:11,942
+algorithms: Brute Force and Branch and Bound.
+
+5
+00:00:12,033 --> 00:00:15,681
+Moving on to the Approximation approach, we'll explain the
+
+6
+00:00:15,781 --> 00:00:19,816
+three algorithms k nearest neighbors (kNN), Christofides and Lin
+
+7
+00:00:19,916 --> 00:00:23,693
+Kernighan. But let's start with the optimal solutions first.
+
