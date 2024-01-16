@@ -14,3 +14,59 @@ This is the symmetrical one
 00:00:09,856 --> 00:00:12,300
 This is the asymmetrical
 
+5
+00:00:13,856 --> 00:00:15,971
+Now we need to point out how to know
+
+6
+00:00:16,071 --> 00:00:18,556
+if our heristic result is near the optimum
+
+7
+00:00:18,656 --> 00:00:22,085
+In some business cases there is a treshold given by the supervisor
+
+8
+00:00:22,185 --> 00:00:24,812
+so you don't need to know how near the result is to
+
+9
+00:00:24,912 --> 00:00:27,700
+the optimum but in a theroetic case we want to know it
+
+10
+00:00:27,789 --> 00:00:31,662
+As we know to determine the optimum is not economically sensible so
+
+11
+00:00:31,762 --> 00:00:34,745
+we need to find an other value to measure our result
+
+12
+00:00:34,839 --> 00:00:37,499
+This value is the lower bound
+
+13
+00:00:37,599 --> 00:00:40,047
+The lower bound is the value of the sum from
+
+14
+00:00:40,147 --> 00:00:42,827
+every weight of edge in a minimum spanning tree.
+
+15
+00:00:42,927 --> 00:00:45,436
+This value is lower then the optimum but
+
+16
+00:00:45,536 --> 00:00:47,459
+in many cases very close to it.
+
+17
+00:00:47,559 --> 00:00:50,900
+So to gat an idea how good the heristic result is you need to
+
+18
+00:00:51,000 --> 00:00:55,187
+compare it to the lower bound which is easier to calculate then the optimum.
+

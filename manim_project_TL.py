@@ -96,7 +96,7 @@ class AzureExample(VoiceoverScene):
         self.symmetric_vs_asymmetric()
 
         # Teil 2: Lower Bound (Hier können Sie Ihren eigenen Code einfügen)
-        # self.lower_bound()
+        self.lower_bound()
 
         # Teil 3: Christofides-Algorithmus (Hier können Sie Ihren eigenen Code einfügen)
         # self.christofides_algorithm()
@@ -155,7 +155,29 @@ class AzureExample(VoiceoverScene):
 
     def lower_bound(self):
         # Code für die Erklärung des Lower Bound
-        pass
+        with self.voiceover(text="Now we need to point out how to know if our heristic result is near the optimum") as tracker:
+            pass
+        
+        with self.voiceover(text="In some business cases there is a treshold given by the supervisor so you don't need to know how near the result is to the optimum but in a theroetic case we want to know it") as tracker:
+            pass
+
+        with self.voiceover(text="As we know to determine the optimum is not economically sensible so we need to find an other value to measure our result") as tracker:
+            pass
+        
+        with self.voiceover(text="This value is the lower bound") as tracker:
+            pass
+
+        with self.voiceover(text="The lower bound is the value of the sum from every weight of edge in a minimum spanning tree.") as tracker:
+            pass
+
+        with self.voiceover(text="This value is lower then the optimum but in many cases very close to it.") as tracker:
+            pass
+
+        with self.voiceover(text="So to gat an idea how good the heristic result is you need to compare it to the lower bound which is easier to calculate then the optimum.") as tracker:
+            pass
+
+
+
 
     def christofides_algorithm(self):
         # Code für die Erklärung des Christofides-Algorithmus
