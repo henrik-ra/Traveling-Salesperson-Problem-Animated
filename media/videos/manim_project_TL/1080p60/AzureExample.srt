@@ -31,90 +31,198 @@ As you can imagine in reality there isn't something like a
 symetrical TSP. That's why there is also an asymetrical TSP.
 
 9
-00:00:30,298 --> 00:00:33,040
+00:00:30,312 --> 00:00:33,054
 The TSP is called asymetrical if there are two
 
 10
-00:00:33,140 --> 00:00:36,006
+00:00:33,154 --> 00:00:36,020
 edges between every node and they don't have the
 
 11
-00:00:36,106 --> 00:00:38,910
+00:00:36,120 --> 00:00:38,924
 same weight. The graph is then called directed.
 
 12
-00:00:38,998 --> 00:00:42,738
+00:00:39,024 --> 00:00:42,764
 You can imagine that in reality there are only asymitrical TSPs because
 
 13
-00:00:42,838 --> 00:00:46,524
+00:00:42,864 --> 00:00:46,550
 the differnce between two cities are never the same in both directions
 
 14
-00:00:46,624 --> 00:00:49,770
+00:00:46,650 --> 00:00:49,796
 because of the construction of the roads or other obstacles.
 
 15
-00:00:49,870 --> 00:00:52,583
+00:00:49,896 --> 00:00:52,609
 in the following we will consider the TSP
 
 16
-00:00:52,683 --> 00:00:55,602
+00:00:52,709 --> 00:00:55,628
 as symitrical so it is easier to understand.
 
 17
-00:00:55,702 --> 00:00:57,817
+00:00:55,728 --> 00:00:57,843
 Now we need to point out how to know
 
 18
-00:00:57,917 --> 00:01:00,402
+00:00:57,943 --> 00:01:00,428
 if our heristic result is near the optimum
 
 19
-00:01:00,502 --> 00:01:03,931
+00:01:00,528 --> 00:01:03,957
 In some business cases there is a treshold given by the supervisor
 
 20
-00:01:04,031 --> 00:01:06,658
+00:01:04,057 --> 00:01:06,684
 so you don't need to know how near the result is to
 
 21
-00:01:06,758 --> 00:01:09,546
+00:01:06,784 --> 00:01:09,572
 the optimum but in a theroetic case we want to know it
 
 22
-00:01:09,635 --> 00:01:13,508
+00:01:09,672 --> 00:01:13,544
 As we know to determine the optimum is not economically sensible so
 
 23
-00:01:13,608 --> 00:01:16,591
+00:01:13,644 --> 00:01:16,628
 we need to find an other value to measure our result
 
 24
-00:01:16,691 --> 00:01:19,351
+00:01:16,728 --> 00:01:19,388
 This value is the lower bound
 
 25
-00:01:19,451 --> 00:01:21,899
+00:01:19,488 --> 00:01:21,936
 The lower bound is the value of the sum from
 
 26
-00:01:21,999 --> 00:01:24,679
+00:01:22,036 --> 00:01:24,716
 every weight of edge in a minimum spanning tree.
 
 27
-00:01:24,779 --> 00:01:27,288
+00:01:24,816 --> 00:01:27,325
 This value is lower then the optimum but
 
 28
-00:01:27,388 --> 00:01:29,311
+00:01:27,425 --> 00:01:29,348
 in many cases very close to it.
 
 29
-00:01:29,411 --> 00:01:32,752
+00:01:29,448 --> 00:01:32,788
 So to gat an idea how good the heristic result is you need to
 
 30
-00:01:32,852 --> 00:01:37,039
+00:01:32,888 --> 00:01:37,076
 compare it to the lower bound which is easier to calculate then the optimum.
+
+31
+00:01:37,176 --> 00:01:41,204
+In the following we will explain the christofides algorithm.
+
+32
+00:01:41,304 --> 00:01:46,172
+This is an heuritstic algorithm to solve the TSP in a heritic way.
+
+33
+00:01:46,272 --> 00:01:49,248
+This algorithm guarantees a solution that is at most
+
+34
+00:01:49,348 --> 00:01:52,148
+fifthy percent longer than the optimal round trip
+
+35
+00:01:52,248 --> 00:01:55,127
+First we will create a minimal spanning tree with
+
+36
+00:01:55,227 --> 00:01:57,620
+every node by using the algrithm of Prim.
+
+37
+00:01:57,720 --> 00:02:01,162
+Then we search for every node in the graph with an odd degree,
+
+38
+00:02:01,262 --> 00:02:04,820
+meaning an odd number of edges by using the algorithm of Blossom
+
+39
+00:02:04,920 --> 00:02:07,781
+After finding all the nodes with an odd degree we need
+
+40
+00:02:07,881 --> 00:02:11,401
+to find a minimum perfect matching in the subgraph consisting only
+
+41
+00:02:11,501 --> 00:02:14,966
+of the odd degree vertices. A perfect matching means every vertex
+
+42
+00:02:15,066 --> 00:02:17,927
+is paired, and minimal means the sum of the lengths of
+
+43
+00:02:18,027 --> 00:02:20,012
+the edges in the pairing is minimized.
+
+44
+00:02:20,112 --> 00:02:24,078
+Then we need to combine the minimum spanning tree with the perfect matching
+
+45
+00:02:24,178 --> 00:02:27,548
+to obtain a multigraph in which every vertex has an even degree.
+
+46
+00:02:27,648 --> 00:02:32,110
+Since every vertex has an even degree, there exists an Eulerian
+
+47
+00:02:32,210 --> 00:02:36,238
+circuit in this graph. An Eulerian circuit is a path that
+
+48
+00:02:36,338 --> 00:02:39,860
+visits each edge exactly once. We need to find it.
+
+49
+00:02:39,960 --> 00:02:41,612
+There it is!
+
+50
+00:02:41,712 --> 00:02:44,974
+Last thing to do is to Transform the Eulerian circuit into
+
+51
+00:02:45,074 --> 00:02:48,915
+a Hamiltonian circuit by skipping any vertex visited more than once,
+
+52
+00:02:49,015 --> 00:02:52,220
+to get a round trip that visits each vertex exactly once.
+
+53
+00:02:52,320 --> 00:02:56,324
+There it is. Our heuristic result!
+
+54
+00:02:56,424 --> 00:03:00,346
+In summary, the time complexity of the Christofides algorithm
+
+55
+00:03:00,446 --> 00:03:03,314
+is mainly determined by the step of finding a
+
+56
+00:03:03,414 --> 00:03:07,600
+minimum perfect matching, which is O(n^3). Therefore, the overall
+
+57
+00:03:07,700 --> 00:03:10,964
+complexity of the Christofides algorithm is O(n^3).
 

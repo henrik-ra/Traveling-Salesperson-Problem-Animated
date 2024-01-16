@@ -99,7 +99,7 @@ class AzureExample(VoiceoverScene):
         self.lower_bound()
 
         # Teil 3: Christofides-Algorithmus (Hier können Sie Ihren eigenen Code einfügen)
-        # self.christofides_algorithm()
+        self.christofides_algorithm()
 
     def create_graph(self, is_symmetric, ab: str, bc: str, ca: str):
         # Erstellen eines CustomGraph-Objekts
@@ -188,7 +188,46 @@ class AzureExample(VoiceoverScene):
             pass
 
     def christofides_algorithm(self):
-        with self.voiceover(text="") as tracker:
+        with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
+            pass
+
+        with self.voiceover(text="This is an heuritstic algorithm to solve the TSP in a heritic way.") as tracker:
+            pass
+
+        with self.voiceover(text="This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip") as tracker:
+            pass
+
+        with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
+            #O(n log n) 
+            pass
+
+        with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges by using the algorithm of Blossom") as tracker:
+            #O(n^3) n = node
+            pass
+
+        with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching in the subgraph consisting only of the odd degree vertices. A perfect matching means every vertex is paired, and minimal means the sum of the lengths of the edges in the pairing is minimized.") as tracker:
+            #O(n)
+            pass
+
+        with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
+            #O(n)
+            pass
+        
+        with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. We need to find it.") as tracker:
+            #O(n)
+            pass
+
+        with self.voiceover(text="There it is!") as tracker:
+            pass
+
+        with self.voiceover(text="Last thing to do is to Transform the Eulerian circuit into a Hamiltonian circuit by skipping any vertex visited more than once, to get a round trip that visits each vertex exactly once.") as tracker:
+            #O(n)
+            pass
+
+        with self.voiceover(text="There it is. Our heuristic result!") as tracker:
+            pass
+
+        with self.voiceover(text="In summary, the time complexity of the Christofides algorithm is mainly determined by the step of finding a minimum perfect matching, which is O(n^3). Therefore, the overall complexity of the Christofides algorithm is O(n^3).") as tracker:
             pass
 
 
