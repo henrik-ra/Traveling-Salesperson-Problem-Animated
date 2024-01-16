@@ -101,31 +101,6 @@ class AzureExample(VoiceoverScene):
         # Teil 3: Christofides-Algorithmus (Hier können Sie Ihren eigenen Code einfügen)
         # self.christofides_algorithm()
 
-    def symmetric_vs_asymmetric(self):
-
-        with self.voiceover(text="Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem") as tracker:
-        # Titel
-            title = Text("Symmetrical vs. Asymmetrical", font_size=36)
-            self.play(Write(title))
-            self.wait(1)
-            self.play(FadeOut(title))
-
-        with self.voiceover(text="This is the symmetrical one") as tracker:
-        # Symmetrisches TSP
-            symm_title = Text("Symmetrical TSP", font_size=24).to_edge(UP, buff=MED_SMALL_BUFF)
-            symm_graph = self.create_graph(is_symmetric=True, ab="36km", bc="50km", ca="41km")
-            self.play(FadeIn(symm_title, symm_graph))
-            self.wait(2)
-            self.play(FadeOut(symm_title, symm_graph))
-
-        with self.voiceover(text="This is the asymmetrical") as tracker:
-        # Asymmetrisches TSP
-            asymm_title = Text("Asymmetrical TSP", font_size=24).to_edge(UP, buff=MED_SMALL_BUFF)
-            asymm_graph = self.create_graph(is_symmetric=False,  ab="36km", bc="50km", ca="41km")
-            self.play(FadeIn(asymm_title, asymm_graph))
-            self.wait(2)
-            self.play(FadeOut(asymm_title, asymm_graph))
-
     def create_graph(self, is_symmetric, ab: str, bc: str, ca: str):
         # Erstellen eines CustomGraph-Objekts
         vertices = ["A", "B", "C"]
@@ -150,7 +125,43 @@ class AzureExample(VoiceoverScene):
 
         graph.add(edge_labels)
 
-        return graph.shift(DOWN)
+        return graph.shift(DOWN)    
+
+    def symmetric_vs_asymmetric(self):
+
+        with self.voiceover(text="Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem") as tracker:
+        # Titel
+            title = Text("Symmetrical vs. Asymmetrical", font_size=36)
+            self.play(Write(title))
+            self.wait(1)
+            self.play(FadeOut(title))
+
+        with self.voiceover(text="TSP is called symetrical if the edges between two nodes have the same value in both directions. The graph is then called undirected.") as tracker:
+            # Symmetrisches TSP
+            symm_title = Text("Symmetrical TSP", font_size=24).to_edge(UP, buff=MED_SMALL_BUFF)
+            symm_graph = self.create_graph(is_symmetric=True, ab="36km", bc="50km", ca="41km")
+            self.play(FadeIn(symm_title, symm_graph))
+            self.wait(2)
+            self.play(FadeOut(symm_title, symm_graph))
+
+        with self.voiceover(text="With this assumption it is easier to use heristic approaches because you just have to calculate the distance in one direction.") as tracker:
+            pass
+        
+        with self.voiceover(text="As you can imagine in reality there isn't something like a symetrical TSP. That's why there is also an asymetrical TSP.") as tracker:
+            pass
+
+        with self.voiceover(text="The TSP is called asymetrical if there are two edges between every node and they don't have the same weight. The graph is then called directed.") as tracker:
+            asymm_title = Text("Asymmetrical TSP", font_size=24).to_edge(UP, buff=MED_SMALL_BUFF)
+            asymm_graph = self.create_graph(is_symmetric=False,  ab="36km", bc="50km", ca="41km")
+            self.play(FadeIn(asymm_title, asymm_graph))
+            self.wait(2)
+            self.play(FadeOut(asymm_title, asymm_graph))
+
+        with self.voiceover(text="You can imagine that in reality there are only asymitrical TSPs because the differnce between two cities are never the same in both directions because of the construction of the roads or other obstacles.") as tracker:
+            pass
+
+        with self.voiceover(text="in the following we will consider the TSP as symitrical so it is easier to understand.") as tracker:
+            pass
 
 
     def lower_bound(self):
@@ -176,13 +187,9 @@ class AzureExample(VoiceoverScene):
         with self.voiceover(text="So to gat an idea how good the heristic result is you need to compare it to the lower bound which is easier to calculate then the optimum.") as tracker:
             pass
 
-
-
-
     def christofides_algorithm(self):
-        # Code für die Erklärung des Christofides-Algorithmus
-        # Einschließlich Pseudocode, Animation des Spannbaums usw.
-        pass
+        with self.voiceover(text="") as tracker:
+            pass
 
 
 if __name__ == "__main__":

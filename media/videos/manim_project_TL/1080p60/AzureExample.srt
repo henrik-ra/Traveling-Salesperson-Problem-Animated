@@ -7,66 +7,114 @@ Now we will explain the difference between
 the symmetrical and asymmetrical Traveling Salesman Problem
 
 3
-00:00:05,856 --> 00:00:08,300
-This is the symmetrical one
+00:00:05,856 --> 00:00:10,070
+TSP is called symetrical if the edges between two nodes have the
 
 4
-00:00:09,856 --> 00:00:12,300
-This is the asymmetrical
+00:00:10,170 --> 00:00:14,588
+same value in both directions. The graph is then called undirected.
 
 5
-00:00:13,856 --> 00:00:15,971
-Now we need to point out how to know
+00:00:14,688 --> 00:00:18,374
+With this assumption it is easier to use heristic approaches because
 
 6
-00:00:16,071 --> 00:00:18,556
-if our heristic result is near the optimum
+00:00:18,474 --> 00:00:21,548
+you just have to calculate the distance in one direction.
 
 7
-00:00:18,656 --> 00:00:22,085
-In some business cases there is a treshold given by the supervisor
+00:00:21,648 --> 00:00:25,806
+As you can imagine in reality there isn't something like a
 
 8
-00:00:22,185 --> 00:00:24,812
-so you don't need to know how near the result is to
+00:00:25,906 --> 00:00:30,212
+symetrical TSP. That's why there is also an asymetrical TSP.
 
 9
-00:00:24,912 --> 00:00:27,700
-the optimum but in a theroetic case we want to know it
+00:00:30,298 --> 00:00:33,040
+The TSP is called asymetrical if there are two
 
 10
-00:00:27,789 --> 00:00:31,662
-As we know to determine the optimum is not economically sensible so
+00:00:33,140 --> 00:00:36,006
+edges between every node and they don't have the
 
 11
-00:00:31,762 --> 00:00:34,745
-we need to find an other value to measure our result
+00:00:36,106 --> 00:00:38,910
+same weight. The graph is then called directed.
 
 12
-00:00:34,839 --> 00:00:37,499
-This value is the lower bound
+00:00:38,998 --> 00:00:42,738
+You can imagine that in reality there are only asymitrical TSPs because
 
 13
-00:00:37,599 --> 00:00:40,047
-The lower bound is the value of the sum from
+00:00:42,838 --> 00:00:46,524
+the differnce between two cities are never the same in both directions
 
 14
-00:00:40,147 --> 00:00:42,827
-every weight of edge in a minimum spanning tree.
+00:00:46,624 --> 00:00:49,770
+because of the construction of the roads or other obstacles.
 
 15
-00:00:42,927 --> 00:00:45,436
-This value is lower then the optimum but
+00:00:49,870 --> 00:00:52,583
+in the following we will consider the TSP
 
 16
-00:00:45,536 --> 00:00:47,459
-in many cases very close to it.
+00:00:52,683 --> 00:00:55,602
+as symitrical so it is easier to understand.
 
 17
-00:00:47,559 --> 00:00:50,900
-So to gat an idea how good the heristic result is you need to
+00:00:55,702 --> 00:00:57,817
+Now we need to point out how to know
 
 18
-00:00:51,000 --> 00:00:55,187
+00:00:57,917 --> 00:01:00,402
+if our heristic result is near the optimum
+
+19
+00:01:00,502 --> 00:01:03,931
+In some business cases there is a treshold given by the supervisor
+
+20
+00:01:04,031 --> 00:01:06,658
+so you don't need to know how near the result is to
+
+21
+00:01:06,758 --> 00:01:09,546
+the optimum but in a theroetic case we want to know it
+
+22
+00:01:09,635 --> 00:01:13,508
+As we know to determine the optimum is not economically sensible so
+
+23
+00:01:13,608 --> 00:01:16,591
+we need to find an other value to measure our result
+
+24
+00:01:16,691 --> 00:01:19,351
+This value is the lower bound
+
+25
+00:01:19,451 --> 00:01:21,899
+The lower bound is the value of the sum from
+
+26
+00:01:21,999 --> 00:01:24,679
+every weight of edge in a minimum spanning tree.
+
+27
+00:01:24,779 --> 00:01:27,288
+This value is lower then the optimum but
+
+28
+00:01:27,388 --> 00:01:29,311
+in many cases very close to it.
+
+29
+00:01:29,411 --> 00:01:32,752
+So to gat an idea how good the heristic result is you need to
+
+30
+00:01:32,852 --> 00:01:37,039
 compare it to the lower bound which is easier to calculate then the optimum.
 
