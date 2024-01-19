@@ -239,46 +239,54 @@ route. At the end the algorithm will have found the best
 route. In this example it is the first route.
 
 61
-00:04:08,250 --> 00:04:11,792
-Let's take a look now at the time complexity of the branch
+00:04:08,250 --> 00:04:11,352
+Let's take a look now at the time complexity of the
 
 62
-00:04:11,892 --> 00:04:16,376
-and bound method. As you can see, the algorithm calculates every possible
+00:04:11,452 --> 00:04:16,251
+branch and bound method. As explained, the algorithm calculates every possible
 
 63
-00:04:16,476 --> 00:04:20,584
-route. But as we have seen before, the algorithm can discard routes
+00:04:16,351 --> 00:04:19,768
+route. But as we have seen before, it can discard routes
 
 64
-00:04:20,684 --> 00:04:23,222
+00:04:19,868 --> 00:04:22,406
 that are worse than the best route so far.
 
 65
-00:04:23,316 --> 00:04:26,884
-That means the algorithm does not have to calculate every route
+00:04:22,500 --> 00:04:26,426
+That means the algorithm does not have to calculate every route untill
 
 66
-00:04:26,984 --> 00:04:30,843
-untill the end. Still having to calculate every possible route makes
+00:04:26,526 --> 00:04:30,568
+the end. Still having to calculate every possible route makes the branch
 
 67
-00:04:30,943 --> 00:04:34,394
-the branch and bound method very time consuming. In the worst
+00:04:30,668 --> 00:04:34,538
+and bound method very time consuming. In the worst case the algorithm
 
 68
-00:04:34,494 --> 00:04:38,120
-case the algorithm has to calculate every possible route and the
+00:04:34,638 --> 00:04:38,277
+has to calculate every possible route untill the end and the time
 
 69
-00:04:38,220 --> 00:04:41,264
-time complexity is the same as the brute force method.
+00:04:38,377 --> 00:04:41,096
+complexity is the same as the brute force method.
 
 70
-00:04:41,350 --> 00:04:44,545
-However the algorithm performs very well in practice and
+00:04:41,183 --> 00:04:44,621
+However the algorithm performs very well in practice and it is
 
 71
-00:04:44,645 --> 00:04:47,370
-it is mostly better than the brute force method.
+00:04:44,721 --> 00:04:48,159
+mostly better than the brute force method. For that reason the
+
+72
+00:04:48,259 --> 00:04:51,753
+time complexity of the branch and bound method is mostly better
+
+73
+00:04:51,853 --> 00:04:54,835
+then the brute force algorithm, but still exponential.
 

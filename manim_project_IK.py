@@ -2506,14 +2506,61 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             # self.play(FadeOut(linie1, linie2, linie3, linie4, linie5))
 
 
-        with self.voiceover(text="Let's take a look now at the time complexity of the branch and bound method. As you can see, the algorithm calculates every possible route. But as we have seen before, the algorithm can discard routes that are worse than the best route so far. "):
+        with self.voiceover(text="Let's take a look now at the time complexity of the branch and bound method. As explained, the algorithm calculates every possible route. But as we have seen before, it can discard routes that are worse than the best route so far."):
             self.wait(4)
 
-        with self.voiceover(text="That means the algorithm does not have to calculate every route untill the end. Still having to calculate every possible route makes the branch and bound method very time consuming. In the worst case the algorithm has to calculate every possible route and the time complexity is the same as the brute force method."):
-            self.wait(4)
+        with self.voiceover(text="That means the algorithm does not have to calculate every route untill the end. Still having to calculate every possible route makes the branch and bound method very time consuming. In the worst case the algorithm has to calculate every possible route untill the end and the time complexity is the same as the brute force method."):
+            self.play(
+                *[FadeOut(mob)for mob in self.mobjects]
+            )
 
-        with self.voiceover(text="However the algorithm performs very well in practice and it is mostly better than the brute force method."):
-            self.wait(4)
+            self.play(Restore(self.camera.frame))
+
+            self.wait(5)
+            
+            axes = Axes(
+                x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
+                y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+                y_length=5,
+                x_length=8,
+                tips=False,  
+                axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+            )
+
+                # Hinzufügen der Achsen und des Graphen zur Szene
+            self.add(axes)
+            # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
+            self.wait()  # Warten am Ende der Animation
+
+            bold_template = TexTemplate()
+            bold_template.add_to_preamble(r"\usepackage{bm}")
+
+            def plot_function(function, color, label, position=RIGHT, range=[0,20]):
+                function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
+                return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+
+
+            self.wait(5)
+            # exponential
+            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+            self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(exp_tag))
+
+            # diagram = VGroup(axes, exp_tag, exp)
+
+            # self.wait(2)
+            # self.play(diagram.animate.shift(LEFT*2).scale(0.6))
+            # self.wait(2)
+            # self.play(FadeOut(axes), FadeOut(exp, exp_tag))
+            # self.wait(2)
+
+        with self.voiceover(text="However the algorithm performs very well in practice and it is mostly better than the brute force method. For that reason the time complexity of the branch and bound method is mostly better then the brute force algorithm, but still exponential."):
+            self.wait(3)
+            # exponential but a little bit faster
+            exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^(n-1))}$", position=RIGHT, range=[0,9.229])
+            self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(exp2_tag))
+
 
         
 
