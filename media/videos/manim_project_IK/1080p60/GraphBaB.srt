@@ -15,190 +15,270 @@ example. Again we have a set of cities and need to
 find the shortest possible route visiting each city exactly once.
 
 5
-00:00:18,000 --> 00:00:22,200
+00:00:20,000 --> 00:00:24,200
 The Branch-and-Bound method begins by constructing a tree of
 
 6
-00:00:22,300 --> 00:00:25,856
+00:00:24,300 --> 00:00:27,856
 all possibilities. First we need a Graph. Let's use
 
 7
-00:00:25,956 --> 00:00:28,508
+00:00:27,956 --> 00:00:30,508
 the same graph and start at node one.
 
 8
-00:00:28,600 --> 00:00:34,066
+00:00:31,000 --> 00:00:36,466
 Now we have to look at the next possible nodes. In this case we
 
 9
-00:00:34,166 --> 00:00:38,484
+00:00:36,566 --> 00:00:40,884
 have four options. We can go to node 2, 3, 4 or 5.
 
 10
-00:00:39,600 --> 00:00:43,256
+00:00:42,000 --> 00:00:45,656
 At the same time we can tranform the graph on the right to
 
 11
-00:00:43,356 --> 00:00:46,947
+00:00:45,756 --> 00:00:49,347
 a tree with node one as the root. This tree will show all
 
 12
-00:00:47,047 --> 00:00:52,258
+00:00:49,447 --> 00:00:54,658
 the possible routes that the salesperson can use. As explained, starting with node
 
 13
-00:00:52,358 --> 00:00:55,820
+00:00:54,758 --> 00:00:58,220
 one the next possible nodes could be node 2, 3, 4 or 5.
 
 14
-00:00:55,916 --> 00:00:59,306
+00:00:58,316 --> 00:01:01,706
 This would be the first version of the tree. Now we
 
 15
-00:00:59,406 --> 00:01:02,591
+00:01:01,806 --> 00:01:04,991
 have to take a look at the next steps. Let's say
 
 16
-00:01:02,691 --> 00:01:05,944
+00:01:05,091 --> 00:01:08,344
 we choose node 2 as the second node to travel to.
 
 17
-00:01:06,033 --> 00:01:11,021
+00:01:08,433 --> 00:01:13,421
 Starting from node 2, the next options would be node 3, 4 or 5.
 
 18
-00:01:13,033 --> 00:01:17,295
+00:01:15,433 --> 00:01:19,695
 Now we can create the next step at the tree. Again the next
 
 19
-00:01:17,395 --> 00:01:21,213
+00:01:19,795 --> 00:01:23,613
 possible nodes to travel to would be node 3, 4 and 5.
 
 20
-00:01:21,300 --> 00:01:25,530
+00:01:23,700 --> 00:01:27,930
 Let's continue creating one possible route. We decide to
 
 21
-00:01:25,630 --> 00:01:28,160
+00:01:28,030 --> 00:01:30,560
 travel to node 5 as our next city.
 
 22
-00:01:28,250 --> 00:01:32,233
+00:01:30,650 --> 00:01:34,633
 Starting from node 5, there are two cities left that
 
 23
-00:01:32,333 --> 00:01:35,374
+00:01:34,733 --> 00:01:37,774
 have not been visited yet. Node 3 and 4.
 
 24
-00:01:35,466 --> 00:01:39,950
+00:01:37,866 --> 00:01:42,350
 Let's go back to the tree and add the last two options, node 3 and 4
 
 25
-00:01:43,366 --> 00:01:46,626
+00:01:45,766 --> 00:01:49,026
 This time we choose node 3 as the next city.
 
 26
-00:01:48,366 --> 00:01:52,826
+00:01:50,766 --> 00:01:55,226
 As you can see the last city, that we have not visited is city 4.
 
 27
-00:01:52,916 --> 00:01:58,480
+00:01:55,316 --> 00:02:00,880
 Let's also add node 4 in the tree. Now we have visited every city.
 
 28
-00:01:58,566 --> 00:02:02,269
+00:02:00,966 --> 00:02:04,669
 At the end we have to travel to the city where we started
 
 29
-00:02:02,369 --> 00:02:06,338
+00:02:04,769 --> 00:02:08,738
 the tour. Let's finish our route by traveling back to city 1.
 
 30
-00:02:06,433 --> 00:02:08,721
+00:02:08,833 --> 00:02:11,121
 Now we can also finish our route on the
 
 31
-00:02:08,821 --> 00:02:11,109
+00:02:11,221 --> 00:02:13,509
 tree by adding node 1 as our last node.
 
 32
-00:02:11,200 --> 00:02:14,191
+00:02:13,600 --> 00:02:16,591
 As you can see this is one possible route and
 
 33
-00:02:14,291 --> 00:02:18,108
+00:02:16,691 --> 00:02:20,508
 the tree is not complete. Let's create the complete tree.
 
 34
-00:02:21,200 --> 00:02:25,449
+00:02:23,600 --> 00:02:27,849
 This tree shows every possible route, if you start from node one. Here
 
 35
-00:02:25,549 --> 00:02:29,053
+00:02:27,949 --> 00:02:31,453
 we can now see that there are 24 possible routes to get to
 
 36
-00:02:29,153 --> 00:02:32,595
+00:02:31,553 --> 00:02:34,995
 the last node. But is you take a closer look at the first
 
 37
-00:02:32,695 --> 00:02:36,572
+00:02:35,095 --> 00:02:38,972
 and last route, you can see that the routes are identical, if we
 
 38
-00:02:36,672 --> 00:02:40,735
+00:02:39,072 --> 00:02:43,135
 have a symmetrical TSP. That means if we have a symmetrical TSP, as
 
 39
-00:02:40,835 --> 00:02:43,780
+00:02:43,235 --> 00:02:46,180
 in our example, we can ignore half of the routes.
 
 40
-00:02:44,366 --> 00:02:48,586
-Here we can also visualize which route we took in the first example.
+00:02:46,266 --> 00:02:49,334
+Let's blur out the routes that we can ignore.
 
 41
-00:02:48,683 --> 00:02:53,027
-After having created a tree for every possible route, the branch and bound method
+00:02:51,433 --> 00:02:55,653
+Here we can also visualize which route we took in the first example.
 
 42
-00:02:53,127 --> 00:02:56,978
-calculates the cost for every route and compares it to the best route so
+00:02:55,933 --> 00:03:00,277
+After having created a tree for every possible route, the branch and bound method
 
 43
-00:02:57,078 --> 00:03:00,490
-far. If the cost of the current route is higher than the cost of
+00:03:00,377 --> 00:03:04,228
+calculates the cost for every route and compares it to the best route so
 
 44
-00:03:00,590 --> 00:03:03,727
-the best route so far, the current route will be discarded.
+00:03:04,328 --> 00:03:07,740
+far. If the cost of the current route is higher than the cost of
 
 45
-00:03:03,816 --> 00:03:08,537
-Let's take a look at an example. Lets say the algorithm calculated
+00:03:07,840 --> 00:03:10,977
+the best route so far, the current route will be discarded.
 
 46
-00:03:08,637 --> 00:03:12,116
-our route first with the cost of 15. As it is the
+00:03:11,066 --> 00:03:15,787
+Let's take a look at an example. Lets say the algorithm calculated
 
 47
-00:03:12,216 --> 00:03:15,476
-first route, it is also the best route so far.
+00:03:15,887 --> 00:03:19,366
+our route first with the cost of 15. As it is the
 
 48
-00:03:15,566 --> 00:03:20,183
-Next, the algorithm calculates the route on the left. The cost of this
+00:03:19,466 --> 00:03:22,726
+first route, it is also the best route so far.
 
 49
-00:03:20,283 --> 00:03:24,158
-route is 12. As this route is better than the best route so
+00:03:24,066 --> 00:03:28,285
+Next, the algorithm calculates the route on the left. The cost
 
 50
-00:03:24,258 --> 00:03:28,066
-far, the best route so far will be replaced by this route.
+00:03:28,385 --> 00:03:31,698
+of this route is 12. As this route is better than
 
 51
-00:03:28,150 --> 00:03:31,866
-Next, the algorithm calculates the next route.
+00:03:31,798 --> 00:03:35,390
+the best route so far, it becomes the new best route.
+
+52
+00:03:35,616 --> 00:03:39,302
+Now the algorithm calculates the next route. In our
+
+53
+00:03:39,402 --> 00:03:42,716
+example it will be the seventh possible route.
+
+54
+00:03:42,800 --> 00:03:46,628
+In this route the algorithm realizes at the third node that the added
+
+55
+00:03:46,728 --> 00:03:49,987
+costs are at 14. Since the cost of the route till the third
+
+56
+00:03:50,087 --> 00:03:53,915
+node is already higher than the cost of the best route, the algorithm
+
+57
+00:03:54,015 --> 00:03:57,388
+can discard this route without calculating it untill the end.
+
+58
+00:03:57,483 --> 00:04:01,314
+This way of calculating the best route is applied to every
+
+59
+00:04:01,414 --> 00:04:05,109
+route. At the end the algorithm will have found the best
+
+60
+00:04:05,209 --> 00:04:08,159
+route. In this example it is the first route.
+
+61
+00:04:08,250 --> 00:04:11,792
+Let's take a look now at the time complexity of the branch
+
+62
+00:04:11,892 --> 00:04:16,376
+and bound method. As you can see, the algorithm calculates every possible
+
+63
+00:04:16,476 --> 00:04:20,584
+route. But as we have seen before, the algorithm can discard routes
+
+64
+00:04:20,684 --> 00:04:23,222
+that are worse than the best route so far.
+
+65
+00:04:23,316 --> 00:04:26,884
+That means the algorithm does not have to calculate every route
+
+66
+00:04:26,984 --> 00:04:30,843
+untill the end. Still having to calculate every possible route makes
+
+67
+00:04:30,943 --> 00:04:34,394
+the branch and bound method very time consuming. In the worst
+
+68
+00:04:34,494 --> 00:04:38,120
+case the algorithm has to calculate every possible route and the
+
+69
+00:04:38,220 --> 00:04:41,264
+time complexity is the same as the brute force method.
+
+70
+00:04:41,350 --> 00:04:44,545
+However the algorithm performs very well in practice and
+
+71
+00:04:44,645 --> 00:04:47,370
+it is mostly better than the brute force method.
 

@@ -34,6 +34,11 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
         # edges = [(1, 2), (2, 3), (3, 4), (2, 4), (2, 5), (6, 5),
         #          (1, 7), (5, 7), (2, 8), (1, 9)]
         edges = [(1,2), (2,3), (3,4), (4,5), (5,1)]
+        linie1 =Line(LEFT*2, RIGHT*2)
+        linie2 =Line(LEFT*2, RIGHT*2)
+        linie3 =Line(LEFT*2, RIGHT*2)
+        linie4 =Line(LEFT*2, RIGHT*2)
+        linie5 =Line(LEFT*2, RIGHT*2)
 
         def create_edge_from_vertex_centers(graph, start_node, end_node, buffer=0.32):
             # Berechnung der Richtung der Linie
@@ -46,6 +51,46 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             edge = Line(start_point, end_point)
             edge.set_stroke(GREY, width=3)
             return edge
+        
+        def draw_line (node1, node2, node3, node4, node5, node6, color):
+            kreis1 = Circle(color=color, radius=0.5)
+            kreis1.surround(node1)
+
+            kreis2 = Circle(color=color, radius=0.6)
+            kreis2.surround(node2)
+
+            kreis3 = Circle(color=color)
+            kreis3.surround(node3)
+
+            kreis4 = Circle(color=color)
+            kreis4.surround(node4)
+
+            kreis5 = Circle(color=color, radius=0.7)
+            kreis5.surround(node5)
+
+            kreis6 = Circle(color=color)
+            kreis6.surround(node6)
+
+            linie1 = Line(kreis1.get_center(), kreis2.get_center(), buff=0.3)
+            linie1.set_stroke(color)
+
+            linie2 = Line(kreis2.get_center(), kreis3.get_center(), buff=0.3)
+            linie2.set_stroke(color)
+
+            linie3 = Line(kreis3.get_center(), kreis4.get_center(), buff=0.3)
+            linie3.set_stroke(color)
+
+            linie4 = Line(kreis4.get_center(), kreis5.get_center(), buff=0.3)
+            linie4.set_stroke(color)
+
+            linie5 = Line(kreis5.get_center(), kreis6.get_center(), buff=0.3)
+            linie5.set_stroke(color)
+
+            self.play(Create(linie1), run_time = 0.5)
+            self.play(Create(linie2), run_time = 0.5)
+            self.play(Create(linie3), run_time = 0.5)
+            self.play(Create(linie4), run_time = 0.5)
+            self.play(Create(linie5), run_time = 0.5)
 
 
         with self.voiceover(text="Another way of solving the TSP is with the help of the branch and bound method. Let's start with a simple TSP example. Again we have a set of cities and need to find the shortest possible route visiting each city exactly once.") as tracker:
@@ -67,7 +112,7 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             # Add and animate the labels
             self.add(labels)
             self.play(FadeIn(labels), run_time=0.5)
-            self.wait(2)
+            self.wait(4)
 
             for edge in graph.get_edges_with_initial_opacity_zero():
                 self.play(edge.animate.set_opacity(1), run_time=0.5)
@@ -92,7 +137,7 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             
             self.wait(1.5)
             self.play(FadeOut(bab_text))
-            self.wait(3)
+            self.wait(4)
 
             graph2 = CustomGraph(vertices, edges).shift(RIGHT * 4)
 
@@ -2156,19 +2201,16 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Create(linie2_zw_5_4), run_time=0.5)
             self.play(Create(linie2_zw_1_5), run_time=0.5)
             
-            
-            
-            
+            self.wait(5)
 
-            self.wait(2)
+            # self.play(FadeOut(linie_zw_1_2), run_time=0.5)
+            # self.play(FadeOut(linie_zw_2_3), run_time=0.5)
+            # self.play(FadeOut(linie_zw_3_4), run_time=0.5)
+            # self.play(FadeOut(linie_zw_4_5), run_time=0.5)
+            # self.play(FadeOut(linie_zw_5_1), run_time=0.5)
 
-            self.play(FadeOut(linie_zw_1_2), run_time=0.5)
-            self.play(FadeOut(linie_zw_2_3), run_time=0.5)
-            self.play(FadeOut(linie_zw_3_4), run_time=0.5)
-            self.play(FadeOut(linie_zw_4_5), run_time=0.5)
-            self.play(FadeOut(linie_zw_5_1), run_time=0.5)
-
-            self.play(FadeOut(linie2_zw_1_5, linie2_zw_5_4, linie2_zw_4_3, linie2_zw_3_2, linie2_zw_2_1), run_time=0.5)
+            self.play(FadeOut(linie_zw_1_2, linie_zw_2_3, linie_zw_3_4, linie_zw_4_5, linie_zw_5_1), run_time=1)
+            self.play(FadeOut(linie2_zw_1_5, linie2_zw_5_4, linie2_zw_4_3, linie2_zw_3_2, linie2_zw_2_1), run_time=1)
 
         kreis1 = Circle(color=RED, radius=0.5)
         kreis1.set_fill(RED, opacity=1.0)
@@ -2218,14 +2260,19 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
         kreis12.set_fill(RED, opacity=1.0)
         kreis12.surround(graph6_24.vertices[1])
 
-        self.play(Create(kreis1), Create(kreis2),Create(kreis3),Create(kreis4), Create(kreis5),  Create(kreis6), Create(kreis7), Create(kreis8), Create(kreis9), Create(kreis10), Create(kreis11), Create(kreis12), run_time=0.5)
+        with self.voiceover(text="Let's blur out the routes that we can ignore."):
+
+            self.wait(2)
+            self.play(Create(kreis1), Create(kreis2),Create(kreis3),Create(kreis4), Create(kreis5),  Create(kreis6), Create(kreis7), Create(kreis8), Create(kreis9), Create(kreis10), Create(kreis11), Create(kreis12), run_time=0.5)
   
 
-
+        self.wait(2)
 
 
 
         with self.voiceover(text="Here we can also visualize which route we took in the first example."):
+
+            self.wait(2)
 
             # red line from node one to node two, then node two to node 5, then node 5 to node 3, then to node 4, then to node 1
             kreis_um_1 = Circle(color=RED, radius=0.5)
@@ -2268,20 +2315,19 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Create(linie_zw_3_4), run_time=0.5)
             self.play(Create(linie_zw_4_1), run_time=0.5)
 
-            
 
 
         with self.voiceover(text="After having created a tree for every possible route, the branch and bound method calculates the cost for every route and compares it to the best route so far. If the cost of the current route is higher than the cost of the best route so far, the current route will be discarded."):
             self.wait(6)
 
         with self.voiceover(text="Let's take a look at an example. Lets say the algorithm calculated our route first with the cost of 15. As it is the first route, it is also the best route so far."):
-            self.wait(4)
+            self.wait(6)
 
             number15 = Text("15", font_size=30)
             number15.next_to(graph6_5.vertices[1], DOWN, buff=1)
             self.play(FadeIn(number15), run_time=0.5)
 
-            self.wait(2)
+            self.wait(4)
 
             linie_zw_1_2_o = Line(kreis_um_1.get_center(), kreis_um_2.get_center(), buff=0.3)
             linie_zw_1_2_o.set_stroke(YELLOW)
@@ -2304,9 +2350,13 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             self.play(Create(linie_zw_3_4_o), run_time=0.5)
             self.play(Create(linie_zw_4_1_o), run_time=0.5)
 
-        with self.voiceover(text="Next, the algorithm calculates the route on the left. The cost of this route is 12. As this route is better than the best route so far, the best route so far will be replaced by this route."):
+            self.play(FadeOut(linie_zw_1_2, linie_zw_2_5,linie_zw_5_3, linie_zw_3_4, linie_zw_4_1), run_time=0)
+
+        with self.voiceover(text="Next, the algorithm calculates the route on the left. The cost of this route is 12. As this route is better than the best route so far, it becomes the new best route."):
 
 
+            self.wait(2)
+            
             kreis_um_1 = Circle(color=RED, radius=0.5)
             kreis_um_1.surround(graph1_1.vertices[1])
 
@@ -2326,59 +2376,146 @@ class GraphBaB(MovingCameraScene, VoiceoverScene):
             kreis_um_1_2.surround(graph6_1.vertices[1])
 
             # rote Linien zw Kreisen für Route
-            linie_zw_1_2 = Line(kreis_um_1.get_center(), kreis_um_2.get_center(), buff=0.3)
-            linie_zw_1_2.set_stroke(RED)
+            linie2_zw_1_2 = Line(kreis_um_1.get_center(), kreis_um_2.get_center(), buff=0.3)
+            linie2_zw_1_2.set_stroke(RED)
 
-            linie_zw_2_3 = Line(kreis_um_2.get_center(), kreis_um_3.get_center(), buff=0.3)
-            linie_zw_2_3.set_stroke(RED)
+            linie2_zw_2_3 = Line(kreis_um_2.get_center(), kreis_um_3.get_center(), buff=0.3)
+            linie2_zw_2_3.set_stroke(RED)
 
-            linie_zw_3_4 = Line(kreis_um_3.get_center(), kreis_um_4.get_center(), buff=0.3)
-            linie_zw_3_4.set_stroke(RED)
+            linie2_zw_3_4 = Line(kreis_um_3.get_center(), kreis_um_4.get_center(), buff=0.3)
+            linie2_zw_3_4.set_stroke(RED)
 
-            linie_zw_4_5 = Line(kreis_um_4.get_center(), kreis_um_5.get_center(), buff=0.3)
-            linie_zw_4_5.set_stroke(RED)
+            linie2_zw_4_5 = Line(kreis_um_4.get_center(), kreis_um_5.get_center(), buff=0.3)
+            linie2_zw_4_5.set_stroke(RED)
 
-            linie_zw_5_1 = Line(kreis_um_5.get_center(), kreis_um_1_2.get_center(), buff=0.3)
-            linie_zw_5_1.set_stroke(RED)
+            linie2_zw_5_1 = Line(kreis_um_5.get_center(), kreis_um_1_2.get_center(), buff=0.3)
+            linie2_zw_5_1.set_stroke(RED)
 
-            self.play(Create(linie_zw_1_2), run_time=0.5)
-            self.play(Create(linie_zw_2_3), run_time=0.5)
-            self.play(Create(linie_zw_3_4), run_time=0.5)
-            self.play(Create(linie_zw_4_5), run_time=0.5)
-            self.play(Create(linie_zw_5_1), run_time=0.5)
+            self.play(Create(linie2_zw_1_2), run_time=0.5)
+            self.play(Create(linie2_zw_2_3), run_time=0.5)
+            self.play(Create(linie2_zw_3_4), run_time=0.5)
+            self.play(Create(linie2_zw_4_5), run_time=0.5)
+            self.play(Create(linie2_zw_5_1), run_time=0.5)
 
-            self.play(FadeOut(linie_zw_1_2_o), run_time=0.5)
-            self.play(FadeOut(linie_zw_2_5_o), run_time=0.5)
-            self.play(FadeOut(linie_zw_5_3_o), run_time=0.5)
-            self.play(FadeOut(linie_zw_3_4_o), run_time=0.5)
-            self.play(FadeOut(linie_zw_4_1_o), run_time=0.5)
+            number12 = Text("12", font_size=30)
+            number12.next_to(graph6_1.vertices[1], DOWN, buff=1)
+            self.play(FadeIn(number12), run_time=0.5)
 
 
 
-            linie_zw_1_2_o = Line(kreis_um_1.get_center(), kreis_um_2.get_center(), buff=0.3)
-            linie_zw_1_2_o.set_stroke(ORANGE)
 
-            linie_zw_2_3_o = Line(kreis_um_2.get_center(), kreis_um_3.get_center(), buff=0.3)
-            linie_zw_2_3_o.set_stroke(ORANGE)
 
-            linie_zw_3_4_o = Line(kreis_um_3.get_center(), kreis_um_4.get_center(), buff=0.3)
-            linie_zw_3_4_o.set_stroke(ORANGE)
+            linie2_zw_1_2_o = Line(kreis_um_1.get_center(), kreis_um_2.get_center(), buff=0.3)
+            linie2_zw_1_2_o.set_stroke(YELLOW)
 
-            linie_zw_4_5_o = Line(kreis_um_4.get_center(), kreis_um_5.get_center(), buff=0.3)
-            linie_zw_4_5_o.set_stroke(ORANGE)
+            linie2_zw_2_3_o = Line(kreis_um_2.get_center(), kreis_um_3.get_center(), buff=0.3)
+            linie2_zw_2_3_o.set_stroke(YELLOW)
 
-            linie_zw_5_1_o = Line(kreis_um_5.get_center(), kreis_um_1_2.get_center(), buff=0.3)
-            linie_zw_5_1_o.set_stroke(ORANGE)
+            linie2_zw_3_4_o = Line(kreis_um_3.get_center(), kreis_um_4.get_center(), buff=0.3)
+            linie2_zw_3_4_o.set_stroke(YELLOW)
 
-            self.play(Create(linie_zw_1_2_o), run_time=0.5)
-            self.play(Create(linie_zw_2_3_o), run_time=0.5)
-            self.play(Create(linie_zw_3_4_o), run_time=0.5)
-            self.play(Create(linie_zw_4_5_o), run_time=0.5)
-            self.play(Create(linie_zw_5_1_o), run_time=0.5)
+            linie2_zw_4_5_o = Line(kreis_um_4.get_center(), kreis_um_5.get_center(), buff=0.3)
+            linie2_zw_4_5_o.set_stroke(YELLOW)
 
-        with self.voiceover(text="Next, the algorithm calculates the next route. "):
+            linie2_zw_5_1_o = Line(kreis_um_5.get_center(), kreis_um_1_2.get_center(), buff=0.3)
+            linie2_zw_5_1_o.set_stroke(YELLOW)
+
+            self.wait(1)
+
+            self.play(FadeOut(linie_zw_1_2_o, linie_zw_2_5_o, linie_zw_5_3_o, linie_zw_3_4_o, linie_zw_4_1_o), run_time=0.5)
+            self.play(FadeOut(linie2_zw_1_2, linie2_zw_2_3, linie2_zw_3_4, linie2_zw_4_5, linie2_zw_5_1), run_time=0.05)
+            self.play(FadeOut(number15), run_time=0.5)
+
             self.wait(2)
+
+            self.play(Create(linie2_zw_1_2_o), run_time=0.5)
+            self.play(Create(linie2_zw_2_3_o), run_time=0.5)
+            self.play(Create(linie2_zw_3_4_o), run_time=0.5)
+            self.play(Create(linie2_zw_4_5_o), run_time=0.5)
+            self.play(Create(linie2_zw_5_1_o), run_time=0.5)
+
+        with self.voiceover(text="Now the algorithm calculates the next route. In our example it will be the seventh possible route."):
+            self.wait(2)
+
+
+
+            kreis2_um_1 = Circle(color=RED, radius=0.5)
+            kreis2_um_1.surround(graph1_1.vertices[1])
+
+            kreis2_um_2 = Circle(color=RED, radius=0.6)
+            kreis2_um_2.surround(graph2_1.vertices[3])
+
+            kreis2_um_3 = Circle(color=RED)
+            kreis2_um_3.surround(graph3_2.vertices[2])
+
+            kreis2_um_4 = Circle(color=RED)
+            kreis2_um_4.surround(graph4_4.vertices[4])
+
+            kreis2_um_5 = Circle(color=RED, radius=0.7)
+            kreis2_um_5.surround(graph5_7.vertices[5])
+
+            kreis2_um_1_2 = Circle(color=RED)
+            kreis2_um_1_2.surround(graph6_7.vertices[1])
+
+            # rote Linien zw Kreisen für Route
+            linie3_zw_1_2 = Line(kreis2_um_1.get_center(), kreis2_um_2.get_center(), buff=0.3)
+            linie3_zw_1_2.set_stroke(RED)
+
+            linie3_zw_2_3 = Line(kreis2_um_2.get_center(), kreis2_um_3.get_center(), buff=0.3)
+            linie3_zw_2_3.set_stroke(RED)
+
+            linie3_zw_3_4 = Line(kreis2_um_3.get_center(), kreis2_um_4.get_center(), buff=0.3)
+            linie3_zw_3_4.set_stroke(RED)
+
+            linie3_zw_4_5 = Line(kreis2_um_4.get_center(), kreis2_um_5.get_center(), buff=0.3)
+            linie3_zw_4_5.set_stroke(RED)
+
+            linie3_zw_5_1 = Line(kreis2_um_5.get_center(), kreis2_um_1_2.get_center(), buff=0.3)
+            linie3_zw_5_1.set_stroke(RED)
+
+            # self.play(Create(linie3_zw_1_2), run_time=0.5)
+            # self.play(Create(linie3_zw_2_3), run_time=0.5)
+            # self.play(Create(linie3_zw_3_4), run_time=0.5)
+            # self.play(Create(linie3_zw_4_5), run_time=0.5)
+            # self.play(Create(linie3_zw_5_1), run_time=0.5)
+
+        with self.voiceover(text="In this route the algorithm realizes at the third node that the added costs are at 14. Since the cost of the route till the third node is already higher than the cost of the best route, the algorithm can discard this route without calculating it untill the end."):
             
+            self.play(Create(linie3_zw_1_2), run_time=0.5)
+            self.play(Create(linie3_zw_2_3), run_time=0.5)
+            
+            number14 = Text("14", font_size=30)
+            number14.next_to(graph3_2.vertices[2], LEFT*0.5, buff=1)
+            self.play(FadeIn(number14), run_time=0.5)
+
+            self.wait(4)
+
+            self.play(FadeOut(linie3_zw_1_2, linie3_zw_2_3, linie3_zw_3_4), run_time=0.5)
+
+        
+        with self.voiceover(text="This way of calculating the best route is applied to every route. At the end the algorithm will have found the best route. In this example it is the first route."):
+            self.play(FadeOut(number14, number12, linie2_zw_1_2_o, linie2_zw_2_3_o, linie2_zw_3_4_o, linie2_zw_4_5_o, linie2_zw_5_1_o), run_time=0.5)
+            # draw_line(graph1_1.vertices[1], graph2_1.vertices[2], graph3_1.vertices[3], graph4_1.vertices[4], graph5_1.vertices[5], graph6_1.vertices[1], RED)
+            # draw_line(graph1_1.vertices[1], graph2_1.vertices[3], graph3_2.vertices[2], graph4_4.vertices[4], graph5_7.vertices[5], graph6_7.vertices[1], RED)
+            self.wait(4)
+            self.play(Create(linie2_zw_1_2_o), run_time=0.5)
+            self.play(Create(linie2_zw_2_3_o), run_time=0.5)
+            self.play(Create(linie2_zw_3_4_o), run_time=0.5)
+            self.play(Create(linie2_zw_4_5_o), run_time=0.5)
+            self.play(Create(linie2_zw_5_1_o), run_time=0.5)
+            # self.play(FadeOut(linie1, linie2, linie3, linie4, linie5))
+
+
+        with self.voiceover(text="Let's take a look now at the time complexity of the branch and bound method. As you can see, the algorithm calculates every possible route. But as we have seen before, the algorithm can discard routes that are worse than the best route so far. "):
+            self.wait(4)
+
+        with self.voiceover(text="That means the algorithm does not have to calculate every route untill the end. Still having to calculate every possible route makes the branch and bound method very time consuming. In the worst case the algorithm has to calculate every possible route and the time complexity is the same as the brute force method."):
+            self.wait(4)
+
+        with self.voiceover(text="However the algorithm performs very well in practice and it is mostly better than the brute force method."):
+            self.wait(4)
+
+        
 
 
 
