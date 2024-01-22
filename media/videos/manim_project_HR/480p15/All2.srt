@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,692
+The Problem to find the shortest way between multiple points
+
+2
+00:00:03,792 --> 00:00:07,674
+is called the Traveling Salesperson Problem (TSP). Alex goal is
+
+3
+00:00:07,774 --> 00:00:10,772
+to keep the distance traveled as low as possible.
+
+4
+00:00:10,866 --> 00:00:15,419
+There are 2 main conditions: He needs to visit every destination once.
+
+5
+00:00:15,519 --> 00:00:20,006
+starting from a particular one and returning to the same destination.
+

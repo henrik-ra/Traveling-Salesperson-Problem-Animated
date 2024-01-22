@@ -1,0 +1,84 @@
+1
+00:00:00,000 --> 00:00:02,943
+Welcome back guys! Today, we're diving
+
+2
+00:00:03,043 --> 00:00:06,068
+into the Traveling Salesperson Problem.
+
+3
+00:00:06,133 --> 00:00:08,907
+Imagine we have a traveling salesperson - tasked
+
+4
+00:00:09,007 --> 00:00:11,601
+with selling your products in various cities.
+
+5
+00:00:11,666 --> 00:00:15,430
+This guy is Alex, a salesperson with a big challenge.
+
+6
+00:00:15,466 --> 00:00:19,313
+Alex has to sell products in various cities and wants to take
+
+7
+00:00:19,413 --> 00:00:23,259
+the shortest route to save time. But how does Alex figure out
+
+8
+00:00:23,359 --> 00:00:27,270
+the best route? Let's dive in and help Alex solve this puzzle.
+
+9
+00:00:27,333 --> 00:00:30,329
+Let's say he needs to visit 4 cities.
+
+10
+00:00:30,400 --> 00:00:34,503
+Sounds straightforward, right? What do you think happens if
+
+11
+00:00:34,603 --> 00:00:37,140
+we add one more city to Alex's route?
+
+12
+00:00:37,200 --> 00:00:40,863
+Of course, if we add more cities it get's more complex. So how
+
+13
+00:00:40,963 --> 00:00:45,476
+do you determine the shortest possible route that connects all these cities?
+
+14
+00:00:45,533 --> 00:00:49,587
+One approach is to try out every possible route. But here lies
+
+15
+00:00:49,687 --> 00:00:53,942
+the problem: Complexity! So, with every new city Alex adds to the
+
+16
+00:00:54,042 --> 00:00:58,633
+trip, the challenge of finding the shortest route grows significantly.
+
+17
+00:00:59,866 --> 00:01:03,831
+The Problem to find the shortest way between multiple points is
+
+18
+00:01:03,931 --> 00:01:08,218
+called the Traveling Salesperson Problem (TSP). Alex goal is to keep
+
+19
+00:01:08,318 --> 00:01:11,959
+the distance traveled as low as possible. There are 2 main
+
+20
+00:01:12,059 --> 00:01:16,411
+conditions: He needs to visit every destination once. starting from a
+
+21
+00:01:16,511 --> 00:01:19,830
+particular one and returning to the same destination.
+
