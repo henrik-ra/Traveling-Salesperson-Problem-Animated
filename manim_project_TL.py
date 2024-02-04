@@ -27,81 +27,153 @@ class AzureExample(VoiceoverScene):
         ) 
 
         # Teil 1: Symmetrisch vs. Asymmetrisch
-        # self.symmetric_vs_asymmetric()
+        self.symmetric_vs_asymmetric()
 
         # Teil 2: Lower Bound 
-        self.lower_bound()
+        # self.lower_bound()
 
         # Teil 3: Christofides-Algorithmus (
         # self.christofides_algorithm()  
 
     def symmetric_vs_asymmetric(self):
-        with self.voiceover(text="Now we will explain the difference between the symmetrical and asymmetrical Traveling Salesman Problem") as tracker:
-        # Create the text parts
-            text_symmetrical = Text("Symmetrical", font_size=36)
-            text_asymmetrical = Text("Asymmetrical", font_size=36)
+        with self.voiceover(text="There are symmetrical and asymmetrical TSPs.") as tracker:
+
+            text_symmetrical = Text("Symmetrical", font_size=36).move_to(LEFT*2)
+            text_asymmetrical = Text("Asymmetrical", font_size=36).move_to(RIGHT*2)
             text_vs = Text("vs", font_size=36)
+  
 
-        # Group the texts
-            title_group = VGroup(text_symmetrical, text_vs, text_asymmetrical).arrange(RIGHT, buff=0.5)
+            self.play(Write(text_symmetrical), Write(text_asymmetrical), Write(text_vs))
 
-        # Position the group at the top center of the screen
-            title_group.to_edge(UP)
-
-        # Write the titles
-            self.play(Write(title_group))
-            self.wait(3)
-
-        # Animate 'Symmetrical' to the center while 'vs' and 'Asymmetrical' fly out to the right
-            self.play(
-                text_symmetrical.animate.move_to(UP * 3),
-                text_vs.animate.shift(RIGHT * 10),
-                text_asymmetrical.animate.shift(RIGHT * 10),
-            )
-            self.wait(1)
-
-        with self.voiceover(text="TSP is called symmetrical if the edges between two nodes have the same value in both directions. The graph is then called undirected.") as tracker:
-            vertices = [1, 2, 3, 4, 5]
-            edges = [(1, 2), (2, 3), (3, 4), (4, 5), (5, 1)]
-
-            graph = CustomGraph(vertices, edges).shift(RIGHT * 0)
-
-            labels = graph.add_labels()
-
-            # Animate the nodes
-            for vertex in graph.vertices.values():
-                self.play(GrowFromCenter(vertex), run_time=0.2)
-            
-            # Add and animate the labels
-            self.add(labels)
-            self.play(FadeIn(labels), run_time=0.5)
-            self.wait(2)
-
-            for edge in graph.get_edges_with_initial_opacity_zero():
-                self.play(edge.animate.set_opacity(1), run_time=0.5)
-
-        #https://www.youtube.com/watch?v=GiDsjIBOVoA
-
-
-        # with self.voiceover(text="With this assumption it is easier to use heristic approaches because you just have to calculate the distance in one direction.") as tracker:
-        #     pass
         
-        # with self.voiceover(text="As you can imagine in reality there isn't something like a symetrical TSP. That's why there is also an asymetrical TSP.") as tracker:
-        #     pass
+        with self.voiceover(text= "First we will explain the symmetrical TSP") as tracker:
+            self.play(
+                text_symmetrical.animate.move_to(ORIGIN).to_edge(UP),
+                FadeOut(text_vs),
+                FadeOut(text_asymmetrical),
+            )
 
-        # with self.voiceover(text="The TSP is called asymetrical if there are two edges between every node and they don't have the same weight. The graph is then called directed.") as tracker:
-        #     asymm_title = Text("Asymmetrical TSP", font_size=24).to_edge(UP, buff=MED_SMALL_BUFF)
-        #     asymm_graph = self.create_graph(is_symmetric=False,  ab="36km", bc="50km", ca="41km")
-        #     self.play(FadeIn(asymm_title, asymm_graph))
-        #     self.wait(2)
-        #     self.play(FadeOut(asymm_title, asymm_graph))
+        with self.voiceover(text="A TSP is called symmetrical, if the edges between two nodes have the same value in both directions. This means the way form one town to another would be exact the same in both directions. This isn't really accurate because of conditions of the landscape or construction sites.") as tracker:
 
-        # with self.voiceover(text="You can imagine that in reality there are only asymitrical TSPs because the differnce between two cities are never the same in both directions because of the construction of the roads or other obstacles.") as tracker:
-        #     pass
+            positions_sym = {
+            0: LEFT * 2 + UP,
+            1: ORIGIN + UP * 2,
+            2: RIGHT * 2 + UP,
+            3: RIGHT  + DOWN,
+            4: LEFT  + DOWN,
+            }
+            # Erstellen des Graphen mit Kanten
+            graph_sym = CustomGraph(list(positions_sym.keys()), [], layout=positions_sym, labels=True)
+            self.play(Create(graph_sym))
 
-        # with self.voiceover(text="in the following we will consider the TSP as symitrical so it is easier to understand.") as tracker:
-        #     pass
+            edges_sym = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)]
 
+            label_offsets_sym = {
+            (0, 1): (LEFT+UP) * 0.2,
+            (1, 2): (UP + RIGHT) * 0.2,
+            (2, 3): (DOWN + RIGHT) * 0.2,
+            (3, 4): DOWN * 0.2,
+            (4, 0): (DOWN+LEFT) * 0.2,
+                }
+            
+            edge_labels_sym = ["4", "3", "7", "8", "5"]
+            line_positions_sym = {
+            (0, 1): (positions_sym[0] + RIGHT * 0.2 + UP * 0.2, positions_sym[1] + 0.1* DOWN+LEFT * 0.3),
+            (1, 2): (positions_sym[1] + RIGHT * 0.3 + DOWN * 0.1, positions_sym[2] + 0.2* UP+LEFT * 0.2),
+            (2, 3): (positions_sym[2] + DOWN * 0.3, positions_sym[3] + UP * 0.3 + RIGHT * 0.1),
+            (3, 4): (positions_sym[3] + LEFT * 0.3, positions_sym[4] + RIGHT * 0.3),
+            (4, 0): (positions_sym[4] + LEFT * 0.1 + UP * 0.3, positions_sym[0] + DOWN * 0.3),
+                }
+
+            
+        
+            lines_and_labels_sym = VGroup()
+            # Linien für jede Kante und Labels erstellen
+            for i, edge in enumerate(edges_sym):
+                start_pos, end_pos = line_positions_sym[edge]
+                mid_pos = (start_pos + end_pos) / 2
+
+                line_sym = Line(start_pos, end_pos, color=WHITE)
+                label_pos_sym = mid_pos + label_offsets_sym[edge]  # Verschiebung anwenden
+                label_sym = Text(edge_labels_sym[i], font_size=24).move_to(label_pos_sym)
+                lines_and_labels_sym.add(line_sym, label_sym)
+
+                self.play(Create(line_sym), Write(label_sym), run_time=0.5)
+            
+        with self.voiceover(text="Thats why there is also a asymmetrical TSP.") as tracker:
+            text_asymmetrical = Text("Asymmetrical", font_size=36).move_to(ORIGIN).to_edge(UP)
+            group = VGroup(graph_sym, lines_and_labels_sym, text_symmetrical) 
+            self.play(FadeOut(group))
+            self.play(Write(text_asymmetrical))
+
+        with self.voiceover(text="The TSP is called asymetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also twice as complex to solve then the symmetrical. This is why we only observe symmetrical TSPs in the following.") as tracker:
+            positions_asym = {
+            0: LEFT * 2 + UP,
+            1: ORIGIN + UP * 2,
+            2: RIGHT * 2 + UP,
+            3: RIGHT  + DOWN,
+            4: LEFT  + DOWN,
+            }
+             
+            graph_asym = CustomGraph(list(positions_asym.keys()), [], layout=positions_asym, labels=True)
+            self.play(Create(graph_asym))
+        
+            edges_asym = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0), (1,0), (2,1), (3,2), (4,3), (0,4)]
+
+            label_offsets_asym = {
+            # Äußere Kanten
+            (0, 1): (LEFT+UP) * 0.3,
+            (1, 2): (UP + RIGHT) * 0.3,
+            (2, 3): (DOWN + RIGHT) * 0.3,
+            (3, 4): DOWN * 0.3,
+            (4, 0): (DOWN+LEFT) * 0.3,
+            # Innere Kanten
+            (1, 0): (RIGHT+DOWN) * 0.3,
+            (2, 1): (DOWN + LEFT) * 0.3,
+            (3, 2): (UP + LEFT) * 0.3,
+            (4, 3): UP * 0.3,
+            (0, 4): (UP+RIGHT) * 0.3,
+                }
+            
+            edge_labels_asym = [
+                # Äußere Kanten
+                "4", "3", "7", "8", "5", 
+                # Innere Kannten 
+                "2", "5", "6", "6", "4"
+                ]
+            
+            line_positions_asym = {
+            # Äußere Kanten
+            (0, 1): (positions_asym[0] + RIGHT * 0.1 + UP * 0.3, positions_asym[1] + LEFT * 0.2 + UP*0.2),
+            (1, 2): (positions_asym[1] + RIGHT * 0.2 + UP * 0.2, positions_asym[2] + 0.3* UP + LEFT * 0.1),
+            (2, 3): (positions_asym[2] + DOWN * 0.3 + RIGHT * 0.1, positions_asym[3] + UP * 0.2 + RIGHT * 0.2),
+            (3, 4): (positions_asym[3] + LEFT * 0.3 + DOWN * 0.1, positions_asym[4] + RIGHT * 0.3 + DOWN * 0.1),
+            (4, 0): (positions_asym[4] + LEFT * 0.2 + UP * 0.2, positions_asym[0] + DOWN * 0.3 + LEFT * 0.1),
+            # Innere Kanten
+            (1, 0): (positions_asym[1] + LEFT * 0.2 + DOWN * 0.2, positions_asym[0] + RIGHT * 0.3),
+            (2, 1): (positions_asym[2] + LEFT * 0.3, positions_asym[1] + 0.2 * DOWN + RIGHT * 0.2),
+            (3, 2): (positions_asym[3] + UP * 0.3, positions_asym[2] + DOWN * 0.3 + LEFT * 0.2),
+            (4, 3): (positions_asym[4] + UP * 0.1 + RIGHT * 0.3, positions_asym[3] + LEFT * 0.3 + UP * 0.1),
+            (0, 4): (positions_asym[0] + RIGHT * 0.2 + DOWN * 0.3, positions_asym[4] + UP * 0.3),
+                }
+
+            lines_and_labels_asym = VGroup()
+            # Linien für jede Kante und Labels erstellen
+            for i, edge in enumerate(edges_asym):
+                start_pos, end_pos = line_positions_asym[edge]
+                mid_pos = (start_pos + end_pos) / 2
+
+                line_asym = Arrow(start_pos, end_pos, color=WHITE)
+                label_pos_asym = mid_pos + label_offsets_asym[edge]  # Verschiebung anwenden
+                label_asym = Text(edge_labels_asym[i], font_size=24).move_to(label_pos_asym)
+                lines_and_labels_asym.add(line_asym, label_asym)
+
+                self.play(Create(line_asym), Write(label_asym), run_time=0.5)
+
+            group = VGroup(lines_and_labels_asym, graph_asym, text_asymmetrical)
+        
+        with self.voiceover(text="now we go on with the next topic") as tracker:
+            self.play(FadeOut(group))
 
     def lower_bound(self):
         # Code für die Erklärung des Lower Bound

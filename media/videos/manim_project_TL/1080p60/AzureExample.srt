@@ -1,88 +1,52 @@
 1
-00:00:00,000 --> 00:00:01,838
-We need to point out how good is
+00:00:00,000 --> 00:00:03,764
+There are symmetrical and asymmetrical TSPs.
 
 2
-00:00:01,938 --> 00:00:04,868
-our approximated solution compared to the optimum.
+00:00:03,864 --> 00:00:07,460
+First we will explain the symmetrical TSP
 
 3
-00:00:04,966 --> 00:00:08,322
-In some business cases there is a treshold given by the supervisor
+00:00:07,560 --> 00:00:11,359
+A TSP is called symmetrical, if the edges between two nodes have
 
 4
-00:00:08,422 --> 00:00:11,097
-so you don't need to know how near the solution is to
+00:00:11,459 --> 00:00:15,136
+the same value in both directions. This means the way form one
 
 5
-00:00:11,197 --> 00:00:14,082
-the optimum but in a theroetic case we want to know this.
+00:00:15,236 --> 00:00:19,035
+town to another would be exact the same in both directions. This
 
 6
-00:00:14,182 --> 00:00:17,957
-As we know to determine the optimum is not economically sensible so
+00:00:19,135 --> 00:00:24,092
+isn't really accurate because of conditions of the landscape or construction sites.
 
 7
-00:00:18,057 --> 00:00:21,138
-we need to find an other value to measure our solution.
+00:00:24,192 --> 00:00:27,788
+Thats why there is also a asymmetrical TSP.
 
 8
-00:00:21,232 --> 00:00:24,924
-So lets imagine we have these nodes as a tsp
+00:00:27,888 --> 00:00:32,197
+The TSP is called asymetrical if there are two edges between every node
 
 9
-00:00:25,016 --> 00:00:28,060
-and this is our approximated solution.
+00:00:32,297 --> 00:00:35,985
+and they don't have the same weight. As you can see the graph
 
 10
-00:00:33,016 --> 00:00:36,060
-We take a look at all the weights and sum them up.
+00:00:36,085 --> 00:00:40,083
+is then directed. This is way more accurate to the real world, but
 
 11
-00:00:37,016 --> 00:00:40,612
-This is the value for our approximated solution.
+00:00:40,183 --> 00:00:44,306
+this is also twice as complex to solve then the symmetrical. This is
 
 12
-00:00:41,016 --> 00:00:44,948
-But now we still don't now how good this is compared to the optimum.
+00:00:44,406 --> 00:00:47,660
+why we only observe symmetrical TSPs in the following.
 
 13
-00:00:46,516 --> 00:00:49,176
-For this we use the lower bound.
-
-14
-00:00:49,266 --> 00:00:51,539
-The lower bound is the value of the sum of
-
-15
-00:00:51,639 --> 00:00:54,590
-every weight of every edge in a minimum spanning tree.
-
-16
-00:00:54,682 --> 00:00:57,918
-So imagine we have these nodes from before.
-
-17
-00:00:58,016 --> 00:01:00,263
-We add the edges and their weights to the
-
-18
-00:01:00,363 --> 00:01:02,668
-nodes so we get our minimal spanning tree.
-
-19
-00:01:06,516 --> 00:01:09,848
-We take again a look at all the weights and sum them up.
-
-20
-00:01:10,516 --> 00:01:13,440
-This is the value of our lower bound.
-
-21
-00:01:13,532 --> 00:01:15,958
-Now we have a value which we can compare to
-
-22
-00:01:16,058 --> 00:01:19,072
-our approximated solution and we know how good it is!
+00:00:47,760 --> 00:00:50,420
+now we go on with the next topic
 
