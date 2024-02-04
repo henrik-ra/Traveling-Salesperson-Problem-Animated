@@ -1,48 +1,44 @@
 1
-00:00:00,000 --> 00:00:04,315
-The Brute Force method is a straightforward but time-consuming approach to
+00:00:00,000 --> 00:00:04,303
+The Brute Force method is a straightforward but time-consuming approach
 
 2
-00:00:04,415 --> 00:00:08,730
-solving the TSP. It involves trying out all possible orders (permutations)
+00:00:04,403 --> 00:00:07,590
+to solve the TSP. It involves trying out all possible
 
 3
-00:00:08,830 --> 00:00:12,370
-in which the cities can be visited and calculating the length
+00:00:07,690 --> 00:00:10,196
+orders in which the cities can be visited.
 
 4
-00:00:12,470 --> 00:00:15,651
-of the tour for each of these orders. The shortest tour
+00:00:10,283 --> 00:00:13,978
+As the first step in our Brute-Force algorithm, we generate
 
 5
-00:00:15,751 --> 00:00:19,172
-found among these permutations is accepted as the solution.
+00:00:14,078 --> 00:00:18,223
+all possible permutations of the cities. This means creating every
 
 6
-00:00:19,266 --> 00:00:23,075
-First of all we generate all possible permutations of the cities.
+00:00:18,323 --> 00:00:21,439
+possible order in which the cities can be visited.
 
 7
-00:00:23,175 --> 00:00:26,924
-This means creating all different orders in which the cities can
+00:00:21,683 --> 00:00:25,540
+Then, For each generated permutation, we calculate the length of
 
 8
-00:00:27,024 --> 00:00:31,314
-be visited. Then, For each generated permutation, we calculate the length
+00:00:25,640 --> 00:00:29,311
+the tour by summing the distances between the visited cities.
 
 9
-00:00:31,414 --> 00:00:35,163
-of the tour by summing the distances between the visited cities.
+00:00:30,400 --> 00:00:33,031
+Now, we need to Identify the tour with the
 
 10
-00:00:35,263 --> 00:00:38,651
-Now, we need to Identify the tour with the shortest length
+00:00:33,131 --> 00:00:36,608
+shortest length among all the calculated tours. This is
 
 11
-00:00:38,751 --> 00:00:42,139
-among all the calculated tours and the tour found with the
-
-12
-00:00:42,239 --> 00:00:45,206
-shortest length is the optimal solution to the TSP.
+00:00:36,708 --> 00:00:40,380
+the optimal solution to the Traveling Salesperson Problem.
 

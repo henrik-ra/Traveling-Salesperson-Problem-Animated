@@ -24,7 +24,7 @@ class All(VoiceoverScene):
     def construct(self):
         self.set_speech_service(
             AzureService(
-                voice="en-US-GuyNeural ",
+                voice="en-US-GuyNeural",
                 style="newscast-casual",
             )
         ) 
@@ -197,16 +197,18 @@ class All(VoiceoverScene):
         )
             self.play(Write(conditions))
             self.wait(3)
+        
+        self.wait(2)
+        self.clear()
 
-
-class Assumptions(VoiceoverScene):
-    def construct(self):
-        self.set_speech_service(
-            AzureService(
-                voice="en-US-GuyNeural ",
-                style="newscast-casual",
-            )
-        )
+# class Assumptions(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
         
         with self.voiceover(text="To solve it, we'll think of each city as a point, or 'node', on a graph. The edges symbolize possible paths Alex can take. "):
             
@@ -355,7 +357,6 @@ class Assumptions(VoiceoverScene):
 
         self.wait(1)
         self.clear()
-        self.wait(3)
 
 # class Algorithms(VoiceoverScene):
 #     def construct(self):
@@ -379,7 +380,7 @@ class Assumptions(VoiceoverScene):
             box2 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(RIGHT*2.5)
             box2_text = Text("Approximation", color=WHITE).scale(0.5)
             box2_text.move_to(box2.get_center())
-            box2_label = Text("kNN\n\nChristofides\n\nLin Kernighan", color=WHITE, font_size=40).scale(0.5)
+            box2_label = Text("kNN\n\nChristofides", color=WHITE, font_size=40).scale(0.5)
             box2_label.next_to(box2, DOWN)
 
             # Animate
@@ -395,14 +396,13 @@ class Assumptions(VoiceoverScene):
             self.wait(3)
             self.add(box1_label)
 
-        with self.voiceover(text="Moving on to the Approximation approach, we'll explain the three algorithms k nearest neighbors (kNN), Christofides and Lin Kernighan. But let's start with the optimal solutions first.") as tracker:
+        with self.voiceover(text="Moving on to the Approximation approach, we'll explain the algorithms k nearest neighbors (kNN) and Christofides. But let's start with the optimal solutions first.") as tracker:
 
             self.wait(3)
             self.add(box2_label)
 
-
         self.clear()
-        self.wait(3)
+        self.wait(1)
 
 # class BruteForce(VoiceoverScene):
 #     def construct(self):
@@ -413,17 +413,19 @@ class Assumptions(VoiceoverScene):
 #             )
 #         )
         
-        with self.voiceover(text="The Brute Force method is a straightforward but time-consuming approach to solving the TSP. It involves trying out all possible orders (permutations) in which the cities can be visited and calculating the length of the tour for each of these orders. The shortest tour found among these permutations is accepted as the solution.") as tracker:
+        with self.voiceover(text="The Brute Force method is a straightforward but time-consuming approach to solve the TSP. It involves trying out all possible orders in which the cities can be visited.") as tracker:
             intro_text = Text("Brute Force").to_edge(UP)
             self.play(Write(intro_text))
-
-        with self.voiceover(text="First of all we generate all possible permutations of the cities. This means creating all different orders in which the cities can be visited.") as tracker:
 
             vertices = [1, 2, 3, 4, 5]
             edges = [(i, j) for i in vertices for j in vertices if i != j]
 
-            original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.5).shift(LEFT * 5)
+            original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.6).shift(LEFT * 5)
+            labels = original_graph.add_labels(font_size=20)
             self.play(Create(original_graph))
+            self.add(labels)
+
+        with self.voiceover(text="As the first step in our Brute-Force algorithm, we generate all possible permutations of the cities. This means creating every possible order in which the cities can be visited.") as tracker:
 
             shift_value = [UP * 1.5 + RIGHT * 4, UP * 1.5 + RIGHT * 6, UP * 1.5 + RIGHT * 8, UP * 1.5 + RIGHT * 10, 
                         RIGHT * 4 + DOWN*0.5, RIGHT * 6 + DOWN*0.5, RIGHT * 8 + DOWN*0.5, RIGHT * 10 + DOWN*0.5, 
@@ -445,120 +447,54 @@ class Assumptions(VoiceoverScene):
                 [1, 3, 5, 2, 4, 1],
                 [1, 4, 3, 2, 5, 1],
                 [1, 4, 2, 3, 5, 1],
-
             ]
+
             value_pos = []
             for i, cycle in enumerate(hamiltonian_cycles):
-                graph = original_graph.copy()
+                graph_raw = original_graph.copy()
+                self.add(graph_raw)
+                labels = graph_raw.add_labels(font_size=20)
+
+                graph = VGroup(graph_raw, labels)
                 self.add(graph)
 
                 # Animieren des Hamiltonschen Kreises
                 for j in range(len(cycle) - 1):
                     edge = (cycle[j], cycle[j + 1])
-                    if edge in graph.edges:
-                        self.play(graph.edges[edge].animate.set_opacity(1), run_time=0.05)
-                    elif (edge[1], edge[0]) in graph.edges:
-                        self.play(graph.edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.05)
+                    if edge in graph[0].edges:
+                        self.play(graph[0].edges[edge].animate.set_opacity(1), run_time=0.05)
+                    elif (edge[1], edge[0]) in graph[0].edges:
+                        self.play(graph[0].edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.05)
 
-                self.wait(0.2)
+                self.wait(0.1)
 
-                self.play(graph.animate.shift(shift_value[i]).scale(0.42), run_time=0.5)
-
+                self.play(graph.animate.shift(shift_value[i]).scale(0.42), run_time=0.4)
+                # resize_animations = graph[0].resize_nodes(new_size=3)
+                # self.play(*resize_animations)
                 
                 value_text = Text(values_distance[i], font_size=15)
                 value_text.next_to(graph, DOWN)
                 value_pos.append(value_text)
                 # self.play(Write(value_text))
 
-                self.wait(0.5)
+                self.wait(0.2)
 
         with self.voiceover(text="Then, For each generated permutation, we calculate the length of the tour by summing the distances between the visited cities.") as tracker:
+            self.wait(5)
             for i in value_pos:
                 self.play(Write(i), run_time=0.1)
             
             
-        self.wait(3)
+        self.wait(1)
 
-        with self.voiceover(text="Now, we need to Identify the tour with the shortest length among all the calculated tours and the tour found with the shortest length is the optimal solution to the TSP.") as tracker:
-            self.wait(2)
-            empty_rectangle = Rectangle(width=1.7, height=1.7, fill_opacity=0, color=ORANGE).shift(UP*1.3+LEFT*0.8)
+        with self.voiceover(text="Now, we need to Identify the tour with the shortest length among all the calculated tours. This is the optimal solution to the Traveling Salesperson Problem.") as tracker:
+            self.wait(7)
+            empty_rectangle = Rectangle(width=1.7, height=2, fill_opacity=0, color=ORANGE).shift(UP*1.35+LEFT*0.8)
 
             # Animieren Sie das leere Rechteck
             self.play(Create(empty_rectangle))
-        self.wait(3)
+        self.wait(1)
         self.clear()
-        self.wait(3)
-
-        # STILL DUPLICATES!!!
-
-        # vertices = [1, 2, 3, 4, 5]
-        # edges = [(i, j) for i in vertices for j in vertices if i != j]
-
-        # start_vertex = 1
-        # perms = itertools.permutations(vertices[1:])  # Permutationen ohne den Startknoten
-        # print(perms)
-        # original_graph = CustomGraph(vertices, edges, layout="circular", layout_scale=2.5).scale(0.5).shift(LEFT * 5)
-        # self.play(Create(original_graph))
-
-        # shift_value = [UP * 2 + RIGHT * 4, UP * 2 + RIGHT * 6, UP * 2 + RIGHT * 8, UP * 2 + RIGHT * 10, RIGHT * 4, RIGHT * 6, RIGHT * 8, RIGHT * 10, DOWN * 2 + RIGHT * 4, DOWN * 2 + RIGHT * 6, DOWN * 2 + RIGHT * 8, DOWN * 2 + RIGHT * 10]
-        
-        # animated_paths = set()  # Set zum Speichern bereits animierter Pfade
-
-        # for i, perm in enumerate(perms):
-        #     if i >= 12:  # Beschränkung auf 12 Pfade
-        #         break
-
-        #     path = [start_vertex] + list(perm) + [start_vertex]
-        #     path_tuple = tuple(path)
-        #     reversed_path_tuple = tuple(path[::-1])  # Umgekehrter Pfad
-
-        #     if path_tuple in animated_paths or reversed_path_tuple in animated_paths:
-        #         continue
-
-        #     animated_paths.add(path_tuple)
-
-        #     graph = original_graph.copy()
-        #     self.add(graph)
-
-        #     for j in range(len(path) - 1):
-        #         edge = (path[j], path[j + 1])
-        #         if edge in graph.edges:
-        #             self.play(graph.edges[edge].animate.set_opacity(1), run_time=0.1)
-        #         elif (edge[1], edge[0]) in graph.edges:
-        #             self.play(graph.edges[(edge[1], edge[0])].animate.set_opacity(1), run_time=0.1)
-
-        #     self.wait(0.5)
-        #     self.play(graph.animate.shift(shift_value[i]).scale(0.5))
-        #     # self.remove(graph)
-
-        # self.wait(3)
-        # self.clear()
-        # self.wait(3)
-
-        # Zoom out
-        # self.play(self.camera.frame.animate.scale(4), run_time=2)
-
-        # point_indices = range(len(points))  
-        # all_routes = list(permutations(point_indices))
-
-        # # Animate each route
-        # for route in all_routes[:100]:
-        #     # Create a path for the current route
-        #     path = VMobject(color=BLUE)
-        #     path.set_points_as_corners([points[i].get_center() for i in route] + [points[route[0]].get_center()])
-        #     self.play(Create(path), run_time=0.1)
-        #     self.wait(0.05)
-        #     # Remove the path before drawing the next one
-        #     self.remove(path)
-
-
-
-        # for point in points:
-        #     self.remove(point)
-        # # for point, label in zip(points, label_objects):
-        # #     self.remove(point, label)
-        
-        # self.play(FadeOut(svg_object))
 
 # class Complexity(VoiceoverScene):
 #     def construct(self):
@@ -582,22 +518,17 @@ class Assumptions(VoiceoverScene):
             # Transformiere zur "\frac{(n-1)!}{2} = 12"
             transformed_formula = MathTex(r"\frac{(5-1)!}{2} = 12").scale(1)
             transformed_formula.next_to(formula_text, DOWN)
-            # number = Text("n: 5")
-            # number.next_to(transformed_formula, LEFT)
-            
+
             self.play(Transform(formula_text, transformed_formula))
-            # self.add(number)
             self.wait(2)
 
         with self.voiceover(text="If we just increase the number of nodes by 1, we already get 60 possible routes.") as tracker:
 
-            # Transformiere zur "\frac{(n-1)!}{2} = 12"
             transformed_formula = MathTex(r"\frac{(6-1)!}{2} = 60").scale(1.5)
-            # transformed_formula.next_to(formula_text, DOWN)
             self.play(Transform(formula_text, transformed_formula))
             self.wait(2)
         
-        with self.voiceover(text="For 10 nodes, it's already 181440 potential shortest paths!! This is because we got an ??exponential?? time complexity.") as tracker:
+        with self.voiceover(text="For 10 nodes, it's already 181440 potential shortest paths!!") as tracker:
 
             # Transformiere zur "\frac{(n-1)!}{2} = 12"
             transformed_formula = MathTex(r"\frac{(10-1)!}{2} = 181440").scale(2)
@@ -606,7 +537,7 @@ class Assumptions(VoiceoverScene):
             self.wait(2)
         
         self.clear()
-        self.wait(3)
+        self.wait(1)
 
 # class Exp_Graph(VoiceoverScene):
 #     def construct(self):
@@ -616,62 +547,65 @@ class Assumptions(VoiceoverScene):
 #                 style="newscast-casual",
 #             )
 #         )
+         
+        with self.voiceover(text="This is because we got an exponential time complexity.") as tracker:
 
-        axes = Axes(
-            x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
-            y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
-            y_length=5,
-            x_length=8,
-            tips=False,  
-            axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
-        )
+            axes = Axes(
+                x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
+                y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+                y_length=5,
+                x_length=8,
+                tips=False,  
+                axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+            )
 
-        # Hinzufügen der Achsen und des Graphen zur Szene
-        self.add(axes)
-        self.wait(2)  # Warten am Ende der Animation
+            # Hinzufügen der Achsen und des Graphen zur Szene
+            self.add(axes)
+            self.wait(2)  # Warten am Ende der Animation
 
-        bold_template = TexTemplate()
-        bold_template.add_to_preamble(r"\usepackage{bm}")
+            bold_template = TexTemplate()
+            bold_template.add_to_preamble(r"\usepackage{bm}")
 
-        def plot_function(function, color, label, position=RIGHT, range=[0,20]):
-            function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
-            return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+            def plot_function(function, color, label, position=RIGHT, range=[0,20]):
+                function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
+                return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
 
         # constant
-        constant, constant_tag  = plot_function(lambda x: 1, BLUE, r"$\bm{O(1)}$")
-        self.play(LaggedStart(constant.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(constant_tag))
+        # constant, constant_tag  = plot_function(lambda x: 1, BLUE, r"$\bm{O(1)}$")
+        # self.play(LaggedStart(constant.animate.set_stroke(opacity=0.3)))
+        # self.play(FadeIn(constant_tag))
 
         # linear
-        linear, linear_tag  = plot_function(lambda x: x, GREEN, r"$\bm{O(n)}$")
-        self.play(LaggedStart(linear.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(linear_tag))
+        # linear, linear_tag  = plot_function(lambda x: x, GREEN, r"$\bm{O(n)}$")
+        # self.play(LaggedStart(linear.animate.set_stroke(opacity=0.3)))
+        # self.play(FadeIn(linear_tag))
 
         # quad
-        quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
-        self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(quad_tag))
+        # quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
+        # self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
+        # self.play(FadeIn(quad_tag))
 
         # poly
-        poly, poly_tag  = plot_function(lambda x: 3 * x**2 + 2 * x, ORANGE, r"$\bm{O(3n^2+2n)}$", range=[0,9.66])
-        self.play(LaggedStart(poly.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(poly_tag))
+        # poly, poly_tag  = plot_function(lambda x: 3 * x**2 + 2 * x, ORANGE, r"$\bm{O(3n^2+2n)}$", range=[0,9.66])
+        # self.play(LaggedStart(poly.animate.set_stroke(opacity=0.3)))
+        # self.play(FadeIn(poly_tag))
 
         # exponential
-        exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
-        self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-        self.play(FadeIn(exp_tag))
+            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+            self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(exp_tag))
 
-        diagram = VGroup(axes, constant_tag, linear_tag, quad_tag, poly_tag, exp_tag, constant, linear, quad, poly, exp)
+            # diagram = VGroup(axes, constant_tag, linear_tag, quad_tag, poly_tag, exp_tag, constant, linear, quad, poly, exp)
+            diagram = VGroup(axes, exp_tag, exp)
 
-        self.wait(2)
-        self.play(diagram.animate.shift(LEFT*2).scale(0.6))
-        self.wait(2)
-        self.play(FadeOut(axes), FadeOut(constant, constant_tag, linear, linear_tag, quad, quad_tag, poly, poly_tag, exp, exp_tag))
-        self.wait(2)
 
-        self.clear()
-        self.wait(5)
+            # self.wait(2)
+            # self.play(diagram.animate.shift(LEFT*2).scale(0.6))
+            self.wait(2)
+            self.play(FadeOut(axes), FadeOut(exp, exp_tag))
+
+            self.clear()
+            self.wait(1)
 
 # class PointskNN1(VoiceoverScene):
 #     def construct(self):
@@ -681,13 +615,16 @@ class Assumptions(VoiceoverScene):
 #                 style="newscast-casual",
 #             )
 #         )
-        
+        with self.voiceover(text="Our first approximation approach is k nearest neighbors (kNN).") as tracker:        
+            intro_text = Text("k Nearest Neighbors (kNN)").to_edge(UP)
+            self.play(Write(intro_text))
+
         with self.voiceover(text="We start at a specific city (any city can be the starting point). Then we check the shortest path and add this point to the tour. Same for the next node and so on ... we repeat this until there is no unvisited node.") as tracker:
 
-            self.wait(4)
+            self.wait()
 
             np_random = np.random.RandomState(42)
-            points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 3), 0]), 
+            points = [Dot(np.array([np_random.uniform(-4, 4), np_random.uniform(-3, 2), 0]), 
                         color=DARK_BLUE, radius=0.15, stroke_color=WHITE, stroke_width=1.5, fill_opacity=1) 
                     for _ in range(10)]
             self.add(*points)
@@ -736,7 +673,7 @@ class Assumptions(VoiceoverScene):
 
         self.wait(2)
         self.clear()
-        self.wait(3)
+        self.wait(1)
 
 # class PointskNN2(VoiceoverScene):
 #     def construct(self):
@@ -747,7 +684,7 @@ class Assumptions(VoiceoverScene):
 #             )
 #         )
             
-        with self.voiceover(text="If we add more cities, the time complexity still stays good, but in most cases we won't find the optimal shortest path.") as tracker:
+        with self.voiceover(text="This is how it can look like with more vertexesd.") as tracker:
 
             # Erstelle 50 zufällige Punkte
             np_random = np.random.RandomState(42)
@@ -781,7 +718,76 @@ class Assumptions(VoiceoverScene):
             # Zeichne eine Linie zurück zum Startpunkt
             line_to_start = Line(current_point.get_center(), start_point.get_center(), color=BLUE)
             self.play(Create(line_to_start), run_time=0.1)
-            self.wait(2)
+            self.wait(1)
+            self.clear()
+            self.wait(1)
 
+
+# class Exp_Graph_kNN(VoiceoverScene):
+#     def construct(self):
+#         self.set_speech_service(
+#             AzureService(
+#                 voice="en-US-GuyNeural ",
+#                 style="newscast-casual",
+#             )
+#         )
+
+        with self.voiceover(text="For a dataset with n cities, the time complexity of applying kNN to TSP is O of n squared. Even though it's better than using Branch and Bound in most cases we won't find the optimal shortest path.") as tracker:
+
+            axes = Axes(
+                x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
+                y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+                y_length=5,
+                x_length=8,
+                tips=False,  
+                axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+            )
+
+            # Hinzufügen der Achsen und des Graphen zur Szene
+            self.add(axes)
+            self.wait(2)  # Warten am Ende der Animation
+
+            bold_template = TexTemplate()
+            bold_template.add_to_preamble(r"\usepackage{bm}")
+
+            def plot_function(function, color, label, position=RIGHT, range=[0,20]):
+                function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
+                return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+
+            # constant
+            # constant, constant_tag  = plot_function(lambda x: 1, BLUE, r"$\bm{O(1)}$")
+            # self.play(LaggedStart(constant.animate.set_stroke(opacity=0.3)))
+            # self.play(FadeIn(constant_tag))
+
+            # linear
+            # linear, linear_tag  = plot_function(lambda x: x, GREEN, r"$\bm{O(n)}$")
+            # self.play(LaggedStart(linear.animate.set_stroke(opacity=0.3)))
+            # self.play(FadeIn(linear_tag))
+
+            # quad
+            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$ kNN", range=[0,17.32])
+            self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(quad_tag))
+
+            # poly
+            # poly, poly_tag  = plot_function(lambda x: 3 * x**2 + 2 * x, ORANGE, r"$\bm{O(3n^2+2n)}$", range=[0,9.66])
+            # self.play(LaggedStart(poly.animate.set_stroke(opacity=0.3)))
+            # self.play(FadeIn(poly_tag))
+
+            # exponential
+            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+            self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(exp_tag))
+
+            # diagram = VGroup(axes, constant_tag, linear_tag, quad_tag, poly_tag, exp_tag, constant, linear, quad, poly, exp)
+            # diagram = VGroup(axes, quad, quad_tag, exp, exp_tag)
+
+
+            # self.wait(2)
+            # self.play(diagram.animate.shift(LEFT*2).scale(0.6))
+            self.wait(2)
+            self.play(FadeOut(axes), FadeOut(quad, quad_tag, exp, exp_tag))
+            self.wait(1)
+        
 if __name__ == "__main__":
-    os.system(f"manim --disable_caching  -pqh {__file__} All2")
+    os.system(f"manim --disable_caching  -pqh {__file__} All")

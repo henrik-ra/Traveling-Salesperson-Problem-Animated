@@ -56,15 +56,23 @@ class CustomGraph(Graph):
             edge.set_opacity(0)
         return self.edges.values()
     
-    def add_labels(self):
+    def add_labels(self, font_size=24):
         labels = VGroup()
         for vertex in self.vertices:
-            label = Text(str(vertex), color=self.label_color, font_size=24)
+            label = Text(str(vertex), color=self.label_color, font_size=font_size)
             label.move_to(self[vertex].get_center())
             labels.add(label)
         return labels  # Return the group of labels
 
-
+    def resize_nodes(self, new_size):
+        animations = []
+        for vertex in self.vertices:
+            # Erstellen der Animation für die Größenänderung des Knotens, wenn möglich
+            resize_animation = self[vertex].animate.set_radius(new_size)
+            if resize_animation is not None:
+                animations.append(resize_animation)
+        return animations
+    
 # class Graph_TSP(Graph):
 #     def __init__(
 #         self,
