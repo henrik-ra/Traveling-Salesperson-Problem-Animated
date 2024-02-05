@@ -1,3 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/test_edge_labels/1080p60/partial_movie_files/LabeledGraph/1413466013_2347600228_223132457.mp4'
-file 'file:C:/Users/tobia/OneDrive/Dokumente/DHBW/Integrationsseminar/TSP_manim/media/videos/test_edge_labels/1080p60/partial_movie_files/LabeledGraph/1672018281_190800790_2824030329.mp4'

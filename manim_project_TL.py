@@ -26,13 +26,10 @@ class AzureExample(VoiceoverScene):
             )
         ) 
 
-        # Teil 1: Symmetrisch vs. Asymmetrisch
-        # self.symmetric_vs_asymmetric()
+        self.symmetric_vs_asymmetric()
 
-        # Teil 2: Lower Bound 
-        # self.lower_bound()
+        self.lower_bound()
 
-        # Teil 3: Christofides-Algorithmus (
         self.christofides_algorithm()  
 
     def symmetric_vs_asymmetric(self):
@@ -405,14 +402,17 @@ class AzureExample(VoiceoverScene):
             approximated_text = Text("Approximated = 79", font_size=36).move_to(4*LEFT + ORIGIN) 
             greater_than_3 =Text(">", font_size=36).move_to(ORIGIN)
             self.play(Write(approximated_text), Write(greater_than_3))
+        
+        with self.voiceover(text="Now we go on with the next topic") as tracker:
+            self.play(FadeOut(approximated_text), FadeOut(greater_than_3), FadeOut(lower_bound_text))
 
     def christofides_algorithm(self):
         with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
             title = Text("Christofides Algorithm", font_size=36).to_edge(UP)
             self.play(Write(title))
 
-        with self.voiceover(text="This is an approximated algorithm to solve the TSP with a O(n^3) complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
-            On3 = Text("O(n^3)", font_size=30).next_to(title, DOWN)
+        with self.voiceover(text="This is an approximated algorithm to solve the TSP with a n to the third power complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
+            On3 = Text("O($n^3$)", font_size=30).next_to(title, DOWN)
             self.play(Write(On3))
 
         with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
@@ -425,7 +425,7 @@ class AzureExample(VoiceoverScene):
             line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN, buff=0.5)
             self.play(Write(line2))
 
-        with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching in the subgraph consisting only of the odd degree vertices. A perfect matching means every vertex is paired, and minimal means the sum of the lengths of the edges in the pairing is minimized.") as tracker:
+        with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching, so we need to find edges with minimum weight so every node gets an even degree.") as tracker:
             #O(n)
             line3 = Text("3. Find a minimum perfect matching M in the subgraph induced by V_odd.", font_size=24).to_edge(LEFT).next_to(line2, DOWN, buff=0.5)
             self.play(Write(line3))
@@ -522,7 +522,7 @@ class AzureExample(VoiceoverScene):
 
                 
         
-        with self.voiceover(text= "We can now point out the minimal perfect matching, so we add edges with the minimum weight until every node has an odd degree.") as tracker:
+        with self.voiceover(text= "We can now point out the minimal perfect matching, so we add edges with the minimum weight until every node has an even degree.") as tracker:
             self.play(FadeOut(circles), run_time=0.2)
             edges_mst_2 = [
             (0, 3), (9, 4), (6, 8),  
@@ -562,7 +562,7 @@ class AzureExample(VoiceoverScene):
                 highlight_line = Line(start_pos, end_pos, color=YELLOW, stroke_width=10)
                 
                 # Zeigen Sie die hervorgehobene Linie auf dem Bildschirm an
-                self.play(Create(highlight_line), run_time=0.5)
+                self.play(Create(highlight_line), run_time=0.25)
 
                 # Text für die aktuelle Kante erstellen
                 text = Text(texts[i], font_size=24).move_to(base_position)
@@ -575,7 +575,7 @@ class AzureExample(VoiceoverScene):
                 all_texts.add(text)
                 
                 # Text auf dem Bildschirm anzeigen
-                self.play(Write(text), run_time=0.5)
+                self.play(Write(text), run_time=0.25)
 
                 self.wait(1)
 
@@ -594,7 +594,7 @@ class AzureExample(VoiceoverScene):
             # Zeichnen der "X"-Zeichen
             self.play(Create(x_mark_1), Create(x_mark_2), FadeOut(lines_to_remove))
 
-        with self.voiceover(text="If we take a look at the time complexity of the Christofides algorithm it is mainly determined by the step of finding a minimum perfect matching, which is O(n^3). Therefore, the overall complexity of the Christofides algorithm is O(n^3).") as tracker:
+        with self.voiceover(text="If we take a look at the time complexity of the Christofides algorithm it is mainly determined by the step of finding a minimum perfect matching, which is n to the third power.") as tracker:
             self.play(FadeOut(graph_mst), 
                       FadeOut(all_texts), 
                               FadeOut(x_mark_1), 
