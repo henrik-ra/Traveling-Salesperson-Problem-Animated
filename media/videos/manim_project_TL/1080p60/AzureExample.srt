@@ -1,52 +1,8 @@
 1
-00:00:00,000 --> 00:00:03,764
-There are symmetrical and asymmetrical TSPs.
+00:00:00,000 --> 00:00:03,860
+Let's take a look at the graph to visualize this algorithm.
 
 2
-00:00:03,864 --> 00:00:07,460
-First we will explain the symmetrical TSP
-
-3
-00:00:07,560 --> 00:00:11,359
-A TSP is called symmetrical, if the edges between two nodes have
-
-4
-00:00:11,459 --> 00:00:15,136
-the same value in both directions. This means the way form one
-
-5
-00:00:15,236 --> 00:00:19,035
-town to another would be exact the same in both directions. This
-
-6
-00:00:19,135 --> 00:00:24,092
-isn't really accurate because of conditions of the landscape or construction sites.
-
-7
-00:00:24,192 --> 00:00:27,788
-Thats why there is also a asymmetrical TSP.
-
-8
-00:00:27,888 --> 00:00:32,197
-The TSP is called asymetrical if there are two edges between every node
-
-9
-00:00:32,297 --> 00:00:35,985
-and they don't have the same weight. As you can see the graph
-
-10
-00:00:36,085 --> 00:00:40,083
-is then directed. This is way more accurate to the real world, but
-
-11
-00:00:40,183 --> 00:00:44,306
-this is also twice as complex to solve then the symmetrical. This is
-
-12
-00:00:44,406 --> 00:00:47,660
-why we only observe symmetrical TSPs in the following.
-
-13
-00:00:47,760 --> 00:00:50,420
-now we go on with the next topic
+00:00:03,960 --> 00:00:07,652
+Like explained before we create a minimal spanning tree.
 

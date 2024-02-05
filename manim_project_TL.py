@@ -27,13 +27,13 @@ class AzureExample(VoiceoverScene):
         ) 
 
         # Teil 1: Symmetrisch vs. Asymmetrisch
-        self.symmetric_vs_asymmetric()
+        # self.symmetric_vs_asymmetric()
 
         # Teil 2: Lower Bound 
         # self.lower_bound()
 
         # Teil 3: Christofides-Algorithmus (
-        # self.christofides_algorithm()  
+        self.christofides_algorithm()  
 
     def symmetric_vs_asymmetric(self):
         with self.voiceover(text="There are symmetrical and asymmetrical TSPs.") as tracker:
@@ -106,7 +106,7 @@ class AzureExample(VoiceoverScene):
             self.play(FadeOut(group))
             self.play(Write(text_asymmetrical))
 
-        with self.voiceover(text="The TSP is called asymetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also twice as complex to solve then the symmetrical. This is why we only observe symmetrical TSPs in the following.") as tracker:
+        with self.voiceover(text="The TSP is called asymmetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also twice as complex to solve then the symmetrical. This is why we only observe symmetrical TSPs in the following.") as tracker:
             positions_asym = {
             0: LEFT * 2 + UP,
             1: ORIGIN + UP * 2,
@@ -424,48 +424,99 @@ class AzureExample(VoiceoverScene):
 
 
 
-    # def christofides_algorithm(self):
-    #     with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
-    #         pass
+    def christofides_algorithm(self):
+        # with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
+        #     title = Text("Christofides Algorithm", font_size=36).to_edge(UP)
+        #     self.play(Write(title))
 
-    #     with self.voiceover(text="This is an heuritstic algorithm to solve the TSP in a heritic way.") as tracker:
-    #         pass
+        # with self.voiceover(text="This is an approximated algorithm to solve the TSP with a O(n^3) complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip") as tracker:
+        #     On3 = Text("O(n^3)", font_size=30).next_to(title, DOWN)
+        #     self.play(Write(On3))
 
-    #     with self.voiceover(text="This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip") as tracker:
-    #         pass
+        # with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
+        #     #O(n log n) 
+        #     line1 = Text("1. Find a minimum spanning tree T of G.", font_size=24).to_edge(LEFT).move_to(UP)
+        #     self.play(Write(line1))
 
-    #     with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
-    #         #O(n log n) 
-    #         pass
+        # with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges by using the algorithm of Blossom") as tracker:
+        #     #O(n^3) n = node
+        #     line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN)
+        #     self.play(Write(line2))
 
-    #     with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges by using the algorithm of Blossom") as tracker:
-    #         #O(n^3) n = node
-    #         pass
+        # with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching in the subgraph consisting only of the odd degree vertices. A perfect matching means every vertex is paired, and minimal means the sum of the lengths of the edges in the pairing is minimized.") as tracker:
+        #     #O(n)
+        #     line3 = Text("3. Find a minimum perfect matching M in the subgraph induced by V_odd.", font_size=24).to_edge(LEFT).next_to(line2, DOWN, buff=0.5)
+        #     self.play(Write(line3))
 
-    #     with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching in the subgraph consisting only of the odd degree vertices. A perfect matching means every vertex is paired, and minimal means the sum of the lengths of the edges in the pairing is minimized.") as tracker:
-    #         #O(n)
-    #         pass
-
-    #     with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
-    #         #O(n)
-    #         pass
+        # with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
+        #     #O(n)
+        #     line4 = Text("4. Combine the edges of M and T to form a multigraph H.", font_size=24).to_edge(LEFT).next_to(line3, DOWN, buff=0.5)
+        #     self.play(Write(line4))
         
-    #     with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. We need to find it.") as tracker:
-    #         #O(n)
-    #         pass
+        # with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. We need to find it.") as tracker:
+        #     #O(n)
+        #     line5 = Text("5. Find an Eulerian circuit in H.", font_size=24).to_edge(LEFT).next_to(line4, DOWN, buff=0.5)
+        #     self.play(Write(line5))
 
-    #     with self.voiceover(text="There it is!") as tracker:
-    #         pass
+        # with self.voiceover(text="Now we convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.") as tracker:
+        #     #O(n)
+        #     line6 = Text("6. Convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.", font_size=24).to_edge(LEFT).next_to(line5, DOWN, buff=0.5)
+        #     self.play(Write(line6))
+        
+        with self.voiceover(text= "Let's take a look at the graph to visualize this algorithm.") as tracker:
+            # group = VGroup(line1, line2, line3, line4, line5, line6)
+            # self.play(FadeOut(group))
+            positions = {
+            0: LEFT + UP * 2,
+            1: RIGHT + UP * 2,
+            2: RIGHT * 2,
+            3: ORIGIN,
+            4: LEFT * 2,
+            }
+            edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0), (0, 2), (1, 3), (0, 3)]
+            graph = CustomGraph(list(positions.keys()), edges, layout=positions, labels=True).move_to(DOWN)
 
-    #     with self.voiceover(text="Last thing to do is to Transform the Eulerian circuit into a Hamiltonian circuit by skipping any vertex visited more than once, to get a round trip that visits each vertex exactly once.") as tracker:
-    #         #O(n)
-    #         pass
+            # Graph zeichnen
+            self.play(Create(graph))
+        
+        with self.voiceover(text= "Like explained before we create a minimal spanning tree.") as tracker:
+            mst_edges = [(0, 1), (1, 2), (2, 3), (3, 4)]
+            # Entferne nicht-MST-Kanten und füge sie mit neuem Stil wieder hinzu
+            for edge in edges:
+                if edge not in mst_edges and (edge[1], edge[0]) not in mst_edges:
+                    graph.remove_edges(edge)
 
-    #     with self.voiceover(text="There it is. Our heuristic result!") as tracker:
-    #         pass
+            self.wait(1)
 
-    #     with self.voiceover(text="In summary, the time complexity of the Christofides algorithm is mainly determined by the step of finding a minimum perfect matching, which is O(n^3). Therefore, the overall complexity of the Christofides algorithm is O(n^3).") as tracker:
-    #         pass
+            # Füge MST-Kanten mit spezifischem Stil hinzu
+            for start, end in mst_edges:
+                if (start, end) in graph.edges:
+                    graph.edges[(start, end)].set_color(BLUE).set_stroke(width=4)
+                elif (end, start) in graph.edges:  # Für ungerichtete Graphen
+                    graph.edges[(end, start)].set_color(BLUE).set_stroke(width=4)
+
+            self.wait(1)
+        
+        # with self.voiceover(text= "Now we point out every node with an odd degree") as tracker:
+        #     odd_degree_nodes = [0, 1, 2, 3, 4]  # In diesem Beispiel haben alle Knoten einen ungeraden Grad
+        #     for node in odd_degree_nodes:
+        #         graph[node].set_color(RED)
+        
+        # with self.voiceover(text= "We can now point out the minimal perfect matching.") as tracker:
+        #     matching_edges = [(0, 2), (1, 3)]
+        #     for edge in matching_edges:
+        #         self.play(graph.add_edges(edge, color=BLUE, stroke_width=4), run_time=1)
+        
+        # with self.voiceover(text= "In step four we don't need to add any edges because we already have these. So we can go on with the next step and find an eulerican circle.") as tracker:
+        #     euler_path = [0, 1, 2, 0, 2, 3, 4, 0]  # Hypothetischer Eulerkreis
+        #     for i in range(len(euler_path) - 1):
+        #         self.play(graph[euler_path[i]].animate.move_to(positions[euler_path[i + 1]]), run_time=0.5)
+        
+        # with self.voiceover(text= "The last step will be to convert the euleric circle into a hamilton circle. Great we solved our TSP!") as tracker:
+        #     self.play(*[graph[i].animate.scale(1.2).set_color(YELLOW) for i in range(5)], run_time=2)
+        
+        # with self.voiceover(text="In summary, the time complexity of the Christofides algorithm is mainly determined by the step of finding a minimum perfect matching, which is O(n^3). Therefore, the overall complexity of the Christofides algorithm is O(n^3).") as tracker:
+        #     self.play(FadeOut(graph))
 
 
 if __name__ == "__main__":
