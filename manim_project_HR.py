@@ -20,7 +20,7 @@ import math
 
 DARK_BLUE_COLOR = "#00008b"
 
-class All(VoiceoverScene):
+class All(MovingCameraScene, VoiceoverScene):
     def construct(self):
         self.set_speech_service(
             AzureService(
@@ -110,9 +110,6 @@ class All(VoiceoverScene):
             (3, 0)
             ]
 
-            # Load the plane image
-            plane_image = ImageMobject("plane.png").scale(0.12)
-
             lines = []
             for start_index, end_index in connections:
                 # Create a line between points
@@ -189,7 +186,7 @@ class All(VoiceoverScene):
             self.play(Write(intro_text))
             # self.wait(5)
 
-        with self.voiceover(text="There are 2 main conditions: He needs to visit every destination once. starting from a particular one and returning to the same destination.") as tracker:
+        with self.voiceover(text="There are 2 main conditions: He needs to visit every city exactly once, starting from a specific one and returning to the starting city.") as tracker:
             
             conditions = VGroup(
             Text("• Visit every city once", font_size=24).next_to(definition, DOWN*2),
@@ -505,7 +502,7 @@ class All(VoiceoverScene):
 #             )
 #         )
         
-        with self.voiceover(text="We can calculate the time complexity as the number of possible permutations of n elements when each permutation is counted as a separate operation") as tracker:
+        with self.voiceover(text="We can calculate the number of possible paths as the number of possible permutations of n elements when each permutation is counted as a separate operation") as tracker:
 
             # Animierte Laufzeitformel
             formula_text = MathTex(r"\frac{(n-1)!}{2}").scale(1)
@@ -601,7 +598,7 @@ class All(VoiceoverScene):
 
             # self.wait(2)
             # self.play(diagram.animate.shift(LEFT*2).scale(0.6))
-            self.wait(2)
+            self.wait(1)
             self.play(FadeOut(axes), FadeOut(exp, exp_tag))
 
             self.clear()
@@ -684,7 +681,7 @@ class All(VoiceoverScene):
 #             )
 #         )
             
-        with self.voiceover(text="This is how it can look like with more vertexesd.") as tracker:
+        with self.voiceover(text="This is how it can look like with more nodes so more cities Alex has to visit.") as tracker:
 
             # Erstelle 50 zufällige Punkte
             np_random = np.random.RandomState(42)
@@ -710,14 +707,14 @@ class All(VoiceoverScene):
 
                 # Zeichne eine Linie zum nächsten Punkt
                 line = Line(current_point.get_center(), next_point.get_center(), color=BLUE)
-                self.play(Create(line), run_time=0.1)
+                self.play(Create(line), run_time=0.07)
 
                 # Aktualisiere den aktuellen Punkt
                 current_point = next_point
 
             # Zeichne eine Linie zurück zum Startpunkt
             line_to_start = Line(current_point.get_center(), start_point.get_center(), color=BLUE)
-            self.play(Create(line_to_start), run_time=0.1)
+            self.play(Create(line_to_start), run_time=0.07)
             self.wait(1)
             self.clear()
             self.wait(1)
@@ -786,8 +783,8 @@ class All(VoiceoverScene):
             # self.wait(2)
             # self.play(diagram.animate.shift(LEFT*2).scale(0.6))
             self.wait(2)
-            self.play(FadeOut(axes), FadeOut(quad, quad_tag, exp, exp_tag))
-            self.wait(1)
+        self.play(FadeOut(axes), FadeOut(quad, quad_tag, exp, exp_tag))
+        self.wait(1)
         
 if __name__ == "__main__":
     os.system(f"manim --disable_caching  -pqh {__file__} All")

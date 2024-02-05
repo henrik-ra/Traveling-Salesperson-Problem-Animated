@@ -1,0 +1,68 @@
+[
+    {
+        "name": "autocreated",
+        "type": "default.normal",
+        "video": "Intro_0000.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "60/1",
+        "duration": "61.766667",
+        "nb_frames": "3706"
+    },
+    {
+        "name": "Definitions",
+        "type": "default.normal",
+        "video": "Intro_0001.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "60/1",
+        "duration": "20.783333",
+        "nb_frames": "1247"
+    },
+    {
+        "name": "Assumptions",
+        "type": "default.normal",
+        "video": "Intro_0002.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "60/1",
+        "duration": "44.116667",
+        "nb_frames": "2647"
+    },
+    {
+        "name": "Algorithms Overview",
+        "type": "default.normal",
+        "video": "Intro_0003.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "60/1",
+        "duration": "23.650000",
+        "nb_frames": "1419"
+    },
+    {
+        "name": "Brute Force",
+        "type": "default.normal",
+        "video": "Intro_0004.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "60/1",
+        "duration": "75.883333",
+        "nb_frames": "4553"
+    },
+    {
+        "name": "kNN",
+        "type": "default.normal",
+        "video": "Intro_0005.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "60/1",
+        "duration": "46.733333",
+        "nb_frames": "2804"
+    }
+]
