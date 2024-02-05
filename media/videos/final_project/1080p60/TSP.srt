@@ -1,0 +1,580 @@
+1
+00:00:00,000 --> 00:00:02,943
+Welcome back guys! Today, we're diving
+
+2
+00:00:03,043 --> 00:00:06,068
+into the Traveling Salesperson Problem.
+
+3
+00:00:06,166 --> 00:00:08,940
+Imagine we have a traveling salesperson - tasked
+
+4
+00:00:09,040 --> 00:00:11,634
+with selling your products in various cities.
+
+5
+00:00:11,733 --> 00:00:15,497
+This guy is Alex, a salesperson with a big challenge.
+
+6
+00:00:15,583 --> 00:00:19,429
+Alex has to sell products in various cities and wants to take
+
+7
+00:00:19,529 --> 00:00:23,376
+the shortest route to save time. But how does Alex figure out
+
+8
+00:00:23,476 --> 00:00:27,387
+the best route? Let's dive in and help Alex solve this puzzle.
+
+9
+00:00:27,483 --> 00:00:30,479
+Let's say he needs to visit 4 cities.
+
+10
+00:00:30,566 --> 00:00:34,670
+Sounds straightforward, right? What do you think happens if
+
+11
+00:00:34,770 --> 00:00:37,306
+we add one more city to Alex's route?
+
+12
+00:00:37,400 --> 00:00:41,063
+Of course, if we add more cities it get's more complex. So how
+
+13
+00:00:41,163 --> 00:00:45,676
+do you determine the shortest possible route that connects all these cities?
+
+14
+00:00:45,766 --> 00:00:49,820
+One approach is to try out every possible route. But here lies
+
+15
+00:00:49,920 --> 00:00:54,176
+the problem: Complexity! So, with every new city Alex adds to the
+
+16
+00:00:54,276 --> 00:00:58,866
+trip, the challenge of finding the shortest route grows significantly.
+
+17
+00:01:01,766 --> 00:01:05,459
+The Problem to find the shortest way between multiple points
+
+18
+00:01:05,559 --> 00:01:09,441
+is called the Traveling Salesperson Problem (TSP). Alex goal is
+
+19
+00:01:09,541 --> 00:01:12,538
+to keep the distance traveled as low as possible.
+
+20
+00:01:12,633 --> 00:01:16,346
+There are 2 main conditions: He needs to visit every city exactly
+
+21
+00:01:16,446 --> 00:01:20,453
+once, starting from a specific one and returning to the starting city.
+
+22
+00:01:22,550 --> 00:01:26,142
+To solve it, we'll think of each city as a point, or
+
+23
+00:01:26,242 --> 00:01:31,042
+'node', on a graph. The edges symbolize possible paths Alex can take.
+
+24
+00:01:31,133 --> 00:01:34,009
+It's complete, this means there's a direct path
+
+25
+00:01:34,109 --> 00:01:36,289
+from every city to every other city.
+
+26
+00:01:37,733 --> 00:01:41,920
+Our TSP is symmetric. It means the distance from city A
+
+27
+00:01:42,020 --> 00:01:45,505
+to B is identical to the distance from B to A.
+
+28
+00:01:45,600 --> 00:01:49,185
+Also, in our model, the direct path between any two cities
+
+29
+00:01:49,285 --> 00:01:52,679
+is always the shortest. This means for two cities A and
+
+30
+00:01:52,779 --> 00:01:55,602
+B there is no path with an added point that is
+
+31
+00:01:55,702 --> 00:02:00,812
+shorter than the direct connection. adhering to the triangle inequality principle.
+
+32
+00:02:00,900 --> 00:02:03,250
+With these rules in mind, let's explore
+
+33
+00:02:03,350 --> 00:02:05,576
+how Alex can find the shortest route.
+
+34
+00:02:06,666 --> 00:02:08,869
+To solve TSP, we have two primary
+
+35
+00:02:08,969 --> 00:02:12,638
+approaches: the Optimal and the Approximation methods.
+
+36
+00:02:12,733 --> 00:02:15,654
+In the Optimal category, we have two prominent
+
+37
+00:02:15,754 --> 00:02:18,609
+algorithms: Brute Force and Branch and Bound.
+
+38
+00:02:18,700 --> 00:02:22,166
+Moving on to the Approximation approach, we'll explain
+
+39
+00:02:22,266 --> 00:02:25,996
+the algorithms k nearest neighbors (kNN) and Christofides.
+
+40
+00:02:26,096 --> 00:02:29,232
+But let's start with the optimal solutions first.
+
+41
+00:02:30,316 --> 00:02:34,620
+The Brute Force method is a straightforward but time-consuming approach
+
+42
+00:02:34,720 --> 00:02:37,907
+to solve the TSP. It involves trying out all possible
+
+43
+00:02:38,007 --> 00:02:40,512
+orders in which the cities can be visited.
+
+44
+00:02:40,600 --> 00:02:44,294
+As the first step in our Brute-Force algorithm, we generate
+
+45
+00:02:44,394 --> 00:02:48,540
+all possible permutations of the cities. This means creating every
+
+46
+00:02:48,640 --> 00:02:51,756
+possible order in which the cities can be visited.
+
+47
+00:02:52,000 --> 00:02:55,856
+Then, For each generated permutation, we calculate the length of
+
+48
+00:02:55,956 --> 00:02:59,628
+the tour by summing the distances between the visited cities.
+
+49
+00:03:00,716 --> 00:03:03,348
+Now, we need to Identify the tour with the
+
+50
+00:03:03,448 --> 00:03:06,924
+shortest length among all the calculated tours. This is
+
+51
+00:03:07,024 --> 00:03:10,696
+the optimal solution to the Traveling Salesperson Problem.
+
+52
+00:03:11,783 --> 00:03:14,567
+We can calculate the number of possible paths as
+
+53
+00:03:14,667 --> 00:03:17,811
+the number of possible permutations of n elements when
+
+54
+00:03:17,911 --> 00:03:20,875
+each permutation is counted as a separate operation
+
+55
+00:03:20,966 --> 00:03:23,669
+For the example we've seen before we used
+
+56
+00:03:23,769 --> 00:03:26,266
+5 nodes, so we get 12 possible routes.
+
+57
+00:03:26,350 --> 00:03:28,975
+If we just increase the number of nodes
+
+58
+00:03:29,075 --> 00:03:31,770
+by 1, we already get 60 possible routes.
+
+59
+00:03:31,866 --> 00:03:38,102
+For 10 nodes, it's already 181440 potential shortest paths!!
+
+60
+00:03:39,200 --> 00:03:43,108
+This is because we got an exponential time complexity.
+
+61
+00:03:46,200 --> 00:03:49,344
+Another way of solving the TSP is with the help of
+
+62
+00:03:49,444 --> 00:03:53,108
+the branch and bound method. Let's start with a simple TSP
+
+63
+00:03:53,208 --> 00:03:56,353
+example. Again we have a set of cities and need to
+
+64
+00:03:56,453 --> 00:04:00,572
+find the shortest possible route visiting each city exactly once.
+
+65
+00:04:06,200 --> 00:04:10,400
+The Branch-and-Bound method begins by constructing a tree of
+
+66
+00:04:10,500 --> 00:04:14,056
+all possibilities. First we need a Graph. Let's use
+
+67
+00:04:14,156 --> 00:04:16,708
+the same graph and start at node one.
+
+68
+00:04:17,200 --> 00:04:22,666
+Now we have to look at the next possible nodes. In this case we
+
+69
+00:04:22,766 --> 00:04:27,084
+have four options. We can go to node 2, 3, 4 or 5.
+
+70
+00:04:28,200 --> 00:04:31,856
+At the same time we can tranform the graph on the right to
+
+71
+00:04:31,956 --> 00:04:35,547
+a tree with node one as the root. This tree will show all
+
+72
+00:04:35,647 --> 00:04:40,858
+the possible routes that the salesperson can use. As explained, starting with node
+
+73
+00:04:40,958 --> 00:04:44,420
+one the next possible nodes could be node 2, 3, 4 or 5.
+
+74
+00:04:44,516 --> 00:04:47,906
+This would be the first version of the tree. Now we
+
+75
+00:04:48,006 --> 00:04:51,191
+have to take a look at the next steps. Let's say
+
+76
+00:04:51,291 --> 00:04:54,544
+we choose node 2 as the second node to travel to.
+
+77
+00:04:54,633 --> 00:04:59,621
+Starting from node 2, the next options would be node 3, 4 or 5.
+
+78
+00:05:01,633 --> 00:05:05,895
+Now we can create the next step at the tree. Again the next
+
+79
+00:05:05,995 --> 00:05:09,813
+possible nodes to travel to would be node 3, 4 and 5.
+
+80
+00:05:09,900 --> 00:05:14,130
+Let's continue creating one possible route. We decide to
+
+81
+00:05:14,230 --> 00:05:16,760
+travel to node 5 as our next city.
+
+82
+00:05:16,850 --> 00:05:20,833
+Starting from node 5, there are two cities left that
+
+83
+00:05:20,933 --> 00:05:23,974
+have not been visited yet. Node 3 and 4.
+
+84
+00:05:24,066 --> 00:05:28,550
+Let's go back to the tree and add the last two options, node 3 and 4
+
+85
+00:05:31,966 --> 00:05:35,226
+This time we choose node 3 as the next city.
+
+86
+00:05:36,966 --> 00:05:41,426
+As you can see the last city, that we have not visited is city 4.
+
+87
+00:05:41,516 --> 00:05:47,080
+Let's also add node 4 in the tree. Now we have visited every city.
+
+88
+00:05:47,166 --> 00:05:50,869
+At the end we have to travel to the city where we started
+
+89
+00:05:50,969 --> 00:05:54,938
+the tour. Let's finish our route by traveling back to city 1.
+
+90
+00:05:55,033 --> 00:05:57,321
+Now we can also finish our route on the
+
+91
+00:05:57,421 --> 00:05:59,709
+tree by adding node 1 as our last node.
+
+92
+00:05:59,800 --> 00:06:02,791
+As you can see this is one possible route and
+
+93
+00:06:02,891 --> 00:06:06,708
+the tree is not complete. Let's create the complete tree.
+
+94
+00:06:09,800 --> 00:06:14,049
+This tree shows every possible route, if you start from node one. Here
+
+95
+00:06:14,149 --> 00:06:17,653
+we can now see that there are 24 possible routes to get to
+
+96
+00:06:17,753 --> 00:06:21,195
+the last node. But is you take a closer look at the first
+
+97
+00:06:21,295 --> 00:06:25,172
+and last route, you can see that the routes are identical, if we
+
+98
+00:06:25,272 --> 00:06:29,335
+have a symmetrical TSP. That means if we have a symmetrical TSP, as
+
+99
+00:06:29,435 --> 00:06:32,380
+in our example, we can ignore half of the routes.
+
+100
+00:06:32,466 --> 00:06:35,534
+Let's blur out the routes that we can ignore.
+
+101
+00:06:37,633 --> 00:06:41,853
+Here we can also visualize which route we took in the first example.
+
+102
+00:06:42,133 --> 00:06:46,477
+After having created a tree for every possible route, the branch and bound method
+
+103
+00:06:46,577 --> 00:06:50,428
+calculates the cost for every route and compares it to the best route so
+
+104
+00:06:50,528 --> 00:06:53,940
+far. If the cost of the current route is higher than the cost of
+
+105
+00:06:54,040 --> 00:06:57,177
+the best route so far, the current route will be discarded.
+
+106
+00:06:57,266 --> 00:07:01,987
+Let's take a look at an example. Lets say the algorithm calculated
+
+107
+00:07:02,087 --> 00:07:05,566
+our route first with the cost of 15. As it is the
+
+108
+00:07:05,666 --> 00:07:08,926
+first route, it is also the best route so far.
+
+109
+00:07:10,266 --> 00:07:14,485
+Next, the algorithm calculates the route on the left. The cost
+
+110
+00:07:14,585 --> 00:07:17,898
+of this route is 12. As this route is better than
+
+111
+00:07:17,998 --> 00:07:21,590
+the best route so far, it becomes the new best route.
+
+112
+00:07:21,816 --> 00:07:25,502
+Now the algorithm calculates the next route. In our
+
+113
+00:07:25,602 --> 00:07:28,916
+example it will be the seventh possible route.
+
+114
+00:07:29,000 --> 00:07:32,828
+In this route the algorithm realizes at the third node that the added
+
+115
+00:07:32,928 --> 00:07:36,187
+costs are at 14. Since the cost of the route till the third
+
+116
+00:07:36,287 --> 00:07:40,115
+node is already higher than the cost of the best route, the algorithm
+
+117
+00:07:40,215 --> 00:07:43,588
+can discard this route without calculating it untill the end.
+
+118
+00:07:43,683 --> 00:07:47,514
+This way of calculating the best route is applied to every
+
+119
+00:07:47,614 --> 00:07:51,309
+route. At the end the algorithm will have found the best
+
+120
+00:07:51,409 --> 00:07:54,359
+route. In this example it is the first route.
+
+121
+00:07:54,450 --> 00:07:57,552
+Let's take a look now at the time complexity of the
+
+122
+00:07:57,652 --> 00:08:02,451
+branch and bound method. As explained, the algorithm calculates every possible
+
+123
+00:08:02,551 --> 00:08:05,968
+route. But as we have seen before, it can discard routes
+
+124
+00:08:06,068 --> 00:08:08,606
+that are worse than the best route so far.
+
+125
+00:08:08,700 --> 00:08:12,626
+That means the algorithm does not have to calculate every route untill
+
+126
+00:08:12,726 --> 00:08:16,768
+the end. Still having to calculate every possible route makes the branch
+
+127
+00:08:16,868 --> 00:08:20,738
+and bound method very time consuming. In the worst case the algorithm
+
+128
+00:08:20,838 --> 00:08:24,477
+has to calculate every possible route untill the end and the time
+
+129
+00:08:24,577 --> 00:08:27,296
+complexity is the same as the brute force method.
+
+130
+00:08:27,383 --> 00:08:30,821
+However the algorithm performs very well in practice and it is
+
+131
+00:08:30,921 --> 00:08:34,359
+mostly better than the brute force method. For that reason the
+
+132
+00:08:34,459 --> 00:08:37,953
+time complexity of the branch and bound method is mostly better
+
+133
+00:08:38,053 --> 00:08:41,035
+then the brute force algorithm, but still exponential.
+
+134
+00:08:41,133 --> 00:08:45,617
+Our first approximation approach is k nearest neighbors (kNN).
+
+135
+00:08:45,716 --> 00:08:48,654
+We start at a specific city (any city can be the
+
+136
+00:08:48,754 --> 00:08:52,514
+starting point). Then we check the shortest path and add this
+
+137
+00:08:52,614 --> 00:08:55,552
+point to the tour. Same for the next node and so
+
+138
+00:08:55,652 --> 00:08:59,032
+on ... we repeat this until there is no unvisited node.
+
+139
+00:09:00,316 --> 00:09:04,104
+Finally, we draw a connection back to the starting point.
+
+140
+00:09:07,200 --> 00:09:09,508
+This is how it can look like with more
+
+141
+00:09:09,608 --> 00:09:12,044
+nodes, so more cities Alex has to visit.
+
+142
+00:09:13,533 --> 00:09:17,432
+For a dataset with n cities, the time complexity of applying kNN
+
+143
+00:09:17,532 --> 00:09:20,806
+to TSP is O of n squared. Even though it's better than
+
+144
+00:09:20,906 --> 00:09:23,930
+using Branch and Bound with O of 2 to the power of
+
+145
+00:09:24,030 --> 00:09:27,617
+n - 1in most cases we won't find the optimal shortest path.
+

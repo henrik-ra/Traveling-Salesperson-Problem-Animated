@@ -1,0 +1,13 @@
+[
+    {
+        "name": "autocreated",
+        "type": "default.normal",
+        "video": "TSP_0000.mp4",
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "525050880/8750891",
+        "duration": "569.686133",
+        "nb_frames": "34183"
+    }
+]

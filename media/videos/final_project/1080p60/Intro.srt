@@ -1,0 +1,284 @@
+1
+00:00:00,000 --> 00:00:02,943
+Welcome back guys! Today, we're diving
+
+2
+00:00:03,043 --> 00:00:06,068
+into the Traveling Salesperson Problem.
+
+3
+00:00:06,166 --> 00:00:08,940
+Imagine we have a traveling salesperson - tasked
+
+4
+00:00:09,040 --> 00:00:11,634
+with selling your products in various cities.
+
+5
+00:00:11,733 --> 00:00:15,497
+This guy is Alex, a salesperson with a big challenge.
+
+6
+00:00:15,583 --> 00:00:19,429
+Alex has to sell products in various cities and wants to take
+
+7
+00:00:19,529 --> 00:00:23,376
+the shortest route to save time. But how does Alex figure out
+
+8
+00:00:23,476 --> 00:00:27,387
+the best route? Let's dive in and help Alex solve this puzzle.
+
+9
+00:00:27,483 --> 00:00:30,479
+Let's say he needs to visit 4 cities.
+
+10
+00:00:30,566 --> 00:00:34,670
+Sounds straightforward, right? What do you think happens if
+
+11
+00:00:34,770 --> 00:00:37,306
+we add one more city to Alex's route?
+
+12
+00:00:37,400 --> 00:00:41,063
+Of course, if we add more cities it get's more complex. So how
+
+13
+00:00:41,163 --> 00:00:45,676
+do you determine the shortest possible route that connects all these cities?
+
+14
+00:00:45,766 --> 00:00:49,820
+One approach is to try out every possible route. But here lies
+
+15
+00:00:49,920 --> 00:00:54,176
+the problem: Complexity! So, with every new city Alex adds to the
+
+16
+00:00:54,276 --> 00:00:58,866
+trip, the challenge of finding the shortest route grows significantly.
+
+17
+00:01:01,766 --> 00:01:05,459
+The Problem to find the shortest way between multiple points
+
+18
+00:01:05,559 --> 00:01:09,441
+is called the Traveling Salesperson Problem (TSP). Alex goal is
+
+19
+00:01:09,541 --> 00:01:12,538
+to keep the distance traveled as low as possible.
+
+20
+00:01:12,633 --> 00:01:16,346
+There are 2 main conditions: He needs to visit every city exactly
+
+21
+00:01:16,446 --> 00:01:20,453
+once, starting from a specific one and returning to the starting city.
+
+22
+00:01:22,550 --> 00:01:26,142
+To solve it, we'll think of each city as a point, or
+
+23
+00:01:26,242 --> 00:01:31,042
+'node', on a graph. The edges symbolize possible paths Alex can take.
+
+24
+00:01:31,133 --> 00:01:34,009
+It's complete, this means there's a direct path
+
+25
+00:01:34,109 --> 00:01:36,289
+from every city to every other city.
+
+26
+00:01:37,733 --> 00:01:41,920
+Our TSP is symmetric. It means the distance from city A
+
+27
+00:01:42,020 --> 00:01:45,505
+to B is identical to the distance from B to A.
+
+28
+00:01:45,600 --> 00:01:49,185
+Also, in our model, the direct path between any two cities
+
+29
+00:01:49,285 --> 00:01:52,679
+is always the shortest. This means for two cities A and
+
+30
+00:01:52,779 --> 00:01:55,602
+B there is no path with an added point that is
+
+31
+00:01:55,702 --> 00:02:00,812
+shorter than the direct connection. adhering to the triangle inequality principle.
+
+32
+00:02:00,900 --> 00:02:03,250
+With these rules in mind, let's explore
+
+33
+00:02:03,350 --> 00:02:05,576
+how Alex can find the shortest route.
+
+34
+00:02:06,666 --> 00:02:08,869
+To solve TSP, we have two primary
+
+35
+00:02:08,969 --> 00:02:12,638
+approaches: the Optimal and the Approximation methods.
+
+36
+00:02:12,733 --> 00:02:15,654
+In the Optimal category, we have two prominent
+
+37
+00:02:15,754 --> 00:02:18,609
+algorithms: Brute Force and Branch and Bound.
+
+38
+00:02:18,700 --> 00:02:22,166
+Moving on to the Approximation approach, we'll explain
+
+39
+00:02:22,266 --> 00:02:25,996
+the algorithms k nearest neighbors (kNN) and Christofides.
+
+40
+00:02:26,096 --> 00:02:29,232
+But let's start with the optimal solutions first.
+
+41
+00:02:30,316 --> 00:02:34,620
+The Brute Force method is a straightforward but time-consuming approach
+
+42
+00:02:34,720 --> 00:02:37,907
+to solve the TSP. It involves trying out all possible
+
+43
+00:02:38,007 --> 00:02:40,512
+orders in which the cities can be visited.
+
+44
+00:02:40,600 --> 00:02:44,294
+As the first step in our Brute-Force algorithm, we generate
+
+45
+00:02:44,394 --> 00:02:48,540
+all possible permutations of the cities. This means creating every
+
+46
+00:02:48,640 --> 00:02:51,756
+possible order in which the cities can be visited.
+
+47
+00:02:52,000 --> 00:02:55,856
+Then, For each generated permutation, we calculate the length of
+
+48
+00:02:55,956 --> 00:02:59,628
+the tour by summing the distances between the visited cities.
+
+49
+00:03:00,716 --> 00:03:03,348
+Now, we need to Identify the tour with the
+
+50
+00:03:03,448 --> 00:03:06,924
+shortest length among all the calculated tours. This is
+
+51
+00:03:07,024 --> 00:03:10,696
+the optimal solution to the Traveling Salesperson Problem.
+
+52
+00:03:11,783 --> 00:03:14,567
+We can calculate the number of possible paths as
+
+53
+00:03:14,667 --> 00:03:17,811
+the number of possible permutations of n elements when
+
+54
+00:03:17,911 --> 00:03:20,875
+each permutation is counted as a separate operation
+
+55
+00:03:20,966 --> 00:03:23,669
+For the example we've seen before we used
+
+56
+00:03:23,769 --> 00:03:26,266
+5 nodes, so we get 12 possible routes.
+
+57
+00:03:26,350 --> 00:03:28,975
+If we just increase the number of nodes
+
+58
+00:03:29,075 --> 00:03:31,770
+by 1, we already get 60 possible routes.
+
+59
+00:03:31,866 --> 00:03:38,102
+For 10 nodes, it's already 181440 potential shortest paths!!
+
+60
+00:03:39,200 --> 00:03:43,108
+This is because we got an exponential time complexity.
+
+61
+00:03:46,200 --> 00:03:50,684
+Our first approximation approach is k nearest neighbors (kNN).
+
+62
+00:03:50,783 --> 00:03:53,720
+We start at a specific city (any city can be the
+
+63
+00:03:53,820 --> 00:03:57,581
+starting point). Then we check the shortest path and add this
+
+64
+00:03:57,681 --> 00:04:00,618
+point to the tour. Same for the next node and so
+
+65
+00:04:00,718 --> 00:04:04,099
+on ... we repeat this until there is no unvisited node.
+
+66
+00:04:05,383 --> 00:04:09,171
+Finally, we draw a connection back to the starting point.
+
+67
+00:04:12,266 --> 00:04:14,488
+This is how it can look like with more
+
+68
+00:04:14,588 --> 00:04:16,870
+nodes so more cities Alex has to visit.
+
+69
+00:04:18,433 --> 00:04:22,629
+For a dataset with n cities, the time complexity of applying kNN to
+
+70
+00:04:22,729 --> 00:04:26,733
+TSP is O of n squared. Even though it's better than using Branch
+
+71
+00:04:26,833 --> 00:04:30,837
+and Bound in most cases we won't find the optimal shortest path.
+
