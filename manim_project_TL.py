@@ -37,20 +37,17 @@ class AzureExample(VoiceoverScene):
 
     def symmetric_vs_asymmetric(self):
         with self.voiceover(text="There are symmetrical and asymmetrical TSPs.") as tracker:
-
             text_symmetrical = Text("Symmetrical", font_size=36).move_to(LEFT*2)
             text_asymmetrical = Text("Asymmetrical", font_size=36).move_to(RIGHT*2)
             text_vs = Text("vs", font_size=36)
   
-
             self.play(Write(text_symmetrical), Write(text_asymmetrical), Write(text_vs))
 
-        
         with self.voiceover(text= "First we will explain the symmetrical TSP") as tracker:
             self.play(
                 text_symmetrical.animate.move_to(ORIGIN).to_edge(UP),
                 FadeOut(text_vs),
-                FadeOut(text_asymmetrical),
+                FadeOut(text_asymmetrical)
             )
 
         with self.voiceover(text="A TSP is called symmetrical, if the edges between two nodes have the same value in both directions. This means the way form one town to another would be exact the same in both directions. This isn't really accurate because of conditions of the landscape or construction sites.") as tracker:
@@ -177,22 +174,15 @@ class AzureExample(VoiceoverScene):
 
     def lower_bound(self):
         # Code für die Erklärung des Lower Bound
-        with self.voiceover(text="We need to point out how good is our approximated solution compared to the optimum.") as tracker:
+        with self.voiceover(text="We need to point out how good is our approximated solution compared to the optimum. In some business cases there is a treshold given by the supervisor so you don't need to know how near the solution is to the optimum but in a theroetic case we want to know this. As we know to determine the optimum is not economically sensible so we need to find an other value to measure our solution.") as tracker:
             # Erstellen des Textobjekts
             solution_text = Text("How good is our solution?", font_size=40).move_to(ORIGIN)
         
             # Text einblenden
             self.play(Write(solution_text))
-        
-        with self.voiceover(text="In some business cases there is a treshold given by the supervisor so you don't need to know how near the solution is to the optimum but in a theroetic case we want to know this.") as tracker:
-            self.wait(4)
 
-        with self.voiceover(text="As we know to determine the optimum is not economically sensible so we need to find an other value to measure our solution.") as tracker:
-            self.wait(4)
-            self.play(FadeOut(solution_text))
-        
         with self.voiceover(text="So lets imagine we have these nodes as a tsp") as tracker:
-
+            self.play(FadeOut(solution_text))
             positions_ap = {
             0: LEFT * 4 + UP * 2,
             1: LEFT * 2 + UP * 2,
@@ -314,7 +304,6 @@ class AzureExample(VoiceoverScene):
         with self.voiceover(text="The lower bound is the value of the sum of every weight of every edge in a minimum spanning tree."):
             all_objects = VGroup(approximated_text, greater_than_1, optimum_text, greater_than_2)
             self.play(FadeOut(all_objects))
-            self.wait(0.5)
             self.play(header_lb.animate.move_to(ORIGIN).to_edge(UP))
 
 
@@ -341,9 +330,9 @@ class AzureExample(VoiceoverScene):
             
 
         with self.voiceover(text="We add the edges and their weights to the nodes so we get our minimal spanning tree.") as tracker:
-            self.wait(2)
+  
 
-            # Kanten definieren, die einen MST bilden (hier als Beispiel ausgewählt)
+            # Kanten definieren, die einen MST bilden 
             edges_lb = [
             (0, 1), (1, 9), (9, 5), (5, 6), 
             (9,4), (4, 7), (7, 8), (4,2), (2, 3), 
@@ -390,7 +379,7 @@ class AzureExample(VoiceoverScene):
 
                 self.play(Create(line_lb), Write(label_lb), run_time=0.5)
         
-            self.wait(2)
+   
 
         with self.voiceover(text="We take again a look at all the weights and sum them up.") as tracker:
             # Gleichungstext erstellen
@@ -398,7 +387,7 @@ class AzureExample(VoiceoverScene):
 
             # Texte zeichnen
             self.play(Write(equation_text))
-            self.wait(2)
+
 
         with self.voiceover(text="This is the value of our lower bound.") as tracker:
             # "Lower Bound"-Text erstellen und direkt unter der Gleichung positionieren
@@ -417,107 +406,211 @@ class AzureExample(VoiceoverScene):
             greater_than_3 =Text(">", font_size=36).move_to(ORIGIN)
             self.play(Write(approximated_text), Write(greater_than_3))
 
-            self.wait(2)
-        
-        # with self.voiceover(text="") as tracker:
-        #     pass
-
-
-
     def christofides_algorithm(self):
-        # with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
-        #     title = Text("Christofides Algorithm", font_size=36).to_edge(UP)
-        #     self.play(Write(title))
+        with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
+            title = Text("Christofides Algorithm", font_size=36).to_edge(UP)
+            self.play(Write(title))
 
-        # with self.voiceover(text="This is an approximated algorithm to solve the TSP with a O(n^3) complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip") as tracker:
-        #     On3 = Text("O(n^3)", font_size=30).next_to(title, DOWN)
-        #     self.play(Write(On3))
+        with self.voiceover(text="This is an approximated algorithm to solve the TSP with a O(n^3) complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
+            On3 = Text("O(n^3)", font_size=30).next_to(title, DOWN)
+            self.play(Write(On3))
 
-        # with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
-        #     #O(n log n) 
-        #     line1 = Text("1. Find a minimum spanning tree T of G.", font_size=24).to_edge(LEFT).move_to(UP)
-        #     self.play(Write(line1))
+        with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
+            #O(n log n) 
+            line1 = Text("1. Find a minimum spanning tree T of a graph G.", font_size=24).to_edge(LEFT).move_to(UP)
+            self.play(Write(line1))
 
-        # with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges by using the algorithm of Blossom") as tracker:
-        #     #O(n^3) n = node
-        #     line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN)
-        #     self.play(Write(line2))
+        with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges by using the algorithm of Blossom") as tracker:
+            #O(n^3) n = node
+            line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN, buff=0.5)
+            self.play(Write(line2))
 
-        # with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching in the subgraph consisting only of the odd degree vertices. A perfect matching means every vertex is paired, and minimal means the sum of the lengths of the edges in the pairing is minimized.") as tracker:
-        #     #O(n)
-        #     line3 = Text("3. Find a minimum perfect matching M in the subgraph induced by V_odd.", font_size=24).to_edge(LEFT).next_to(line2, DOWN, buff=0.5)
-        #     self.play(Write(line3))
+        with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching in the subgraph consisting only of the odd degree vertices. A perfect matching means every vertex is paired, and minimal means the sum of the lengths of the edges in the pairing is minimized.") as tracker:
+            #O(n)
+            line3 = Text("3. Find a minimum perfect matching M in the subgraph induced by V_odd.", font_size=24).to_edge(LEFT).next_to(line2, DOWN, buff=0.5)
+            self.play(Write(line3))
 
-        # with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
-        #     #O(n)
-        #     line4 = Text("4. Combine the edges of M and T to form a multigraph H.", font_size=24).to_edge(LEFT).next_to(line3, DOWN, buff=0.5)
-        #     self.play(Write(line4))
+        with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
+            #O(n)
+            line4 = Text("4. Combine the edges of M and T to form a multigraph H.", font_size=24).to_edge(LEFT).next_to(line3, DOWN, buff=0.5)
+            self.play(Write(line4))
         
-        # with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. We need to find it.") as tracker:
-        #     #O(n)
-        #     line5 = Text("5. Find an Eulerian circuit in H.", font_size=24).to_edge(LEFT).next_to(line4, DOWN, buff=0.5)
-        #     self.play(Write(line5))
+        with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. We need to find it.") as tracker:
+            #O(n)
+            line5 = Text("5. Find an Eulerian circuit in H.", font_size=24).to_edge(LEFT).next_to(line4, DOWN, buff=0.5)
+            self.play(Write(line5))
 
-        # with self.voiceover(text="Now we convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.") as tracker:
-        #     #O(n)
-        #     line6 = Text("6. Convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.", font_size=24).to_edge(LEFT).next_to(line5, DOWN, buff=0.5)
-        #     self.play(Write(line6))
+        with self.voiceover(text="Now we convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.") as tracker:
+            #O(n)
+            line6 = Text("6. Convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.", font_size=24).to_edge(LEFT).next_to(line5, DOWN, buff=0.5)
+            self.play(Write(line6))
         
         with self.voiceover(text= "Let's take a look at the graph to visualize this algorithm.") as tracker:
-            # group = VGroup(line1, line2, line3, line4, line5, line6)
-            # self.play(FadeOut(group))
-            positions = {
-            0: LEFT + UP * 2,
-            1: RIGHT + UP * 2,
-            2: RIGHT * 2,
-            3: ORIGIN,
-            4: LEFT * 2,
-            }
-            edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0), (0, 2), (1, 3), (0, 3)]
-            graph = CustomGraph(list(positions.keys()), edges, layout=positions, labels=True).move_to(DOWN)
+            group = VGroup(line1, line2, line3, line4, line5, line6, On3)
+            self.play(FadeOut(group))
 
-            # Graph zeichnen
-            self.play(Create(graph))
+            positions_mst = {
+            0: LEFT * 4 + UP * 2,
+            1: LEFT * 2 + UP * 2,
+            2: LEFT * 2 + DOWN * 2,
+            3: LEFT * 4 + DOWN * 2,
+            4: ORIGIN,
+            5: RIGHT * 2 + UP * 2,
+            6: RIGHT * 4 + UP * 2,
+            7: RIGHT * 2 + DOWN * 2,
+            8: RIGHT * 4 + DOWN * 2,
+            9: UP * 2,
+            }
+
+            # Alle Knoten initial erstellen
+            graph_mst = CustomGraph(list(positions_mst.keys()), [], layout=positions_mst, labels=True)
+
+            # Graphen ohne Kanten zeichnen
+            self.play(Create(graph_mst))
         
         with self.voiceover(text= "Like explained before we create a minimal spanning tree.") as tracker:
-            mst_edges = [(0, 1), (1, 2), (2, 3), (3, 4)]
-            # Entferne nicht-MST-Kanten und füge sie mit neuem Stil wieder hinzu
-            for edge in edges:
-                if edge not in mst_edges and (edge[1], edge[0]) not in mst_edges:
-                    graph.remove_edges(edge)
-
-            self.wait(1)
-
-            # Füge MST-Kanten mit spezifischem Stil hinzu
-            for start, end in mst_edges:
-                if (start, end) in graph.edges:
-                    graph.edges[(start, end)].set_color(BLUE).set_stroke(width=4)
-                elif (end, start) in graph.edges:  # Für ungerichtete Graphen
-                    graph.edges[(end, start)].set_color(BLUE).set_stroke(width=4)
-
-            self.wait(1)
-        
-        # with self.voiceover(text= "Now we point out every node with an odd degree") as tracker:
-        #     odd_degree_nodes = [0, 1, 2, 3, 4]  # In diesem Beispiel haben alle Knoten einen ungeraden Grad
-        #     for node in odd_degree_nodes:
-        #         graph[node].set_color(RED)
-        
-        # with self.voiceover(text= "We can now point out the minimal perfect matching.") as tracker:
-        #     matching_edges = [(0, 2), (1, 3)]
-        #     for edge in matching_edges:
-        #         self.play(graph.add_edges(edge, color=BLUE, stroke_width=4), run_time=1)
-        
-        # with self.voiceover(text= "In step four we don't need to add any edges because we already have these. So we can go on with the next step and find an eulerican circle.") as tracker:
-        #     euler_path = [0, 1, 2, 0, 2, 3, 4, 0]  # Hypothetischer Eulerkreis
-        #     for i in range(len(euler_path) - 1):
-        #         self.play(graph[euler_path[i]].animate.move_to(positions[euler_path[i + 1]]), run_time=0.5)
-        
-        # with self.voiceover(text= "The last step will be to convert the euleric circle into a hamilton circle. Great we solved our TSP!") as tracker:
-        #     self.play(*[graph[i].animate.scale(1.2).set_color(YELLOW) for i in range(5)], run_time=2)
-        
-        # with self.voiceover(text="In summary, the time complexity of the Christofides algorithm is mainly determined by the step of finding a minimum perfect matching, which is O(n^3). Therefore, the overall complexity of the Christofides algorithm is O(n^3).") as tracker:
-        #     self.play(FadeOut(graph))
+            # Kanten definieren, die einen MST bilden 
+            edges_mst = [
+            (0, 1), (1, 9), (9, 5), (5, 6), 
+            (4, 9), (4, 7), (7, 8), (4,2), (2, 3), 
+            ]
 
 
-if __name__ == "__main__":
-    os.system(f"manim -pqh --disable_caching {__file__} AzureExample")
+            line_positions_mst = {
+            (0, 1): (positions_mst[0] + RIGHT * 0.3, positions_mst[1] + LEFT * 0.3),
+            (1, 9): (positions_mst[1] + RIGHT * 0.3, positions_mst[9] + LEFT * 0.3),
+            (9, 5): (positions_mst[9] + RIGHT * 0.3, positions_mst[5] + LEFT * 0.3),
+            (5, 6): (positions_mst[5] + RIGHT * 0.3, positions_mst[6] + LEFT * 0.3),
+            (9, 4): (positions_mst[9] + DOWN * 0.2 + LEFT*0.2, positions_mst[4] + UP * 0.2 + LEFT*0.2),
+            (4, 7): (positions_mst[4] + (RIGHT+DOWN) * 0.2, positions_mst[7] + (LEFT+UP) * 0.2),
+            (7, 8): (positions_mst[7] + RIGHT * 0.3, positions_mst[8] + LEFT * 0.3),
+            (4, 2): (positions_mst[4] + (LEFT+DOWN) * 0.2, positions_mst[2] + (RIGHT+UP) * 0.2),
+            (2, 3): (positions_mst[2] + LEFT * 0.3, positions_mst[3] + RIGHT * 0.3),
+            (0, 3): (positions_mst[0] + DOWN * 0.3, positions_mst[3] + UP * 0.3),
+            (4, 9): (positions_mst[9] + RIGHT * 0.2 + DOWN * 0.2, positions_mst[4] + RIGHT * 0.2 + UP * 0.2),
+            (6, 8): (positions_mst[6] + DOWN * 0.3, positions_mst[8] + UP * 0.3) 
+            }
+            
+            lines_mst = VGroup()
+            lines_to_remove = VGroup()
+            edges_to_remove = [(9,4), (4,9)]
+            # Linien für jede Kante und Labels erstellen
+            for i, edge in enumerate(edges_mst): # i muss mit aufegrufen werden, da es sich um ein Tupel handelt
+                start_pos_mst, end_pos_mst = line_positions_mst[edge]
+
+                line_mst = Line(start_pos_mst, end_pos_mst, color=WHITE)
+                if edge in edges_to_remove:
+                    lines_to_remove.add(line_mst)
+                else:
+                    lines_mst.add(line_mst)
+
+                self.play(Create(line_mst), run_time=0.5)
+        
+        with self.voiceover(text= "Now we point out every node with an odd degree") as tracker:
+            highlight_nodes = [0, 9, 6, 4, 3, 8]  # Knoten, die hervorgehoben werden sollen
+
+            circles = VGroup()
+            for node in highlight_nodes:
+                # Position des aktuellen Knotens abrufen
+                node_position = positions_mst[node]
+    
+                # Einen roten Kreis um den Knoten zeichnen
+                highlight_circle = Circle(radius=0.5, color=RED).move_to(node_position)
+                circles.add(highlight_circle)
+                # Zeigen Sie den roten Kreis auf dem Bildschirm an
+                self.play(Create(highlight_circle), run_time=0.5)
+
+                
+        
+        with self.voiceover(text= "We can now point out the minimal perfect matching, so we add edges with the minimum weight until every node has an odd degree.") as tracker:
+            self.play(FadeOut(circles), run_time=0.2)
+            edges_mst_2 = [
+            (0, 3), (9, 4), (6, 8),  
+            ]
+            
+            # Linien für jede Kante und Labels erstellen
+            for i, edge in enumerate(edges_mst_2): # i muss mit aufegrufen werden, da es sich um ein Tupel handelt
+                start_pos_mst, end_pos_mst = line_positions_mst[edge]
+
+                line_mst = Line(start_pos_mst, end_pos_mst, color=RED)
+                if edge in edges_to_remove:
+                    lines_to_remove.add(line_mst)
+                else:
+                    lines_mst.add(line_mst)
+
+                self.play(Create(line_mst), run_time=0.5)
+        
+        with self.voiceover(text= "Now we are going to find an eulerian tour which hits every edge exact once.") as tracker:
+            # Kanten, die hervorgehoben werden sollen
+            highlight_edges = [(0, 3), (2,3), (4, 2), (4,7), (7,8), (6, 8), (5, 6), (9, 5), (4,9), (9,4),  (1,9), (0,1)]
+            
+            # Texte, die den Kanten entsprechen
+            texts = ["0 →", "3 → ", "2 → ", "4 → ", "7 → ", "8 → ", "6 → ", "5 → ", "9 → ", "4 → ", "9 → ", "1"]
+
+            # Basisposition für den ersten Text
+            base_position = np.array([-4, -3, 0])  # Startposition am unteren Bildschirmrand links
+
+            # Die Gruppe für alle Texte, um sie zu verwalten
+            all_texts = VGroup()
+
+
+            for i, edge in enumerate(highlight_edges):
+                # Positionen für die Start- und Endpunkte der Kante aus dem Dictionary abrufen
+                start_pos, end_pos = line_positions_mst[edge]
+                
+                # Hervorgehobene Linie erstellen
+                highlight_line = Line(start_pos, end_pos, color=YELLOW, stroke_width=10)
+                
+                # Zeigen Sie die hervorgehobene Linie auf dem Bildschirm an
+                self.play(Create(highlight_line), run_time=0.5)
+
+                # Text für die aktuelle Kante erstellen
+                text = Text(texts[i], font_size=24).move_to(base_position)
+
+                # Aktualisieren der Basisposition für den nächsten Text, so dass er rechts vom aktuellen steht
+                if i > 0:  # Ab dem zweiten Text die Position anpassen
+                    text.next_to(all_texts, RIGHT)
+
+                # Text zur Gruppe hinzufügen
+                all_texts.add(text)
+                
+                # Text auf dem Bildschirm anzeigen
+                self.play(Write(text), run_time=0.5)
+
+                self.wait(1)
+
+                self.play(FadeOut(highlight_line), run_time=0.5)
+        
+        with self.voiceover(text= "The last step will be to convert the euleric circle into a hamilton circle, so we have to delete all edges which make the circle visit a node which we have seen before. In our case these are the edges between 9 and 4.") as tracker:
+            
+            # Positionen definieren
+            position_x1 = np.array([2.5, -3, 0])  # Links oben
+            position_x2 = np.array([3.3, -3, 0])  # Rechts unten
+
+            # Erstellen der "X"-Zeichen
+            x_mark_1 = self.create_x_mark(position_x1)
+            x_mark_2 = self.create_x_mark(position_x2)
+
+            # Zeichnen der "X"-Zeichen
+            self.play(Create(x_mark_1), Create(x_mark_2), FadeOut(lines_to_remove))
+
+        with self.voiceover(text="If we take a look at the time complexity of the Christofides algorithm it is mainly determined by the step of finding a minimum perfect matching, which is O(n^3). Therefore, the overall complexity of the Christofides algorithm is O(n^3).") as tracker:
+            self.play(FadeOut(graph_mst), 
+                      FadeOut(all_texts), 
+                              FadeOut(x_mark_1), 
+                              FadeOut(x_mark_2),
+                              FadeOut(lines_mst)
+                              )
+            self.play(FadeIn(On3))
+        
+        with self.voiceover(text = "Now we go on with the next topic") as tracker:
+            self.play(FadeOut(On3), FadeOut(title))
+
+    def create_x_mark(self, position):
+            # Erstellen eines "X" an der gegebenen Position
+            line1 = Line(position + np.array([-0.25, 0.25, 0]), position + np.array([0.25, -0.25, 0]), color=RED)
+            line2 = Line(position + np.array([-0.25, -0.25, 0]), position + np.array([0.25, 0.25, 0]), color=RED)
+            return VGroup(line1, line2)
+
+    if __name__ == "__main__":
+        os.system(f"manim -pqh --disable_caching {__file__} AzureExample")
