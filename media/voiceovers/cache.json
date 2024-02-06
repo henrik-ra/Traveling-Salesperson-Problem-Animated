@@ -57513,5 +57513,857 @@
     ],
     "original_audio": "alex-has-to-sell-products-in-various-cities-and-575f7417.mp3",
     "final_audio": "alex-has-to-sell-products-in-various-cities-and-575f7417.mp3"
+  },
+  {
+    "input_text": "Let's say he needs to visit 4 cities.",
+    "input_data": {
+      "input_text": "Let's say he needs to visit 4 cities.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">Let's say he needs to visit 4 cities.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">Let's say he needs to visit 4 cities.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 275,
+        "text_offset": 0,
+        "word_length": 5,
+        "text": "Let's",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3500000,
+        "duration_milliseconds": 187,
+        "text_offset": 6,
+        "word_length": 3,
+        "text": "say",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 5625000,
+        "duration_milliseconds": 125,
+        "text_offset": 10,
+        "word_length": 2,
+        "text": "he",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 7125000,
+        "duration_milliseconds": 262,
+        "text_offset": 13,
+        "word_length": 5,
+        "text": "needs",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 10000000,
+        "duration_milliseconds": 100,
+        "text_offset": 19,
+        "word_length": 2,
+        "text": "to",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 11250000,
+        "duration_milliseconds": 312,
+        "text_offset": 22,
+        "word_length": 5,
+        "text": "visit",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 14625000,
+        "duration_milliseconds": 225,
+        "text_offset": 28,
+        "word_length": 1,
+        "text": "4",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 17125000,
+        "duration_milliseconds": 512,
+        "text_offset": 30,
+        "word_length": 6,
+        "text": "cities",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 22375000,
+        "duration_milliseconds": 100,
+        "text_offset": 36,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "let-s-say-he-needs-to-visit-4-cities-62950463.mp3",
+    "final_audio": "let-s-say-he-needs-to-visit-4-cities-62950463.mp3"
+  },
+  {
+    "input_text": "Sounds straightforward, right? What do you think happens if we add one more city to Alex's route?",
+    "input_data": {
+      "input_text": "Sounds straightforward, right? What do you think happens if we add one more city to Alex's route?",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">Sounds straightforward, right? What do you think happens if we add one more city to Alex's route?</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">Sounds straightforward, right? What do you think happens if we add one more city to Alex's route?</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 387,
+        "text_offset": 0,
+        "word_length": 6,
+        "text": "Sounds",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 4500000,
+        "duration_milliseconds": 787,
+        "text_offset": 7,
+        "word_length": 15,
+        "text": "straightforward",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 13250000,
+        "duration_milliseconds": 100,
+        "text_offset": 22,
+        "word_length": 1,
+        "text": ",",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 14250000,
+        "duration_milliseconds": 387,
+        "text_offset": 24,
+        "word_length": 5,
+        "text": "right",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 18250000,
+        "duration_milliseconds": 100,
+        "text_offset": 29,
+        "word_length": 1,
+        "text": "?",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 26750000,
+        "duration_milliseconds": 200,
+        "text_offset": 31,
+        "word_length": 4,
+        "text": "What",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 28875000,
+        "duration_milliseconds": 62,
+        "text_offset": 36,
+        "word_length": 2,
+        "text": "do",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 29625000,
+        "duration_milliseconds": 100,
+        "text_offset": 39,
+        "word_length": 3,
+        "text": "you",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 30875000,
+        "duration_milliseconds": 212,
+        "text_offset": 43,
+        "word_length": 5,
+        "text": "think",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 33250000,
+        "duration_milliseconds": 412,
+        "text_offset": 49,
+        "word_length": 7,
+        "text": "happens",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 37625000,
+        "duration_milliseconds": 112,
+        "text_offset": 57,
+        "word_length": 2,
+        "text": "if",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 39000000,
+        "duration_milliseconds": 137,
+        "text_offset": 60,
+        "word_length": 2,
+        "text": "we",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 40500000,
+        "duration_milliseconds": 162,
+        "text_offset": 63,
+        "word_length": 3,
+        "text": "add",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 42375000,
+        "duration_milliseconds": 212,
+        "text_offset": 67,
+        "word_length": 3,
+        "text": "one",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 44750000,
+        "duration_milliseconds": 175,
+        "text_offset": 71,
+        "word_length": 4,
+        "text": "more",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 46750000,
+        "duration_milliseconds": 287,
+        "text_offset": 76,
+        "word_length": 4,
+        "text": "city",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 49875000,
+        "duration_milliseconds": 125,
+        "text_offset": 81,
+        "word_length": 2,
+        "text": "to",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 51250000,
+        "duration_milliseconds": 487,
+        "text_offset": 84,
+        "word_length": 6,
+        "text": "Alex's",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 56375000,
+        "duration_milliseconds": 362,
+        "text_offset": 91,
+        "word_length": 5,
+        "text": "route",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 60125000,
+        "duration_milliseconds": 100,
+        "text_offset": 96,
+        "word_length": 1,
+        "text": "?",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "sounds-straightforward-right-what-do-you-think-75c55cb4.mp3",
+    "final_audio": "sounds-straightforward-right-what-do-you-think-75c55cb4.mp3"
+  },
+  {
+    "input_text": "Of course, if we add more cities it get's more complex. So how do you determine the shortest possible route that connects all these cities?",
+    "input_data": {
+      "input_text": "Of course, if we add more cities it get's more complex. So how do you determine the shortest possible route that connects all these cities?",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">Of course, if we add more cities it get's more complex. So how do you determine the shortest possible route that connects all these cities?</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">Of course, if we add more cities it get's more complex. So how do you determine the shortest possible route that connects all these cities?</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 175,
+        "text_offset": 0,
+        "word_length": 2,
+        "text": "Of",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 2500000,
+        "duration_milliseconds": 325,
+        "text_offset": 3,
+        "word_length": 6,
+        "text": "course",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 6625000,
+        "duration_milliseconds": 12,
+        "text_offset": 9,
+        "word_length": 1,
+        "text": ",",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 6875000,
+        "duration_milliseconds": 112,
+        "text_offset": 11,
+        "word_length": 2,
+        "text": "if",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 8250000,
+        "duration_milliseconds": 137,
+        "text_offset": 14,
+        "word_length": 2,
+        "text": "we",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 9750000,
+        "duration_milliseconds": 150,
+        "text_offset": 17,
+        "word_length": 3,
+        "text": "add",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 11500000,
+        "duration_milliseconds": 187,
+        "text_offset": 21,
+        "word_length": 4,
+        "text": "more",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 13625000,
+        "duration_milliseconds": 375,
+        "text_offset": 26,
+        "word_length": 6,
+        "text": "cities",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 17625000,
+        "duration_milliseconds": 87,
+        "text_offset": 33,
+        "word_length": 2,
+        "text": "it",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 18750000,
+        "duration_milliseconds": 212,
+        "text_offset": 36,
+        "word_length": 5,
+        "text": "get's",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 21000000,
+        "duration_milliseconds": 200,
+        "text_offset": 42,
+        "word_length": 4,
+        "text": "more",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 23125000,
+        "duration_milliseconds": 625,
+        "text_offset": 47,
+        "word_length": 7,
+        "text": "complex",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 29500000,
+        "duration_milliseconds": 100,
+        "text_offset": 54,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 38000000,
+        "duration_milliseconds": 187,
+        "text_offset": 56,
+        "word_length": 2,
+        "text": "So",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 40000000,
+        "duration_milliseconds": 125,
+        "text_offset": 59,
+        "word_length": 3,
+        "text": "how",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 41375000,
+        "duration_milliseconds": 75,
+        "text_offset": 63,
+        "word_length": 2,
+        "text": "do",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 42250000,
+        "duration_milliseconds": 87,
+        "text_offset": 66,
+        "word_length": 3,
+        "text": "you",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 43250000,
+        "duration_milliseconds": 462,
+        "text_offset": 70,
+        "word_length": 9,
+        "text": "determine",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 48125000,
+        "duration_milliseconds": 87,
+        "text_offset": 80,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 49125000,
+        "duration_milliseconds": 437,
+        "text_offset": 84,
+        "word_length": 8,
+        "text": "shortest",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 53625000,
+        "duration_milliseconds": 487,
+        "text_offset": 93,
+        "word_length": 8,
+        "text": "possible",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 58750000,
+        "duration_milliseconds": 200,
+        "text_offset": 102,
+        "word_length": 5,
+        "text": "route",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 61000000,
+        "duration_milliseconds": 137,
+        "text_offset": 108,
+        "word_length": 4,
+        "text": "that",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 62625000,
+        "duration_milliseconds": 375,
+        "text_offset": 113,
+        "word_length": 8,
+        "text": "connects",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 66625000,
+        "duration_milliseconds": 137,
+        "text_offset": 122,
+        "word_length": 3,
+        "text": "all",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 68250000,
+        "duration_milliseconds": 187,
+        "text_offset": 126,
+        "word_length": 5,
+        "text": "these",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 70250000,
+        "duration_milliseconds": 475,
+        "text_offset": 132,
+        "word_length": 6,
+        "text": "cities",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 75250000,
+        "duration_milliseconds": 100,
+        "text_offset": 138,
+        "word_length": 1,
+        "text": "?",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "of-course-if-we-add-more-cities-it-get-s-more-d1f1b866.mp3",
+    "final_audio": "of-course-if-we-add-more-cities-it-get-s-more-d1f1b866.mp3"
+  },
+  {
+    "input_text": "One approach is to try out every possible route. But here lies the problem: Complexity! So, with every new city Alex adds to the trip, the challenge of finding the shortest route grows significantly.",
+    "input_data": {
+      "input_text": "One approach is to try out every possible route. But here lies the problem: Complexity! So, with every new city Alex adds to the trip, the challenge of finding the shortest route grows significantly.",
+      "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">One approach is to try out every possible route. But here lies the problem: Complexity! So, with every new city Alex adds to the trip, the challenge of finding the shortest route grows significantly.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+      "service": "azure",
+      "config": {
+        "voice": "en-US-GuyNeural",
+        "style": "newscast-casual",
+        "output_format": "Audio48Khz192KBitRateMonoMp3",
+        "prosody": null
+      }
+    },
+    "ssml": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\"\n    xmlns:mstts=\"https://www.w3.org/2001/mstts\" xml:lang=\"en-US\">\n    <voice name=\"en-US-GuyNeural\">\n        <mstts:express-as style=\"newscast-casual\">One approach is to try out every possible route. But here lies the problem: Complexity! So, with every new city Alex adds to the trip, the challenge of finding the shortest route grows significantly.</mstts:express-as>\n    </voice>\n</speak>\n        ",
+    "word_boundaries": [
+      {
+        "audio_offset": 500000,
+        "duration_milliseconds": 262,
+        "text_offset": 0,
+        "word_length": 3,
+        "text": "One",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 3375000,
+        "duration_milliseconds": 375,
+        "text_offset": 4,
+        "word_length": 8,
+        "text": "approach",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 7375000,
+        "duration_milliseconds": 112,
+        "text_offset": 13,
+        "word_length": 2,
+        "text": "is",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 8750000,
+        "duration_milliseconds": 87,
+        "text_offset": 16,
+        "word_length": 2,
+        "text": "to",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 9875000,
+        "duration_milliseconds": 275,
+        "text_offset": 19,
+        "word_length": 3,
+        "text": "try",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 12875000,
+        "duration_milliseconds": 175,
+        "text_offset": 23,
+        "word_length": 3,
+        "text": "out",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 14750000,
+        "duration_milliseconds": 237,
+        "text_offset": 27,
+        "word_length": 5,
+        "text": "every",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 17375000,
+        "duration_milliseconds": 512,
+        "text_offset": 33,
+        "word_length": 8,
+        "text": "possible",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 22750000,
+        "duration_milliseconds": 337,
+        "text_offset": 42,
+        "word_length": 5,
+        "text": "route",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 26375000,
+        "duration_milliseconds": 100,
+        "text_offset": 47,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 34875000,
+        "duration_milliseconds": 162,
+        "text_offset": 49,
+        "word_length": 3,
+        "text": "But",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 36750000,
+        "duration_milliseconds": 187,
+        "text_offset": 53,
+        "word_length": 4,
+        "text": "here",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 38875000,
+        "duration_milliseconds": 250,
+        "text_offset": 58,
+        "word_length": 4,
+        "text": "lies",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 41625000,
+        "duration_milliseconds": 112,
+        "text_offset": 63,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 43000000,
+        "duration_milliseconds": 462,
+        "text_offset": 67,
+        "word_length": 7,
+        "text": "problem",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 48625000,
+        "duration_milliseconds": 62,
+        "text_offset": 74,
+        "word_length": 1,
+        "text": ":",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 49375000,
+        "duration_milliseconds": 800,
+        "text_offset": 76,
+        "word_length": 10,
+        "text": "Complexity",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 57625000,
+        "duration_milliseconds": 100,
+        "text_offset": 86,
+        "word_length": 1,
+        "text": "!",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 66250000,
+        "duration_milliseconds": 325,
+        "text_offset": 88,
+        "word_length": 2,
+        "text": "So",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 70375000,
+        "duration_milliseconds": 75,
+        "text_offset": 90,
+        "word_length": 1,
+        "text": ",",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 71125000,
+        "duration_milliseconds": 162,
+        "text_offset": 92,
+        "word_length": 4,
+        "text": "with",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 73000000,
+        "duration_milliseconds": 212,
+        "text_offset": 97,
+        "word_length": 5,
+        "text": "every",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 75375000,
+        "duration_milliseconds": 137,
+        "text_offset": 103,
+        "word_length": 3,
+        "text": "new",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 77000000,
+        "duration_milliseconds": 312,
+        "text_offset": 107,
+        "word_length": 4,
+        "text": "city",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 80250000,
+        "duration_milliseconds": 337,
+        "text_offset": 112,
+        "word_length": 4,
+        "text": "Alex",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 83750000,
+        "duration_milliseconds": 250,
+        "text_offset": 117,
+        "word_length": 4,
+        "text": "adds",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 86375000,
+        "duration_milliseconds": 87,
+        "text_offset": 122,
+        "word_length": 2,
+        "text": "to",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 87500000,
+        "duration_milliseconds": 100,
+        "text_offset": 125,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 88625000,
+        "duration_milliseconds": 300,
+        "text_offset": 129,
+        "word_length": 4,
+        "text": "trip",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 92500000,
+        "duration_milliseconds": 187,
+        "text_offset": 133,
+        "word_length": 1,
+        "text": ",",
+        "boundary_type": "Punctuation"
+      },
+      {
+        "audio_offset": 94375000,
+        "duration_milliseconds": 112,
+        "text_offset": 135,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 95625000,
+        "duration_milliseconds": 400,
+        "text_offset": 139,
+        "word_length": 9,
+        "text": "challenge",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 99750000,
+        "duration_milliseconds": 75,
+        "text_offset": 149,
+        "word_length": 2,
+        "text": "of",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 100750000,
+        "duration_milliseconds": 350,
+        "text_offset": 152,
+        "word_length": 7,
+        "text": "finding",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 104500000,
+        "duration_milliseconds": 87,
+        "text_offset": 160,
+        "word_length": 3,
+        "text": "the",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 105500000,
+        "duration_milliseconds": 450,
+        "text_offset": 164,
+        "word_length": 8,
+        "text": "shortest",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 110250000,
+        "duration_milliseconds": 187,
+        "text_offset": 173,
+        "word_length": 5,
+        "text": "route",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 112375000,
+        "duration_milliseconds": 275,
+        "text_offset": 179,
+        "word_length": 5,
+        "text": "grows",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 115375000,
+        "duration_milliseconds": 800,
+        "text_offset": 185,
+        "word_length": 13,
+        "text": "significantly",
+        "boundary_type": "Word"
+      },
+      {
+        "audio_offset": 123625000,
+        "duration_milliseconds": 100,
+        "text_offset": 198,
+        "word_length": 1,
+        "text": ".",
+        "boundary_type": "Punctuation"
+      }
+    ],
+    "original_audio": "one-approach-is-to-try-out-every-possible-route-313d974f.mp3",
+    "final_audio": "one-approach-is-to-try-out-every-possible-route-313d974f.mp3"
   }
 ]
