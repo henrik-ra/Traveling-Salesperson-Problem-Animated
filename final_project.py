@@ -328,10 +328,9 @@ class TSP(MovingCameraScene, VoiceoverScene):
         self.wait(1)
         self.clear()
 
-
         self.symmetric_vs_asymmetric()
 
-        self.lower_bound()
+        
  # ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         
         # self.next_section("Algorithms Overview") # Algorithms Overview
@@ -3060,6 +3059,10 @@ class TSP(MovingCameraScene, VoiceoverScene):
         
         self.clear()
 
+        self.lower_bound()
+
+        self.christofides_algorithm()
+
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         
         # self.next_section("kNN") # kNN
@@ -3186,13 +3189,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(axes), FadeOut(quad, quad_tag, exp, exp_tag))
         self.wait(1)
 
-        self.christofides_algorithm()
     
     def symmetric_vs_asymmetric(self):
         with self.voiceover(text="There are symmetrical and asymmetrical TSPs.") as tracker:
-            text_symmetrical = Text("Symmetrical", font_size=36).move_to(LEFT*2)
-            text_asymmetrical = Text("Asymmetrical", font_size=36).move_to(RIGHT*2)
-            text_vs = Text("vs", font_size=36)
+            text_symmetrical = Text("Symmetrical").move_to(LEFT*2)
+            text_asymmetrical = Text("Asymmetrical").move_to(RIGHT*2)
+            text_vs = Text("vs")
   
             self.play(Write(text_symmetrical), Write(text_asymmetrical), Write(text_vs))
 
@@ -3251,12 +3253,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 self.play(Create(line_sym), Write(label_sym), run_time=0.5)
             
         with self.voiceover(text="Thats why there is also a asymmetrical TSP.") as tracker:
-            text_asymmetrical = Text("Asymmetrical", font_size=36).move_to(ORIGIN).to_edge(UP)
+            text_asymmetrical = Text("Asymmetrical").move_to(ORIGIN).to_edge(UP)
             group = VGroup(graph_sym, lines_and_labels_sym, text_symmetrical) 
             self.play(FadeOut(group))
             self.play(Write(text_asymmetrical))
 
-        with self.voiceover(text="The TSP is called asymmetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also twice as complex to solve then the symmetrical. This is why we only observe symmetrical TSPs in the following.") as tracker:
+        with self.voiceover(text="The TSP is called asymmetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also more complex to solve then the symmetrical. This is why we only observe symmetrical TSPs in the following.") as tracker:
             positions_asym = {
             0: LEFT * 2 + UP,
             1: ORIGIN + UP * 2,
@@ -3329,7 +3331,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         # Code für die Erklärung des Lower Bound
         with self.voiceover(text="We need to point out how good is our approximated solution compared to the optimum. In some business cases there is a treshold given by the supervisor so you don't need to know how near the solution is to the optimum but in a theroetic case we want to know this. As we know to determine the optimum is not economically sensible so we need to find an other value to measure our solution.") as tracker:
             # Erstellen des Textobjekts
-            solution_text = Text("How good is our solution?", font_size=40).move_to(ORIGIN)
+            solution_text = Text("How good is our solution?").move_to(ORIGIN)
         
             # Text einblenden
             self.play(Write(solution_text))
@@ -3356,7 +3358,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(Create(graph_ap))
         
         with self.voiceover(text="and this is our approximated solution.") as tracker:
-            header_text = Text("Approximated", font_size=48).to_edge(UP)
+            header_text = Text("Approximated").to_edge(UP)
         
             # Überschrift zeichnen
             self.play(Write(header_text))
@@ -3563,20 +3565,16 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(FadeOut(approximated_text), FadeOut(greater_than_3), FadeOut(lower_bound_text))
 
     def christofides_algorithm(self):
-        with self.voiceover(text="In the following we will explain the christofides algorithm.") as tracker:
-            title = Text("Christofides Algorithm", font_size=36).to_edge(UP)
+        with self.voiceover(text="In the following we will explain the christofides algorithm. This is an approximated algorithm to solve the TSP with a n to the third power complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
+            title = Text("Christofides Algorithm").to_edge(UP)
             self.play(Write(title))
 
-        with self.voiceover(text="This is an approximated algorithm to solve the TSP with a n to the third power complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
-            On3 = Text("O($n^3$)", font_size=30).next_to(title, DOWN)
-            self.play(Write(On3))
-
-        with self.voiceover(text="First we will create a minimal spanning tree with every node by using the algrithm of Prim.") as tracker:
+        with self.voiceover(text="First we will create a minimal spanning tree with every node.") as tracker:
             #O(n log n) 
             line1 = Text("1. Find a minimum spanning tree T of a graph G.", font_size=24).to_edge(LEFT).move_to(UP)
             self.play(Write(line1))
 
-        with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges by using the algorithm of Blossom") as tracker:
+        with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges.") as tracker:
             #O(n^3) n = node
             line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN, buff=0.5)
             self.play(Write(line2))
@@ -3757,11 +3755,53 @@ class TSP(MovingCameraScene, VoiceoverScene):
                               FadeOut(x_mark_2),
                               FadeOut(lines_mst)
                               )
-            self.play(FadeIn(On3))
-        
-        with self.voiceover(text = "Now we go on with the next topic") as tracker:
-            self.play(FadeOut(On3), FadeOut(title))
+            
+            axes = Axes(
+                x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
+                y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+                y_length=5,
+                x_length=8,
+                tips=False,  
+                axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+            )
 
+            # Hinzufügen der Achsen und des Graphen zur Szene
+            self.add(axes)
+            # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
+            self.wait()  # Warten am Ende der Animation
+
+            bold_template = TexTemplate()
+            bold_template.add_to_preamble(r"\usepackage{bm}")
+
+            def plot_function(function, color, label, position=RIGHT, range=[0,20]):
+                function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
+                return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+            
+            # Christofides
+            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,17.32])
+            self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(quad_tag))
+
+            self.wait(5)
+            # exponential
+            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+            self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(exp_tag))
+
+            # diagram = VGroup(axes, exp_tag, exp)
+        
+            self.wait(3)
+            # exponential but a little bit faster
+            exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^(n-1))}$", position=RIGHT, range=[0,9.229])
+            self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(exp2_tag))
+
+            On3 = Text(r"O($\bm{O(n^3)}$)", font_size=36).next_to(title, DOWN)
+            self.play(FadeIn(On3))
+            self.wait(2)
+            self.clear()
+            # self.play(FadeOut(On3), FadeOut(title))
+           
     def create_x_mark(self, position):
             # Erstellen eines "X" an der gegebenen Position
             line1 = Line(position + np.array([-0.25, 0.25, 0]), position + np.array([0.25, -0.25, 0]), color=RED)
