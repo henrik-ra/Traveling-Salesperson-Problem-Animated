@@ -1,0 +1,52 @@
+1
+00:00:00,000 --> 00:00:03,034
+In this video, we showed you different methods to
+
+2
+00:00:03,134 --> 00:00:06,935
+solve the traveling salesperson problem. Every method has its
+
+3
+00:00:07,035 --> 00:00:10,901
+own advantages and disadvantages. The brute force algorithm is
+
+4
+00:00:11,001 --> 00:00:13,844
+the most accurate, but it is also the slowest.
+
+5
+00:00:15,000 --> 00:00:17,414
+The branch and bound method is faster, but
+
+6
+00:00:17,514 --> 00:00:19,988
+it is still not efficient for large graphs.
+
+7
+00:00:20,083 --> 00:00:23,762
+The Christofides algorithm is a heuristic algorithm, which means
+
+8
+00:00:23,862 --> 00:00:26,715
+it is not guaranteed to find the optimal solution,
+
+9
+00:00:26,815 --> 00:00:29,727
+but it is much faster than the previous algorithms.
+
+10
+00:00:29,816 --> 00:00:33,785
+The k-nearest neighbor algorithm is also a heuristic algorithm, but
+
+11
+00:00:33,885 --> 00:00:37,247
+it is even faster than the Christofides algorithm. At the
+
+12
+00:00:37,347 --> 00:00:40,162
+end depending on the size of the graph, you have
+
+13
+00:00:40,262 --> 00:00:43,684
+to decide which algorithm is best suited for your problem.
+

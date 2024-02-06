@@ -163,562 +163,686 @@ conditions of the landscape or construction sites.
 Thats why there is also a asymmetrical TSP.
 
 42
-00:02:35,066 --> 00:02:39,418
-The TSP is called asymmetrical if there are two edges between every node
+00:02:35,066 --> 00:02:39,110
+The TSP is called asymmetrical if there are two edges between every
 
 43
-00:02:39,518 --> 00:02:43,190
-and they don't have the same weight. As you can see the graph
+00:02:39,210 --> 00:02:42,574
+node and they don't have the same weight. As you can see
 
 44
-00:02:43,290 --> 00:02:47,271
-is then directed. This is way more accurate to the real world, but
+00:02:42,674 --> 00:02:46,286
+the graph is then directed. This is way more accurate to the
 
 45
-00:02:47,371 --> 00:02:51,475
-this is also twice as complex to solve then the symmetrical. This is
+00:02:46,386 --> 00:02:49,935
+real world, but this is also more complex to solve then the
 
 46
-00:02:51,575 --> 00:02:54,814
-why we only observe symmetrical TSPs in the following.
+00:02:50,035 --> 00:02:54,574
+symmetrical. This is why we only observe symmetrical TSPs in the following.
 
 47
-00:02:54,900 --> 00:02:57,560
+00:02:54,666 --> 00:02:57,326
 now we go on with the next topic
 
 48
-00:02:57,650 --> 00:02:59,853
+00:02:57,416 --> 00:02:59,619
 To solve TSP, we have two primary
 
 49
-00:02:59,953 --> 00:03:03,622
+00:02:59,719 --> 00:03:03,388
 approaches: the Optimal and the Approximation methods.
 
 50
-00:03:03,716 --> 00:03:06,637
+00:03:03,483 --> 00:03:06,404
 In the Optimal category, we have two prominent
 
 51
-00:03:06,737 --> 00:03:09,592
+00:03:06,504 --> 00:03:09,359
 algorithms: Brute Force and Branch and Bound.
 
 52
-00:03:09,683 --> 00:03:13,149
+00:03:09,450 --> 00:03:12,916
 Moving on to the Approximation approach, we'll explain
 
 53
-00:03:13,249 --> 00:03:16,979
+00:03:13,016 --> 00:03:16,746
 the algorithms k nearest neighbors (kNN) and Christofides.
 
 54
-00:03:17,079 --> 00:03:20,215
+00:03:16,846 --> 00:03:19,982
 But let's start with the optimal solutions first.
 
 55
-00:03:21,300 --> 00:03:25,603
+00:03:21,066 --> 00:03:25,370
 The Brute Force method is a straightforward but time-consuming approach
 
 56
-00:03:25,703 --> 00:03:28,890
+00:03:25,470 --> 00:03:28,657
 to solve the TSP. It involves trying out all possible
 
 57
-00:03:28,990 --> 00:03:31,496
+00:03:28,757 --> 00:03:31,262
 orders in which the cities can be visited.
 
 58
-00:03:31,583 --> 00:03:35,278
+00:03:31,350 --> 00:03:35,044
 As the first step in our Brute-Force algorithm, we generate
 
 59
-00:03:35,378 --> 00:03:39,523
+00:03:35,144 --> 00:03:39,290
 all possible permutations of the cities. This means creating every
 
 60
-00:03:39,623 --> 00:03:42,739
+00:03:39,390 --> 00:03:42,506
 possible order in which the cities can be visited.
 
 61
-00:03:42,983 --> 00:03:46,840
+00:03:42,750 --> 00:03:46,606
 Then, For each generated permutation, we calculate the length of
 
 62
-00:03:46,940 --> 00:03:50,611
+00:03:46,706 --> 00:03:50,378
 the tour by summing the distances between the visited cities.
 
 63
-00:03:51,700 --> 00:03:54,331
+00:03:51,466 --> 00:03:54,098
 Now, we need to Identify the tour with the
 
 64
-00:03:54,431 --> 00:03:57,908
+00:03:54,198 --> 00:03:57,674
 shortest length among all the calculated tours. This is
 
 65
-00:03:58,008 --> 00:04:01,680
+00:03:57,774 --> 00:04:01,446
 the optimal solution to the Traveling Salesperson Problem.
 
 66
-00:04:02,766 --> 00:04:05,550
+00:04:02,533 --> 00:04:05,317
 We can calculate the number of possible paths as
 
 67
-00:04:05,650 --> 00:04:08,794
+00:04:05,417 --> 00:04:08,561
 the number of possible permutations of n elements when
 
 68
-00:04:08,894 --> 00:04:11,858
+00:04:08,661 --> 00:04:11,625
 each permutation is counted as a separate operation
 
 69
-00:04:11,950 --> 00:04:14,652
+00:04:11,716 --> 00:04:14,419
 For the example we've seen before we used
 
 70
-00:04:14,752 --> 00:04:17,250
+00:04:14,519 --> 00:04:17,016
 5 nodes, so we get 12 possible routes.
 
 71
-00:04:17,333 --> 00:04:19,958
+00:04:17,100 --> 00:04:19,725
 If we just increase the number of nodes
 
 72
-00:04:20,058 --> 00:04:22,753
+00:04:19,825 --> 00:04:22,520
 by 1, we already get 60 possible routes.
 
 73
-00:04:22,850 --> 00:04:29,086
+00:04:22,616 --> 00:04:28,852
 For 10 nodes, it's already 181440 potential shortest paths!!
 
 74
-00:04:30,183 --> 00:04:34,091
+00:04:29,950 --> 00:04:33,858
 This is because we got an exponential time complexity.
 
 75
-00:04:37,183 --> 00:04:40,328
+00:04:36,950 --> 00:04:40,094
 Another way of solving the TSP is with the help of
 
 76
-00:04:40,428 --> 00:04:44,092
+00:04:40,194 --> 00:04:43,858
 the branch and bound method. Let's start with a simple TSP
 
 77
-00:04:44,192 --> 00:04:47,337
+00:04:43,958 --> 00:04:47,103
 example. Again we have a set of cities and need to
 
 78
-00:04:47,437 --> 00:04:51,555
+00:04:47,203 --> 00:04:51,322
 find the shortest possible route visiting each city exactly once.
 
 79
-00:04:57,183 --> 00:05:01,383
+00:04:56,950 --> 00:05:01,150
 The Branch-and-Bound method begins by constructing a tree of
 
 80
-00:05:01,483 --> 00:05:05,039
+00:05:01,250 --> 00:05:04,806
 all possibilities. First we need a Graph. Let's use
 
 81
-00:05:05,139 --> 00:05:07,691
+00:05:04,906 --> 00:05:07,458
 the same graph and start at node one.
 
 82
-00:05:08,183 --> 00:05:13,649
+00:05:07,950 --> 00:05:13,416
 Now we have to look at the next possible nodes. In this case we
 
 83
-00:05:13,749 --> 00:05:18,067
+00:05:13,516 --> 00:05:17,834
 have four options. We can go to node 2, 3, 4 or 5.
 
 84
-00:05:19,183 --> 00:05:22,839
+00:05:18,950 --> 00:05:22,606
 At the same time we can tranform the graph on the right to
 
 85
-00:05:22,939 --> 00:05:26,530
+00:05:22,706 --> 00:05:26,297
 a tree with node one as the root. This tree will show all
 
 86
-00:05:26,630 --> 00:05:31,841
+00:05:26,397 --> 00:05:31,608
 the possible routes that the salesperson can use. As explained, starting with node
 
 87
-00:05:31,941 --> 00:05:35,403
+00:05:31,708 --> 00:05:35,170
 one the next possible nodes could be node 2, 3, 4 or 5.
 
 88
-00:05:35,500 --> 00:05:38,890
+00:05:35,266 --> 00:05:38,656
 This would be the first version of the tree. Now we
 
 89
-00:05:38,990 --> 00:05:42,174
+00:05:38,756 --> 00:05:41,941
 have to take a look at the next steps. Let's say
 
 90
-00:05:42,274 --> 00:05:45,528
+00:05:42,041 --> 00:05:45,294
 we choose node 2 as the second node to travel to.
 
 91
-00:05:45,616 --> 00:05:50,604
+00:05:45,383 --> 00:05:50,371
 Starting from node 2, the next options would be node 3, 4 or 5.
 
 92
-00:05:52,616 --> 00:05:56,878
+00:05:52,383 --> 00:05:56,645
 Now we can create the next step at the tree. Again the next
 
 93
-00:05:56,978 --> 00:06:00,796
+00:05:56,745 --> 00:06:00,563
 possible nodes to travel to would be node 3, 4 and 5.
 
 94
-00:06:00,883 --> 00:06:05,114
+00:06:00,650 --> 00:06:04,880
 Let's continue creating one possible route. We decide to
 
 95
-00:06:05,214 --> 00:06:07,743
+00:06:04,980 --> 00:06:07,510
 travel to node 5 as our next city.
 
 96
-00:06:07,833 --> 00:06:11,816
+00:06:07,600 --> 00:06:11,583
 Starting from node 5, there are two cities left that
 
 97
-00:06:11,916 --> 00:06:14,957
+00:06:11,683 --> 00:06:14,724
 have not been visited yet. Node 3 and 4.
 
 98
-00:06:15,050 --> 00:06:19,534
+00:06:14,816 --> 00:06:19,300
 Let's go back to the tree and add the last two options, node 3 and 4
 
 99
-00:06:22,950 --> 00:06:26,210
+00:06:22,716 --> 00:06:25,976
 This time we choose node 3 as the next city.
 
 100
-00:06:27,950 --> 00:06:32,410
+00:06:27,716 --> 00:06:32,176
 As you can see the last city, that we have not visited is city 4.
 
 101
-00:06:32,500 --> 00:06:38,064
+00:06:32,266 --> 00:06:37,830
 Let's also add node 4 in the tree. Now we have visited every city.
 
 102
-00:06:38,150 --> 00:06:41,852
+00:06:37,916 --> 00:06:41,619
 At the end we have to travel to the city where we started
 
 103
-00:06:41,952 --> 00:06:45,922
+00:06:41,719 --> 00:06:45,688
 the tour. Let's finish our route by traveling back to city 1.
 
 104
-00:06:46,016 --> 00:06:48,304
+00:06:45,783 --> 00:06:48,071
 Now we can also finish our route on the
 
 105
-00:06:48,404 --> 00:06:50,692
+00:06:48,171 --> 00:06:50,459
 tree by adding node 1 as our last node.
 
 106
-00:06:50,783 --> 00:06:53,775
+00:06:50,550 --> 00:06:53,541
 As you can see this is one possible route and
 
 107
-00:06:53,875 --> 00:06:57,691
+00:06:53,641 --> 00:06:57,458
 the tree is not complete. Let's create the complete tree.
 
 108
-00:07:00,783 --> 00:07:05,032
+00:07:00,550 --> 00:07:04,799
 This tree shows every possible route, if you start from node one. Here
 
 109
-00:07:05,132 --> 00:07:08,636
+00:07:04,899 --> 00:07:08,403
 we can now see that there are 24 possible routes to get to
 
 110
-00:07:08,736 --> 00:07:12,178
+00:07:08,503 --> 00:07:11,945
 the last node. But is you take a closer look at the first
 
 111
-00:07:12,278 --> 00:07:16,155
+00:07:12,045 --> 00:07:15,922
 and last route, you can see that the routes are identical, if we
 
 112
-00:07:16,255 --> 00:07:20,318
+00:07:16,022 --> 00:07:20,085
 have a symmetrical TSP. That means if we have a symmetrical TSP, as
 
 113
-00:07:20,418 --> 00:07:23,363
+00:07:20,185 --> 00:07:23,130
 in our example, we can ignore half of the routes.
 
 114
-00:07:23,450 --> 00:07:26,518
+00:07:23,216 --> 00:07:26,284
 Let's blur out the routes that we can ignore.
 
 115
-00:07:28,616 --> 00:07:32,836
+00:07:28,383 --> 00:07:32,603
 Here we can also visualize which route we took in the first example.
 
 116
-00:07:33,116 --> 00:07:37,461
+00:07:32,883 --> 00:07:37,227
 After having created a tree for every possible route, the branch and bound method
 
 117
-00:07:37,561 --> 00:07:41,411
+00:07:37,327 --> 00:07:41,178
 calculates the cost for every route and compares it to the best route so
 
 118
-00:07:41,511 --> 00:07:44,923
+00:07:41,278 --> 00:07:44,690
 far. If the cost of the current route is higher than the cost of
 
 119
-00:07:45,023 --> 00:07:48,160
+00:07:44,790 --> 00:07:47,927
 the best route so far, the current route will be discarded.
 
 120
-00:07:48,250 --> 00:07:52,970
+00:07:48,016 --> 00:07:52,737
 Let's take a look at an example. Lets say the algorithm calculated
 
 121
-00:07:53,070 --> 00:07:56,550
+00:07:52,837 --> 00:07:56,316
 our route first with the cost of 15. As it is the
 
 122
-00:07:56,650 --> 00:07:59,910
+00:07:56,416 --> 00:07:59,676
 first route, it is also the best route so far.
 
 123
-00:08:01,250 --> 00:08:05,468
+00:08:01,016 --> 00:08:05,235
 Next, the algorithm calculates the route on the left. The cost
 
 124
-00:08:05,568 --> 00:08:08,882
+00:08:05,335 --> 00:08:08,648
 of this route is 12. As this route is better than
 
 125
-00:08:08,982 --> 00:08:12,574
+00:08:08,748 --> 00:08:12,340
 the best route so far, it becomes the new best route.
 
 126
-00:08:12,800 --> 00:08:16,485
+00:08:12,566 --> 00:08:16,252
 Now the algorithm calculates the next route. In our
 
 127
-00:08:16,585 --> 00:08:19,900
+00:08:16,352 --> 00:08:19,666
 example it will be the seventh possible route.
 
 128
-00:08:19,983 --> 00:08:23,811
+00:08:19,750 --> 00:08:23,578
 In this route the algorithm realizes at the third node that the added
 
 129
-00:08:23,911 --> 00:08:27,170
+00:08:23,678 --> 00:08:26,937
 costs are at 14. Since the cost of the route till the third
 
 130
-00:08:27,270 --> 00:08:31,098
+00:08:27,037 --> 00:08:30,865
 node is already higher than the cost of the best route, the algorithm
 
 131
-00:08:31,198 --> 00:08:34,571
+00:08:30,965 --> 00:08:34,338
 can discard this route without calculating it untill the end.
 
 132
-00:08:34,666 --> 00:08:38,497
+00:08:34,433 --> 00:08:38,264
 This way of calculating the best route is applied to every
 
 133
-00:08:38,597 --> 00:08:42,292
+00:08:38,364 --> 00:08:42,059
 route. At the end the algorithm will have found the best
 
 134
-00:08:42,392 --> 00:08:45,342
+00:08:42,159 --> 00:08:45,109
 route. In this example it is the first route.
 
 135
-00:08:45,433 --> 00:08:48,536
+00:08:45,200 --> 00:08:48,302
 Let's take a look now at the time complexity of the
 
 136
-00:08:48,636 --> 00:08:53,434
+00:08:48,402 --> 00:08:53,201
 branch and bound method. As explained, the algorithm calculates every possible
 
 137
-00:08:53,534 --> 00:08:56,951
+00:08:53,301 --> 00:08:56,718
 route. But as we have seen before, it can discard routes
 
 138
-00:08:57,051 --> 00:08:59,589
+00:08:56,818 --> 00:08:59,356
 that are worse than the best route so far.
 
 139
-00:08:59,683 --> 00:09:03,610
+00:08:59,450 --> 00:09:03,376
 That means the algorithm does not have to calculate every route untill
 
 140
-00:09:03,710 --> 00:09:07,752
+00:09:03,476 --> 00:09:07,518
 the end. Still having to calculate every possible route makes the branch
 
 141
-00:09:07,852 --> 00:09:11,721
+00:09:07,618 --> 00:09:11,488
 and bound method very time consuming. In the worst case the algorithm
 
 142
-00:09:11,821 --> 00:09:15,460
+00:09:11,588 --> 00:09:15,227
 has to calculate every possible route untill the end and the time
 
 143
-00:09:15,560 --> 00:09:18,279
+00:09:15,327 --> 00:09:18,046
 complexity is the same as the brute force method.
 
 144
-00:09:18,366 --> 00:09:21,804
+00:09:18,133 --> 00:09:21,571
 However the algorithm performs very well in practice and it is
 
 145
-00:09:21,904 --> 00:09:25,342
+00:09:21,671 --> 00:09:25,109
 mostly better than the brute force method. For that reason the
 
 146
-00:09:25,442 --> 00:09:28,937
+00:09:25,209 --> 00:09:28,703
 time complexity of the branch and bound method is mostly better
 
 147
-00:09:29,037 --> 00:09:32,018
+00:09:28,803 --> 00:09:31,785
 then the brute force algorithm, but still exponential.
 
 148
-00:09:32,116 --> 00:09:35,905
+00:09:31,883 --> 00:09:35,672
 We need to point out how good is our approximated solution compared to
 
 149
-00:09:36,005 --> 00:09:39,683
+00:09:35,772 --> 00:09:39,450
 the optimum. In some business cases there is a treshold given by the
 
 150
-00:09:39,783 --> 00:09:43,239
+00:09:39,550 --> 00:09:43,006
 supervisor so you don't need to know how near the solution is to
 
 151
-00:09:43,339 --> 00:09:46,573
+00:09:43,106 --> 00:09:46,339
 the optimum but in a theroetic case we want to know this. As
 
 152
-00:09:46,673 --> 00:09:50,573
+00:09:46,439 --> 00:09:50,340
 we know to determine the optimum is not economically sensible so we need
 
 153
-00:09:50,673 --> 00:09:53,184
+00:09:50,440 --> 00:09:52,951
 to find an other value to measure our solution.
 
 154
-00:09:53,283 --> 00:09:56,975
+00:09:53,050 --> 00:09:56,742
 So lets imagine we have these nodes as a tsp
 
 155
-00:09:57,066 --> 00:10:00,110
+00:09:56,833 --> 00:09:59,877
 and this is our approximated solution.
 
 156
-00:10:05,066 --> 00:10:08,110
+00:10:04,833 --> 00:10:07,877
 We take a look at all the weights and sum them up.
 
 157
-00:10:09,066 --> 00:10:12,662
+00:10:08,833 --> 00:10:12,429
 This is the value for our approximated solution.
 
 158
-00:10:13,066 --> 00:10:16,998
+00:10:12,833 --> 00:10:16,765
 But now we still don't now how good this is compared to the optimum.
 
 159
-00:10:18,566 --> 00:10:21,226
+00:10:18,333 --> 00:10:20,993
 For this we use the lower bound.
 
 160
-00:10:21,316 --> 00:10:23,589
+00:10:21,083 --> 00:10:23,356
 The lower bound is the value of the sum of
 
 161
-00:10:23,689 --> 00:10:26,640
+00:10:23,456 --> 00:10:26,407
 every weight of every edge in a minimum spanning tree.
 
 162
-00:10:26,733 --> 00:10:29,969
+00:10:26,500 --> 00:10:29,736
 So imagine we have these nodes from before.
 
 163
-00:10:30,066 --> 00:10:32,314
+00:10:29,833 --> 00:10:32,080
 We add the edges and their weights to the
 
 164
-00:10:32,414 --> 00:10:34,718
+00:10:32,180 --> 00:10:34,485
 nodes so we get our minimal spanning tree.
 
 165
-00:10:34,816 --> 00:10:38,148
+00:10:34,583 --> 00:10:37,915
 We take again a look at all the weights and sum them up.
 
 166
-00:10:38,233 --> 00:10:41,157
+00:10:38,000 --> 00:10:40,924
 This is the value of our lower bound.
 
 167
-00:10:41,250 --> 00:10:43,676
+00:10:41,016 --> 00:10:43,442
 Now we have a value which we can compare to
 
 168
-00:10:43,776 --> 00:10:46,790
+00:10:43,542 --> 00:10:46,556
 our approximated solution and we know how good it is!
 
 169
-00:10:46,883 --> 00:10:49,543
+00:10:46,650 --> 00:10:49,310
 Now we go on with the next topic
 
 170
-00:10:49,633 --> 00:10:54,117
-Our first approximation approach is k nearest neighbors (kNN).
+00:10:49,400 --> 00:10:53,664
+In the following we will explain the christofides algorithm. This is
 
 171
-00:10:54,216 --> 00:10:57,154
-We start at a specific city (any city can be the
+00:10:53,764 --> 00:10:57,131
+an approximated algorithm to solve the TSP with a n to
 
 172
-00:10:57,254 --> 00:11:01,014
-starting point). Then we check the shortest path and add this
+00:10:57,231 --> 00:11:01,752
+the third power complexity. This algorithm guarantees a solution that is
 
 173
-00:11:01,114 --> 00:11:04,052
-point to the tour. Same for the next node and so
+00:11:01,852 --> 00:11:05,476
+at most fifthy percent longer than the optimal round trip.
 
 174
-00:11:04,152 --> 00:11:07,532
-on ... we repeat this until there is no unvisited node.
+00:11:05,566 --> 00:11:09,426
+First we will create a minimal spanning tree with every node.
 
 175
-00:11:08,816 --> 00:11:12,604
-Finally, we draw a connection back to the starting point.
+00:11:09,516 --> 00:11:12,133
+Then we search for every node in the graph with
 
 176
-00:11:15,700 --> 00:11:18,008
-This is how it can look like with more
+00:11:12,233 --> 00:11:14,792
+an odd degree, meaning an odd number of edges.
 
 177
-00:11:18,108 --> 00:11:20,544
-nodes, so more cities Alex has to visit.
+00:11:14,883 --> 00:11:17,599
+After finding all the nodes with an odd degree we need
 
 178
-00:11:22,033 --> 00:11:25,932
-For a dataset with n cities, the time complexity of applying kNN
+00:11:17,699 --> 00:11:20,414
+to find a minimum perfect matching, so we need to find
 
 179
-00:11:26,032 --> 00:11:29,306
-to TSP is O of n squared. Even though it's better than
+00:11:20,514 --> 00:11:23,543
+edges with minimum weight so every node gets an even degree.
 
 180
-00:11:29,406 --> 00:11:32,430
-using Branch and Bound with O of 2 to the power of
+00:11:23,633 --> 00:11:27,599
+Then we need to combine the minimum spanning tree with the perfect matching
 
 181
-00:11:32,530 --> 00:11:36,117
+00:11:27,699 --> 00:11:31,069
+to obtain a multigraph in which every vertex has an even degree.
+
+182
+00:11:31,166 --> 00:11:35,629
+Since every vertex has an even degree, there exists an Eulerian
+
+183
+00:11:35,729 --> 00:11:39,757
+circuit in this graph. An Eulerian circuit is a path that
+
+184
+00:11:39,857 --> 00:11:43,378
+visits each edge exactly once. We need to find it.
+
+185
+00:11:43,466 --> 00:11:45,849
+Now we convert the Eulerian circuit to
+
+186
+00:11:45,949 --> 00:11:49,246
+a Hamiltonian circuit by skipping repeated vertices.
+
+187
+00:11:49,333 --> 00:11:53,193
+Let's take a look at the graph to visualize this algorithm.
+
+188
+00:11:53,283 --> 00:11:56,975
+Like explained before we create a minimal spanning tree.
+
+189
+00:11:57,783 --> 00:12:00,947
+Now we point out every node with an odd degree
+
+190
+00:12:01,033 --> 00:12:04,270
+We can now point out the minimal perfect matching, so we add
+
+191
+00:12:04,370 --> 00:12:07,941
+edges with the minimum weight until every node has an even degree.
+
+192
+00:12:08,033 --> 00:12:10,256
+Now we are going to find an eulerian
+
+193
+00:12:10,356 --> 00:12:12,709
+tour which hits every edge exact once.
+
+194
+00:12:32,033 --> 00:12:35,249
+The last step will be to convert the euleric circle into
+
+195
+00:12:35,349 --> 00:12:38,506
+a hamilton circle, so we have to delete all edges which
+
+196
+00:12:38,606 --> 00:12:41,763
+make the circle visit a node which we have seen before.
+
+197
+00:12:41,863 --> 00:12:44,605
+In our case these are the edges between 9 and 4.
+
+198
+00:12:44,700 --> 00:12:47,193
+If we take a look at the time complexity of the
+
+199
+00:12:47,293 --> 00:12:51,000
+Christofides algorithm it is mainly determined by the step of finding
+
+200
+00:12:51,100 --> 00:12:54,200
+a minimum perfect matching, which is n to the third power.
+
+201
+00:13:03,700 --> 00:13:08,184
+Our first approximation approach is k nearest neighbors (kNN).
+
+202
+00:13:08,283 --> 00:13:11,220
+We start at a specific city (any city can be the
+
+203
+00:13:11,320 --> 00:13:15,081
+starting point). Then we check the shortest path and add this
+
+204
+00:13:15,181 --> 00:13:18,118
+point to the tour. Same for the next node and so
+
+205
+00:13:18,218 --> 00:13:21,599
+on ... we repeat this until there is no unvisited node.
+
+206
+00:13:22,883 --> 00:13:26,671
+Finally, we draw a connection back to the starting point.
+
+207
+00:13:29,766 --> 00:13:32,075
+This is how it can look like with more
+
+208
+00:13:32,175 --> 00:13:34,610
+nodes, so more cities Alex has to visit.
+
+209
+00:13:36,100 --> 00:13:39,999
+For a dataset with n cities, the time complexity of applying kNN
+
+210
+00:13:40,099 --> 00:13:43,373
+to TSP is O of n squared. Even though it's better than
+
+211
+00:13:43,473 --> 00:13:46,497
+using Branch and Bound with O of 2 to the power of
+
+212
+00:13:46,597 --> 00:13:50,184
 n - 1in most cases we won't find the optimal shortest path.
 

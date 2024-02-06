@@ -49,7 +49,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.wait(3)
             self.remove(a)
             self.remove(c)
-        self.remove(title0)
+            self.remove(title0)
 
         with self.voiceover(text="Imagine we have a traveling salesperson - tasked with selling your products in various cities."):
 
@@ -2989,7 +2989,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(FadeOut(linie3_zw_1_2, linie3_zw_2_3, linie3_zw_3_4), run_time=0.5)
 
         
-        with self.voiceover(text="This way of calculating the best route is applied to every route. At the end the algorithm will have found the best route. In this example it is the first route."):
+        with self.voiceover(text="This way of calculating the best route is applied to every route. At the end the algorithm will have found the best route. In this example it is the first one."):
             self.play(FadeOut(number14, number12, linie2_zw_1_2_o, linie2_zw_2_3_o, linie2_zw_3_4_o, linie2_zw_4_5_o, linie2_zw_5_1_o), run_time=0.5)
             # draw_line(graph1_1.vertices[1], graph2_1.vertices[2], graph3_1.vertices[3], graph4_1.vertices[4], graph5_1.vertices[5], graph6_1.vertices[1], RED)
             # draw_line(graph1_1.vertices[1], graph2_1.vertices[3], graph3_2.vertices[2], graph4_4.vertices[4], graph5_7.vertices[5], graph6_7.vertices[1], RED)
@@ -3600,6 +3600,9 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(Write(line6))
         
         with self.voiceover(text= "Let's take a look at the graph to visualize this algorithm.") as tracker:
+
+            On3 = Text(r"O($\bm{O(n^3)}$)", font_size=36).next_to(title, DOWN)
+
             group = VGroup(line1, line2, line3, line4, line5, line6, On3)
             self.play(FadeOut(group))
 
@@ -3796,7 +3799,6 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(exp2_tag))
 
-            On3 = Text(r"O($\bm{O(n^3)}$)", font_size=36).next_to(title, DOWN)
             self.play(FadeIn(On3))
             self.wait(2)
             self.clear()
