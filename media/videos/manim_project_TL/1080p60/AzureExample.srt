@@ -1,272 +1,124 @@
 1
-00:00:00,000 --> 00:00:03,764
-There are symmetrical and asymmetrical TSPs.
-
-2
-00:00:03,850 --> 00:00:07,446
-First we will explain the symmetrical TSP
-
-3
-00:00:07,533 --> 00:00:11,332
-A TSP is called symmetrical, if the edges between two nodes have
-
-4
-00:00:11,432 --> 00:00:15,109
-the same value in both directions. This means the way form one
-
-5
-00:00:15,209 --> 00:00:19,008
-town to another would be exact the same in both directions. This
-
-6
-00:00:19,108 --> 00:00:24,065
-isn't really accurate because of conditions of the landscape or construction sites.
-
-7
-00:00:24,150 --> 00:00:27,746
-Thats why there is also a asymmetrical TSP.
-
-8
-00:00:27,833 --> 00:00:32,185
-The TSP is called asymmetrical if there are two edges between every node
-
-9
-00:00:32,285 --> 00:00:35,956
-and they don't have the same weight. As you can see the graph
-
-10
-00:00:36,056 --> 00:00:40,037
-is then directed. This is way more accurate to the real world, but
-
-11
-00:00:40,137 --> 00:00:44,242
-this is also twice as complex to solve then the symmetrical. This is
-
-12
-00:00:44,342 --> 00:00:47,581
-why we only observe symmetrical TSPs in the following.
-
-13
-00:00:47,666 --> 00:00:50,326
-now we go on with the next topic
-
-14
-00:00:50,416 --> 00:00:54,205
-We need to point out how good is our approximated solution compared to
-
-15
-00:00:54,305 --> 00:00:57,983
-the optimum. In some business cases there is a treshold given by the
-
-16
-00:00:58,083 --> 00:01:01,539
-supervisor so you don't need to know how near the solution is to
-
-17
-00:01:01,639 --> 00:01:04,873
-the optimum but in a theroetic case we want to know this. As
-
-18
-00:01:04,973 --> 00:01:08,873
-we know to determine the optimum is not economically sensible so we need
-
-19
-00:01:08,973 --> 00:01:11,484
-to find an other value to measure our solution.
-
-20
-00:01:11,583 --> 00:01:15,275
-So lets imagine we have these nodes as a tsp
-
-21
-00:01:15,366 --> 00:01:18,410
-and this is our approximated solution.
-
-22
-00:01:23,366 --> 00:01:26,410
-We take a look at all the weights and sum them up.
-
-23
-00:01:27,366 --> 00:01:30,962
-This is the value for our approximated solution.
-
-24
-00:01:31,366 --> 00:01:35,298
-But now we still don't now how good this is compared to the optimum.
-
-25
-00:01:36,866 --> 00:01:39,526
-For this we use the lower bound.
-
-26
-00:01:39,616 --> 00:01:41,889
-The lower bound is the value of the sum of
-
-27
-00:01:41,989 --> 00:01:44,940
-every weight of every edge in a minimum spanning tree.
-
-28
-00:01:45,033 --> 00:01:48,269
-So imagine we have these nodes from before.
-
-29
-00:01:48,366 --> 00:01:50,614
-We add the edges and their weights to the
-
-30
-00:01:50,714 --> 00:01:53,018
-nodes so we get our minimal spanning tree.
-
-31
-00:01:53,116 --> 00:01:56,448
-We take again a look at all the weights and sum them up.
-
-32
-00:01:56,533 --> 00:01:59,457
-This is the value of our lower bound.
-
-33
-00:01:59,550 --> 00:02:01,976
-Now we have a value which we can compare to
-
-34
-00:02:02,076 --> 00:02:05,090
-our approximated solution and we know how good it is!
-
-35
-00:02:05,183 --> 00:02:07,843
-Now we go on with the next topic
-
-36
-00:02:07,943 --> 00:02:11,971
+00:00:00,000 --> 00:00:03,929
 In the following we will explain the christofides algorithm.
 
-37
-00:02:12,060 --> 00:02:15,669
-This is an approximated algorithm to solve the TSP with a n
+2
+00:00:04,029 --> 00:00:07,354
+This is an approximated algorithm to solve the TSP.
 
-38
-00:02:15,769 --> 00:02:20,385
-to the third power complexity. This algorithm guarantees a solution that is
+3
+00:00:07,454 --> 00:00:10,846
+This algorithm guarantees a solution that is at most
 
-39
-00:02:20,485 --> 00:02:24,032
-at most fifthy percent longer than the optimal round trip.
+4
+00:00:10,946 --> 00:00:14,204
+fifthy percent longer than the optimal round trip.
 
-40
-00:02:24,126 --> 00:02:27,005
-First we will create a minimal spanning tree with
+5
+00:00:14,300 --> 00:00:18,160
+First we will create a minimal spanning tree with every node.
 
-41
-00:02:27,105 --> 00:02:29,498
-every node by using the algrithm of Prim.
+6
+00:00:18,250 --> 00:00:20,866
+Then we search for every node in the graph with
 
-42
-00:02:29,593 --> 00:02:33,036
-Then we search for every node in the graph with an odd degree,
+7
+00:00:20,966 --> 00:00:23,526
+an odd degree, meaning an odd number of edges.
 
-43
-00:02:33,136 --> 00:02:36,693
-meaning an odd number of edges by using the algorithm of Blossom
-
-44
-00:02:36,776 --> 00:02:39,492
+8
+00:00:23,626 --> 00:00:26,341
 After finding all the nodes with an odd degree we need
 
-45
-00:02:39,592 --> 00:02:42,308
+9
+00:00:26,441 --> 00:00:29,157
 to find a minimum perfect matching, so we need to find
 
-46
-00:02:42,408 --> 00:02:45,436
+10
+00:00:29,257 --> 00:00:32,286
 edges with minimum weight so every node gets an even degree.
 
-47
-00:02:45,526 --> 00:02:49,492
+11
+00:00:32,376 --> 00:00:36,342
 Then we need to combine the minimum spanning tree with the perfect matching
 
-48
-00:02:49,592 --> 00:02:52,962
+12
+00:00:36,442 --> 00:00:39,812
 to obtain a multigraph in which every vertex has an even degree.
 
-49
-00:02:53,060 --> 00:02:57,522
+13
+00:00:39,909 --> 00:00:43,853
 Since every vertex has an even degree, there exists an Eulerian
 
-50
-00:02:57,622 --> 00:03:01,650
-circuit in this graph. An Eulerian circuit is a path that
+14
+00:00:43,953 --> 00:00:47,447
+circuit in this graph which we need to find. An Eulerian
 
-51
-00:03:01,750 --> 00:03:05,272
-visits each edge exactly once. We need to find it.
+15
+00:00:47,547 --> 00:00:50,849
+circuit is a path that visits each edge exactly once.
 
-52
-00:03:05,360 --> 00:03:07,742
+16
+00:00:50,942 --> 00:00:53,325
 Now we convert the Eulerian circuit to
 
-53
-00:03:07,842 --> 00:03:11,140
+17
+00:00:53,425 --> 00:00:56,722
 a Hamiltonian circuit by skipping repeated vertices.
 
-54
-00:03:11,226 --> 00:03:15,086
+18
+00:00:56,822 --> 00:01:00,682
 Let's take a look at the graph to visualize this algorithm.
 
-55
-00:03:15,176 --> 00:03:18,868
+19
+00:01:00,782 --> 00:01:04,474
 Like explained before we create a minimal spanning tree.
 
-56
-00:03:19,676 --> 00:03:22,840
+20
+00:01:04,566 --> 00:01:07,730
 Now we point out every node with an odd degree
 
-57
-00:03:22,926 --> 00:03:26,163
+21
+00:01:07,816 --> 00:01:11,053
 We can now point out the minimal perfect matching, so we add
 
-58
-00:03:26,263 --> 00:03:29,834
+22
+00:01:11,153 --> 00:01:14,724
 edges with the minimum weight until every node has an even degree.
 
-59
-00:03:29,926 --> 00:03:32,150
+23
+00:01:14,816 --> 00:01:17,039
 Now we are going to find an eulerian
 
-60
-00:03:32,250 --> 00:03:34,602
+24
+00:01:17,139 --> 00:01:19,492
 tour which hits every edge exact once.
 
-61
-00:03:53,926 --> 00:03:57,142
+25
+00:01:37,616 --> 00:01:40,832
 The last step will be to convert the euleric circle into
 
-62
-00:03:57,242 --> 00:04:00,399
+26
+00:01:40,932 --> 00:01:44,088
 a hamilton circle, so we have to delete all edges which
 
-63
-00:04:00,499 --> 00:04:03,656
+27
+00:01:44,188 --> 00:01:47,345
 make the circle visit a node which we have seen before.
 
-64
-00:04:03,756 --> 00:04:06,498
+28
+00:01:47,445 --> 00:01:50,188
 In our case these are the edges between 9 and 4.
 
-65
-00:04:06,593 --> 00:04:09,086
+29
+00:01:50,282 --> 00:01:52,775
 If we take a look at the time complexity of the
 
-66
-00:04:09,186 --> 00:04:12,893
+30
+00:01:52,875 --> 00:01:56,582
 Christofides algorithm it is mainly determined by the step of finding
 
-67
-00:04:12,993 --> 00:04:16,093
+31
+00:01:56,682 --> 00:01:59,782
 a minimum perfect matching, which is n to the third power.
-
-68
-00:04:16,176 --> 00:04:18,836
-Now we go on with the next topic
 

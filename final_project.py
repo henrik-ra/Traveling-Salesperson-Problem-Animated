@@ -3264,7 +3264,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             )
 
         with self.voiceover(text="A TSP is called symmetrical, if the edges between two nodes have the same value in both directions. This means the way form one town to another would be exact the same in both directions. This isn't really accurate in real life because of conditions of the landscape or construction sites.") as tracker:
-
+            
             positions_sym = {
             0: LEFT * 2 + UP,
             1: ORIGIN + UP * 2,
@@ -3273,8 +3273,13 @@ class TSP(MovingCameraScene, VoiceoverScene):
             4: LEFT  + DOWN,
             }
             # Erstellen des Graphen mit Kanten
-            graph_sym = CustomGraph(list(positions_sym.keys()), [], layout=positions_sym, labels=True)
+            graph_sym =  CustomGraph(list(positions_sym.keys()), [], layout=positions_sym)
+            labels_sym = graph_sym.add_labels()
+            
             self.play(Create(graph_sym))
+            self.add(labels_sym)
+            self.play(FadeIn(labels_sym), run_time=0.5)
+
 
             edges_sym = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)]
 
@@ -3312,7 +3317,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             
         with self.voiceover(text="Thats why there is also a asymmetrical TSP.") as tracker:
             text_asymmetrical = Text("Asymmetrical").move_to(ORIGIN).to_edge(UP)
-            group = VGroup(graph_sym, lines_and_labels_sym, text_symmetrical) 
+            group = VGroup(graph_sym, lines_and_labels_sym, text_symmetrical, labels_sym) 
             self.play(FadeOut(group))
             self.play(Write(text_asymmetrical))
 
@@ -3325,8 +3330,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
             4: LEFT  + DOWN,
             }
              
-            graph_asym = CustomGraph(list(positions_asym.keys()), [], layout=positions_asym, labels=True)
+            graph_asym = CustomGraph(list(positions_asym.keys()), [], layout=positions_asym)
+            labels_asym = graph_asym.add_labels()
+
             self.play(Create(graph_asym))
+            self.add(labels_asym)
+            self.play(FadeIn(labels_asym), run_time=0.5)
         
             edges_asym = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0), (1,0), (2,1), (3,2), (4,3), (0,4)]
 
@@ -3380,14 +3389,14 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
                 self.play(Create(line_asym), Write(label_asym), run_time=0.5)
 
-            group = VGroup(lines_and_labels_asym, graph_asym, text_asymmetrical)
+            group = VGroup(lines_and_labels_asym, graph_asym, text_asymmetrical, labels_asym)
         
         with self.voiceover(text="Let's take a look at how the TSP can be solved") as tracker:
-            self.play(FadeOut(group))
+            self.clear()
 
     def lower_bound(self):
         # Code für die Erklärung des Lower Bound
-        with self.voiceover(text="We need to point out how good is our approximated solution compared to the optimum. In some business cases there is a treshold given by the supervisor so you don't need to know how near the solution is to the optimum but in a theroetic case we want to know this. As we know to determine the optimum is not economically sensible so we need to find an other value to measure our solution.") as tracker:
+        with self.voiceover(text="We need to point out how good is our approximated solution compared to the optimum. In some business cases there is a treshold given by the supervisor so you don't need to know how near the solution is to the optimum but in a theroetic case we want to know this. For large TSP to determine the optimum is not economically sensible because of the complexity so we need to find an other value to measure our solution.") as tracker:
             # Erstellen des Textobjekts
             solution_text = Text("How good is our solution?").move_to(ORIGIN)
         
@@ -3410,10 +3419,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
             }
 
             # Alle Knoten initial erstellen
-            graph_ap = CustomGraph(list(positions_ap.keys()), [], layout=positions_ap, labels=True)
+            graph_ap = CustomGraph(list(positions_ap.keys()), [], layout=positions_ap)
+            labels_ap = graph_ap.add_labels()
 
-            # Graphen ohne Kanten zeichnen
             self.play(Create(graph_ap))
+            self.add(labels_ap)
+            self.play(FadeIn(labels_ap), run_time=0.5)
         
         with self.voiceover(text="and this is our approximated solution.") as tracker:
             header_text = Text("Approximated").to_edge(UP)
@@ -3466,7 +3477,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 label_ap = Text(edge_labels_ap[i], font_size=24).move_to(label_pos_ap)
                 lines_and_labels_ap.add(line_ap, label_ap)
 
-                self.play(Create(line_ap), Write(label_ap), run_time=0.5)
+                self.play(Create(line_ap), Write(label_ap), run_time=0.2)
         
             self.wait(2)
 
@@ -3488,7 +3499,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="But now we still don't now how good this is compared to the optimum.") as tracker:
 
-            all_objects_ap = VGroup(graph_ap, equation_text_ap, header_text, lines_and_labels_ap) 
+            all_objects_ap = VGroup(graph_ap, equation_text_ap, header_text, lines_and_labels_ap, labels_ap) 
 
             self.play(FadeOut(all_objects_ap))
             self.play(approximated_text.animate.move_to(ORIGIN).to_edge(LEFT))
@@ -3536,10 +3547,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
             }
 
             # Alle Knoten initial erstellen
-            graph_lb = CustomGraph(list(positions_lb.keys()), [], layout=positions_lb, labels=True)
-
-            # Graphen ohne Kanten zeichnen
+            graph_lb = CustomGraph(list(positions_lb.keys()), [], layout=positions_lb,)
+            labels_lb = graph_lb.add_labels()
             self.play(Create(graph_lb))
+            
+            self.add(labels_lb)
+            self.play(FadeIn(labels_lb), run_time=0.5)
             
 
         with self.voiceover(text="We add the edges and their weights to the nodes so we get our minimal spanning tree.") as tracker:
@@ -3590,7 +3603,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 lines_and_labels_lb.add(line_lb, label_lb)
 
 
-                self.play(Create(line_lb), Write(label_lb), run_time=0.5)
+                self.play(Create(line_lb), Write(label_lb), run_time=0.2)
         
    
 
@@ -3610,9 +3623,9 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(Write(lower_bound_text))
 
         with self.voiceover(text="Now we have a value which we can compare to our approximated solution and we know how good it is!") as tracker:
-            all_objects_ap = VGroup(graph_lb, equation_text, header_lb, lines_and_labels_lb) 
+            all_objects_lb = VGroup(graph_lb, equation_text, header_lb, lines_and_labels_lb, labels_lb) 
 
-            self.play(FadeOut(all_objects_ap))
+            self.play(FadeOut(all_objects_lb))
             self.wait(0.5)
             self.play(lower_bound_text.animate.move_to(ORIGIN+RIGHT*4))
             approximated_text = Text("Approximated = 79", font_size=36).move_to(4*LEFT + ORIGIN) 
@@ -3623,7 +3636,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(FadeOut(approximated_text), FadeOut(greater_than_3), FadeOut(lower_bound_text))
 
     def christofides_algorithm(self):
-        with self.voiceover(text="In the following we will explain the christofides algorithm. This is an approximated algorithm to solve the TSP with a n to the third power complexity. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
+        with self.voiceover(text="In the following we will explain the christofides algorithm. This is an approximated algorithm to solve the TSP. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
             title = Text("Christofides Algorithm").to_edge(UP)
             self.play(Write(title))
 
@@ -3647,7 +3660,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             line4 = Text("4. Combine the edges of M and T to form a multigraph H.", font_size=24).to_edge(LEFT).next_to(line3, DOWN, buff=0.5)
             self.play(Write(line4))
         
-        with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. We need to find it.") as tracker:
+        with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph which we need to find. An Eulerian circuit is a path that visits each edge exactly once.") as tracker:
             #O(n)
             line5 = Text("5. Find an Eulerian circuit in H.", font_size=24).to_edge(LEFT).next_to(line4, DOWN, buff=0.5)
             self.play(Write(line5))
@@ -3678,10 +3691,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
             }
 
             # Alle Knoten initial erstellen
-            graph_mst = CustomGraph(list(positions_mst.keys()), [], layout=positions_mst, labels=True)
-
-            # Graphen ohne Kanten zeichnen
+            graph_mst = CustomGraph(list(positions_mst.keys()), [], layout=positions_mst)
+            labels_mst = graph_mst.add_labels()
             self.play(Create(graph_mst))
+
+            self.add(labels_mst)
+            self.play(FadeIn(labels_mst), run_time=0.5)
         
         with self.voiceover(text= "Like explained before we create a minimal spanning tree.") as tracker:
             # Kanten definieren, die einen MST bilden 
@@ -3696,14 +3711,21 @@ class TSP(MovingCameraScene, VoiceoverScene):
             (1, 9): (positions_mst[1] + RIGHT * 0.3, positions_mst[9] + LEFT * 0.3),
             (9, 5): (positions_mst[9] + RIGHT * 0.3, positions_mst[5] + LEFT * 0.3),
             (5, 6): (positions_mst[5] + RIGHT * 0.3, positions_mst[6] + LEFT * 0.3),
-            (9, 4): (positions_mst[9] + DOWN * 0.2 + LEFT*0.2, positions_mst[4] + UP * 0.2 + LEFT*0.2),
+            (9, 4): (positions_mst[9] + RIGHT * 0.2 + DOWN * 0.2, positions_mst[4] + RIGHT * 0.2 + UP * 0.2, ),
             (4, 7): (positions_mst[4] + (RIGHT+DOWN) * 0.2, positions_mst[7] + (LEFT+UP) * 0.2),
             (7, 8): (positions_mst[7] + RIGHT * 0.3, positions_mst[8] + LEFT * 0.3),
             (4, 2): (positions_mst[4] + (LEFT+DOWN) * 0.2, positions_mst[2] + (RIGHT+UP) * 0.2),
             (2, 3): (positions_mst[2] + LEFT * 0.3, positions_mst[3] + RIGHT * 0.3),
             (0, 3): (positions_mst[0] + DOWN * 0.3, positions_mst[3] + UP * 0.3),
-            (4, 9): (positions_mst[9] + RIGHT * 0.2 + DOWN * 0.2, positions_mst[4] + RIGHT * 0.2 + UP * 0.2),
-            (6, 8): (positions_mst[6] + DOWN * 0.3, positions_mst[8] + UP * 0.3) 
+            (4, 9): (positions_mst[4] + UP * 0.2 + LEFT*0.2, positions_mst[9] + DOWN * 0.2 + LEFT*0.2),
+            (6, 8): (positions_mst[6] + DOWN * 0.3, positions_mst[8] + UP * 0.3),
+            (3, 2): (positions_mst[3] + RIGHT * 0.3, positions_mst[2] + LEFT * 0.3,),
+            (2, 4): (positions_mst[2] + (RIGHT+UP) * 0.2, positions_mst[4] + (LEFT+DOWN) * 0.2,),
+            (8, 6): (positions_mst[8] + UP * 0.3, positions_mst[6] + DOWN * 0.3),
+            (6, 5): (positions_mst[6] + LEFT * 0.3, positions_mst[5] + RIGHT * 0.3),
+            (9, 1): (positions_mst[9] + LEFT * 0.3, positions_mst[1] + RIGHT * 0.3),
+            (1, 0): (positions_mst[1] + LEFT * 0.3, positions_mst[0] + RIGHT * 0.3),
+            (5, 9): (positions_mst[5] + LEFT * 0.3, positions_mst[9] + RIGHT * 0.3),
             }
             
             lines_mst = VGroup()
@@ -3719,7 +3741,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 else:
                     lines_mst.add(line_mst)
 
-                self.play(Create(line_mst), run_time=0.5)
+                self.play(Create(line_mst), run_time=0.2)
         
         with self.voiceover(text= "Now we point out every node with an odd degree") as tracker:
             highlight_nodes = [0, 9, 6, 4, 3, 8]  # Knoten, die hervorgehoben werden sollen
@@ -3757,17 +3779,17 @@ class TSP(MovingCameraScene, VoiceoverScene):
         
         with self.voiceover(text= "Now we are going to find an eulerian tour which hits every edge exact once.") as tracker:
             # Kanten, die hervorgehoben werden sollen
-            highlight_edges = [(0, 3), (2,3), (4, 2), (4,7), (7,8), (6, 8), (5, 6), (9, 5), (4,9), (9,4),  (1,9), (0,1)]
+            highlight_edges = [(0, 3), (3, 2), (2, 4), (4,7), (7,8), (8, 6), (6, 5), (5,9), (9,4), (4,9), (9, 1), (1,0)]
             
             # Texte, die den Kanten entsprechen
-            texts = ["0 →", "3 → ", "2 → ", "4 → ", "7 → ", "8 → ", "6 → ", "5 → ", "9 → ", "4 → ", "9 → ", "1"]
+            texts = ["0", "→", "3", "→", "2", "→", "4", "→", "7", "→", "8", "→", "6", "→", "5", "→", "9", "→ ", "4", "→", "9", "→", "1", "", "", ""]
 
             # Basisposition für den ersten Text
-            base_position = np.array([-4, -3, 0])  # Startposition am unteren Bildschirmrand links
+            base_position = np.array([-5, -3, 0])  # Startposition am unteren Bildschirmrand links
 
             # Die Gruppe für alle Texte, um sie zu verwalten
             all_texts = VGroup()
-
+            j = 0 
 
             for i, edge in enumerate(highlight_edges):
                 # Positionen für die Start- und Endpunkte der Kante aus dem Dictionary abrufen
@@ -3777,20 +3799,27 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 highlight_line = Line(start_pos, end_pos, color=YELLOW, stroke_width=10)
                 
                 # Zeigen Sie die hervorgehobene Linie auf dem Bildschirm an
-                self.play(Create(highlight_line), run_time=0.25)
-
-                # Text für die aktuelle Kante erstellen
-                text = Text(texts[i], font_size=24).move_to(base_position)
-
-                # Aktualisieren der Basisposition für den nächsten Text, so dass er rechts vom aktuellen steht
-                if i > 0:  # Ab dem zweiten Text die Position anpassen
-                    text.next_to(all_texts, RIGHT)
-
-                # Text zur Gruppe hinzufügen
-                all_texts.add(text)
+                self.play(Create(highlight_line), run_time=0.2)
                 
-                # Text auf dem Bildschirm anzeigen
-                self.play(Write(text), run_time=0.25)
+                # Aktualisieren der Basisposition für den nächsten Text, so dass er rechts vom aktuellen steht
+                if j == 0:  # Ab dem zweiten Text die Position anpassen
+                    text = Text(texts[j], font_size=24).move_to(base_position)
+                    all_texts.add(text)
+                    self.play(Write(text), run_time=0.1)
+                    j = j + 1
+                    text = Text(texts[j], font_size=24).next_to(all_texts, RIGHT)
+                    all_texts.add(text)
+                    self.play(Write(text), run_time=0.1)
+                    j = j + 1
+                else:
+                    text = Text(texts[j], font_size=24).next_to(all_texts, RIGHT)
+                    all_texts.add(text)
+                    self.play(Write(text), run_time=0.1)
+                    j = j + 1
+                    text = Text(texts[j], font_size=24).next_to(all_texts, RIGHT)
+                    all_texts.add(text)
+                    self.play(Write(text), run_time=0.1)
+                    j = j + 1
 
                 self.wait(1)
 
@@ -3799,8 +3828,8 @@ class TSP(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text= "The last step will be to convert the euleric circle into a hamilton circle, so we have to delete all edges which make the circle visit a node which we have seen before. In our case these are the edges between 9 and 4.") as tracker:
             
             # Positionen definieren
-            position_x1 = np.array([2.5, -3, 0])  # Links oben
-            position_x2 = np.array([3.3, -3, 0])  # Rechts unten
+            position_x1 = np.array([3.45, -3, 0])  # Links oben
+            position_x2 = np.array([4.4, -3, 0])  # Rechts unten
 
             # Erstellen der "X"-Zeichen
             x_mark_1 = self.create_x_mark(position_x1)
@@ -3814,7 +3843,8 @@ class TSP(MovingCameraScene, VoiceoverScene):
                       FadeOut(all_texts), 
                               FadeOut(x_mark_1), 
                               FadeOut(x_mark_2),
-                              FadeOut(lines_mst)
+                              FadeOut(lines_mst),
+                              FadeOut(labels_mst)
                               )
             
             axes = Axes(
@@ -3839,7 +3869,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
             
             # Christofides
-            quad, quad_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,17.32])
+            quad, quad_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,6.72])
             self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(quad_tag))
 
@@ -3867,10 +3897,6 @@ class TSP(MovingCameraScene, VoiceoverScene):
             line1 = Line(position + np.array([-0.25, 0.25, 0]), position + np.array([0.25, -0.25, 0]), color=RED)
             line2 = Line(position + np.array([-0.25, -0.25, 0]), position + np.array([0.25, 0.25, 0]), color=RED)
             return VGroup(line1, line2)
-    
-
-
-        
-        
+      
 if __name__ == "__main__":
     os.system(f"manim --disable_caching --save_sections -pqh {__file__} TSP")
