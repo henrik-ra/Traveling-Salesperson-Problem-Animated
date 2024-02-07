@@ -46,10 +46,10 @@ class TSP(MovingCameraScene, VoiceoverScene):
             a = Arc(2.2, TAU * 1/4, -TAU*2.6/4, color= BLUE, stroke_width=15)
             self.play(Create(a))
 
-            self.wait(3)
-            self.remove(a)
-            self.remove(c)
-            self.remove(title0)
+            self.wait(4)
+            self.remove(a, c, title0)
+            # self.remove(c)
+            # self.remove(title0)
 
         with self.voiceover(text="Imagine we have a traveling salesperson - tasked with selling your products in various cities."):
 
@@ -63,13 +63,14 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
             # Add the label to the scene
             self.play(Write(alex_label))
-            self.clear()
+            self.wait(3)
+            self.remove(alex_label)
 
         with self.voiceover(text="Alex has to sell products in various cities and wants to take the shortest route to save time. But how does Alex figure out the best route? Let's dive in and help Alex solve this puzzle."):
 
             svg_object = SVGMobject("world.svg").scale(3).set_color(WHITE)
             self.add(svg_object)
-            self.add(salesperson)
+            # self.add(salesperson)
 
             # Move salesperson to different positions
             move_up_right = start_pos + 0.5*DOWN + 2.6*RIGHT
@@ -219,7 +220,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(graph_with_labels.animate.shift(LEFT*3).scale(0.8), run_time=1)
         
         # draw edges between nodes
-        with self.voiceover(text="It's complete, this means there's a direct path from every city to every other city."):
+        with self.voiceover(text="The graph is complete, this means there's a direct path from every city to every other city."):
 
             # Create and animate the text
             point1 = Text("1. Complete graph", font_size=36)
@@ -337,7 +338,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
     
-        with self.voiceover(text="To solve TSP, we have two primary approaches: the Optimal and the Approximation methods."):
+        with self.voiceover(text="To solve the TSP, we have two primary approaches: the Optimal and the Approximation methods."):
             self.wait(2)
 
             # Optimal approach
@@ -613,11 +614,14 @@ class TSP(MovingCameraScene, VoiceoverScene):
             for edge in graph.get_edges_with_initial_opacity_zero():
                 self.play(edge.animate.set_opacity(1), run_time=0.5)
 
+            self.wait(1)
+
             
 
             for edge in graph.get_edges_with_initial_opacity_zero():
-                self.play(FadeOut(edge), run_time=0.5)
+                self.play(FadeOut(edge), run_time=0.1)
             
+            self.play(FadeOut(bab_text))
 
             # Group the graph and labels together
             graph_with_labels = VGroup(graph, labels) 
@@ -626,14 +630,12 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 self.camera.frame.animate.scale(1.1)
             )
 
-            self.play(graph_with_labels.animate.shift(LEFT*5).scale(0.5), run_time=1)
+            self.play(graph_with_labels.animate.shift(LEFT*5).scale(0.5), run_time=0.5)
 
             
         with self.voiceover(text="The Branch-and-Bound method begins by constructing a tree of all possibilities. First we need a Graph. Let's use the same graph and start at node one. ") as tracker:
             
-            self.wait(1.5)
-            self.play(FadeOut(bab_text))
-            self.wait(4)
+            self.wait(4.5)
 
             graph2 = CustomGraph(vertices, edges).shift(RIGHT * 4)
 
@@ -2756,7 +2758,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         kreis12.set_fill(RED, opacity=1.0)
         kreis12.surround(graph6_24.vertices[1])
 
-        with self.voiceover(text="Let's blur out the routes that we can ignore."):
+        with self.voiceover(text="Let's mark out the routes that we can ignore."):
 
             self.wait(2)
             self.play(Create(kreis1), Create(kreis2),Create(kreis3),Create(kreis4), Create(kreis5),  Create(kreis6), Create(kreis7), Create(kreis8), Create(kreis9), Create(kreis10), Create(kreis11), Create(kreis12), run_time=0.5)
@@ -3053,7 +3055,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="However the algorithm performs very well in practice and it is mostly better than the brute force method. For that reason the time complexity of the branch and bound method is mostly better then the brute force algorithm, but still exponential."):
             self.wait(3)
             # exponential but a little bit faster
-            exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^(n-1))}$", position=RIGHT, range=[0,9.229])
+            exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^{n-1})}$", position=RIGHT, range=[0,9.229])
             self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(exp2_tag))
         
@@ -3121,7 +3123,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(Create(line_to_start), run_time=run_time_all_lines)
 
         # write kNN
-        with self.voiceover(text="Our first approximation approach is k nearest neighbors (kNN)."):        
+        with self.voiceover(text="Our second approximation approach is k nearest neighbors (kNN)."):        
             intro_text = Text("k Nearest Neighbors (kNN)").shift(UP*3.5)
             self.play(Write(intro_text))
 
@@ -3151,7 +3153,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.wait(1)
 
         # kNN complexity
-        with self.voiceover(text="For a dataset with n cities, the time complexity of applying kNN to TSP is O of n squared. Even though it's better than using Branch and Bound with O of 2 to the power of n - 1in most cases we won't find the optimal shortest path."):
+        with self.voiceover(text="For a dataset with n cities, the time complexity of applying kNN to TSP is O of n squared. Even though it's better than using Branch and Bound with O of 2 to the power of n - 1 in most cases we won't find the optimal shortest path. Still it performs better then the christofides algorithm."):
 
             axes = Axes(
                 x_range=[0, 20],  
@@ -3173,27 +3175,83 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
 
             # quadratic
-            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$ kNN", range=[0,17.32])
+            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
             self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(quad_tag))
 
             self.wait(5)
 
+
             # exponential Branch and Bound
-            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^(n-1))}$", position=LEFT, range=[0,8.229])
+            exp, exp_tag  = plot_function(lambda x: 2**x-1, BLUE, r"$\bm{O(2^{n-1})}$", position=LEFT, range=[0,8.229])
             self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(exp_tag))
 
             self.wait(1)
 
-        self.play(FadeOut(axes), FadeOut(quad, quad_tag, exp, exp_tag))
+            # Christofides
+            quad, quad_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$", range=[0,17.32])
+            self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(quad_tag))
+
+        self.play(FadeOut(axes), FadeOut(quad, quad_tag, exp, exp_tag, quad, quad_tag))
         self.wait(1)
+
+        # Ending
+
+        bf = ImageMobject("./pics/brute_force.png").scale(0.3).move_to(LEFT * 3 + UP * 2)
+        bab = ImageMobject("./pics/bab.png").scale(0.3).move_to(RIGHT * 3 + UP * 2)
+        ch = ImageMobject("./pics/christofides.png").scale(0.3).move_to(LEFT * 3 + DOWN * 2)
+        knn = ImageMobject("./pics/knn.png").scale(0.3).move_to(RIGHT * 3 + DOWN * 2)
+        
+        with self.voiceover(text="In this video, we showed you different methods to solve the traveling salesperson problem. Every method has its own advantages and disadvantages. The brute force algorithm is the most accurate, but it is also the slowest."):
+
+            self.wait(4)
+
+
+            self.play(FadeIn(bab, bf, ch, knn))
+
+            self.wait(5)
+            self.play(bf.animate.scale(1.5))
+            self.wait(3)
+            self.play(bf.animate.scale(1/1.5))
+
+        with self.voiceover(text="The branch and bound method is faster, but it is still not efficient for large graphs."):
+
+            self.wait(1)
+            self.play(bab.animate.scale(1.5))
+            self.wait(2)
+            self.play(bab.animate.scale(1/1.5))
+
+        with self.voiceover(text="The Christofides algorithm is a heuristic algorithm, which means it is not guaranteed to find the optimal solution, but it is much faster than the previous solutions."):
+
+
+            self.play(ch.animate.scale(1.5))
+            self.wait(7)
+            self.play(ch.animate.scale(1/1.5))
+
+        with self.voiceover(text="The k-nearest neighbor algorithm is also a heuristic algorithm, but it is even faster than the Christofides algorithm. At the end depending on the size of the graph, you have to decide which solution is best suited for your problem."):
+
+            self.play(knn.animate.scale(1.5))
+            self.wait(5)
+            self.play(knn.animate.scale(1/1.5))
+
+            self.wait(5)
+
+        self.play(FadeOut(bf, bab, ch, knn))
+
+        with self.voiceover(text="We hope you enjoyed the video and learned something new. Thank you for watching. If you liked this video, make sure to like this video. Also don't forget to subscribe to our channel and hit the notification bell to never miss an update. See you in the next video. Bye."):
+            self.wait(3)
+
+            like = ImageMobject("./pics/like.png")
+            self.play(FadeIn(like))
+        
 
     
     def symmetric_vs_asymmetric(self):
         with self.voiceover(text="There are symmetrical and asymmetrical TSPs.") as tracker:
-            text_symmetrical = Text("Symmetrical").move_to(LEFT*2)
-            text_asymmetrical = Text("Asymmetrical").move_to(RIGHT*2)
+            text_symmetrical = Text("Symmetrical").move_to(LEFT*3)
+            text_asymmetrical = Text("Asymmetrical").move_to(RIGHT*3)
             text_vs = Text("vs")
   
             self.play(Write(text_symmetrical), Write(text_asymmetrical), Write(text_vs))
@@ -3258,7 +3316,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(FadeOut(group))
             self.play(Write(text_asymmetrical))
 
-        with self.voiceover(text="The TSP is called asymmetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also more complex to solve then the symmetrical. This is why we only observe symmetrical TSPs in the following.") as tracker:
+        with self.voiceover(text="The TSP is called asymmetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also more complex to solve then the symmetrical. In this video we will only show you ways of solving the symmetrical TSP.") as tracker:
             positions_asym = {
             0: LEFT * 2 + UP,
             1: ORIGIN + UP * 2,
@@ -3324,7 +3382,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
             group = VGroup(lines_and_labels_asym, graph_asym, text_asymmetrical)
         
-        with self.voiceover(text="now we go on with the next topic") as tracker:
+        with self.voiceover(text="Let's take a look at how the TSP can be solved") as tracker:
             self.play(FadeOut(group))
 
     def lower_bound(self):
@@ -3561,7 +3619,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             greater_than_3 =Text(">", font_size=36).move_to(ORIGIN)
             self.play(Write(approximated_text), Write(greater_than_3))
         
-        with self.voiceover(text="Now we go on with the next topic") as tracker:
+        with self.voiceover(text="Now we can continue with the approximated algorithms") as tracker:
             self.play(FadeOut(approximated_text), FadeOut(greater_than_3), FadeOut(lower_bound_text))
 
     def christofides_algorithm(self):
@@ -3601,9 +3659,9 @@ class TSP(MovingCameraScene, VoiceoverScene):
         
         with self.voiceover(text= "Let's take a look at the graph to visualize this algorithm.") as tracker:
 
-            On3 = Text(r"O($\bm{O(n^3)}$)", font_size=36).next_to(title, DOWN)
+            # On3 = Text(r"O($\bm{O(n^3)}$)", font_size=36).next_to(title, DOWN)
 
-            group = VGroup(line1, line2, line3, line4, line5, line6, On3)
+            group = VGroup(line1, line2, line3, line4, line5, line6)
             self.play(FadeOut(group))
 
             positions_mst = {
@@ -3781,25 +3839,25 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
             
             # Christofides
-            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,17.32])
+            quad, quad_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,17.32])
             self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(quad_tag))
 
-            self.wait(5)
-            # exponential
-            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
-            self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-            self.play(FadeIn(exp_tag))
+            # self.wait(5)
+            # # exponential
+            # exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
+            # self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
+            # self.play(FadeIn(exp_tag))
 
-            # diagram = VGroup(axes, exp_tag, exp)
+            # # diagram = VGroup(axes, exp_tag, exp)
         
-            self.wait(3)
-            # exponential but a little bit faster
-            exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^(n-1))}$", position=RIGHT, range=[0,9.229])
-            self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
-            self.play(FadeIn(exp2_tag))
+            # self.wait(3)
+            # # exponential but a little bit faster
+            # exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^{n-1})}$", position=RIGHT, range=[0,9.229])
+            # self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
+            # self.play(FadeIn(exp2_tag))
 
-            self.play(FadeIn(On3))
+            # self.play(FadeIn(On3))
             self.wait(2)
             self.clear()
             # self.play(FadeOut(On3), FadeOut(title))
@@ -3809,6 +3867,10 @@ class TSP(MovingCameraScene, VoiceoverScene):
             line1 = Line(position + np.array([-0.25, 0.25, 0]), position + np.array([0.25, -0.25, 0]), color=RED)
             line2 = Line(position + np.array([-0.25, -0.25, 0]), position + np.array([0.25, 0.25, 0]), color=RED)
             return VGroup(line1, line2)
+    
+
+
+        
         
 if __name__ == "__main__":
     os.system(f"manim --disable_caching --save_sections -pqh {__file__} TSP")
