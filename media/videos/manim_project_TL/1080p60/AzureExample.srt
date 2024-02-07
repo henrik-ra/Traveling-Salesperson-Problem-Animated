@@ -1,124 +1,92 @@
 1
-00:00:00,000 --> 00:00:03,929
-In the following we will explain the christofides algorithm.
+00:00:00,000 --> 00:00:03,851
+In the following we will explain the christofides algorithm. This
 
 2
-00:00:04,029 --> 00:00:07,354
-This is an approximated algorithm to solve the TSP.
+00:00:03,951 --> 00:00:07,012
+is an approximated algorithm to solve the TSP and it
 
 3
-00:00:07,454 --> 00:00:10,846
-This algorithm guarantees a solution that is at most
+00:00:07,112 --> 00:00:10,173
+guarantees to find a solution that is at most fifthy
 
 4
-00:00:10,946 --> 00:00:14,204
-fifthy percent longer than the optimal round trip.
+00:00:10,273 --> 00:00:12,788
+percent longer than the optimal round trip.
 
 5
-00:00:14,300 --> 00:00:18,160
-First we will create a minimal spanning tree with every node.
-
-6
-00:00:18,250 --> 00:00:20,866
-Then we search for every node in the graph with
-
-7
-00:00:20,966 --> 00:00:23,526
-an odd degree, meaning an odd number of edges.
-
-8
-00:00:23,626 --> 00:00:26,341
-After finding all the nodes with an odd degree we need
-
-9
-00:00:26,441 --> 00:00:29,157
-to find a minimum perfect matching, so we need to find
-
-10
-00:00:29,257 --> 00:00:32,286
-edges with minimum weight so every node gets an even degree.
-
-11
-00:00:32,376 --> 00:00:36,342
-Then we need to combine the minimum spanning tree with the perfect matching
-
-12
-00:00:36,442 --> 00:00:39,812
-to obtain a multigraph in which every vertex has an even degree.
-
-13
-00:00:39,909 --> 00:00:43,853
-Since every vertex has an even degree, there exists an Eulerian
-
-14
-00:00:43,953 --> 00:00:47,447
-circuit in this graph which we need to find. An Eulerian
-
-15
-00:00:47,547 --> 00:00:50,849
-circuit is a path that visits each edge exactly once.
-
-16
-00:00:50,942 --> 00:00:53,325
-Now we convert the Eulerian circuit to
-
-17
-00:00:53,425 --> 00:00:56,722
-a Hamiltonian circuit by skipping repeated vertices.
-
-18
-00:00:56,822 --> 00:01:00,682
+00:00:12,888 --> 00:00:16,748
 Let's take a look at the graph to visualize this algorithm.
 
-19
-00:01:00,782 --> 00:01:04,474
-Like explained before we create a minimal spanning tree.
+6
+00:00:16,838 --> 00:00:20,698
+First we will create a minimal spanning tree with every node.
 
-20
-00:01:04,566 --> 00:01:07,730
-Now we point out every node with an odd degree
+7
+00:00:20,798 --> 00:00:23,414
+Then we search for every node in the graph with
 
-21
-00:01:07,816 --> 00:01:11,053
-We can now point out the minimal perfect matching, so we add
+8
+00:00:23,514 --> 00:00:26,074
+an odd degree, meaning an odd number of edges.
 
-22
-00:01:11,153 --> 00:01:14,724
-edges with the minimum weight until every node has an even degree.
+9
+00:00:26,174 --> 00:00:29,503
+After finding all the nodes with an odd degree we need to find
 
-23
-00:01:14,816 --> 00:01:17,039
-Now we are going to find an eulerian
+10
+00:00:29,603 --> 00:00:33,485
+a minimum perfect matching, so we need to find edges with minimum weight
 
-24
-00:01:17,139 --> 00:01:19,492
-tour which hits every edge exact once.
+11
+00:00:33,585 --> 00:00:36,859
+for every node to get an even degree. Then we combine them to
 
-25
-00:01:37,616 --> 00:01:40,832
+12
+00:00:36,959 --> 00:00:40,234
+obtain a multigraph in which every vertex has an even degree.
+
+13
+00:00:40,324 --> 00:00:43,695
+Since every vertex has an even degree, we can find an
+
+14
+00:00:43,795 --> 00:00:47,691
+Eulerian circuit in this graph. An Eulerian circuit is a path
+
+15
+00:00:47,791 --> 00:00:51,162
+that visits each edge exactly once. So as you can see
+
+16
+00:00:51,262 --> 00:00:55,224
+we go through our multigraph and note down every visited node.
+
+17
+00:01:03,124 --> 00:01:06,672
 The last step will be to convert the euleric circle into
 
-26
-00:01:40,932 --> 00:01:44,088
+18
+00:01:06,772 --> 00:01:10,256
 a hamilton circle, so we have to delete all edges which
 
-27
-00:01:44,188 --> 00:01:47,345
-make the circle visit a node which we have seen before.
+19
+00:01:10,356 --> 00:01:13,775
+we have already seen before. In our case these are the
 
-28
-00:01:47,445 --> 00:01:50,188
-In our case these are the edges between 9 and 4.
+20
+00:01:13,875 --> 00:01:16,968
+edges between 9 and 4. There we got our solution!
 
-29
-00:01:50,282 --> 00:01:52,775
+21
+00:01:17,068 --> 00:01:19,561
 If we take a look at the time complexity of the
 
-30
-00:01:52,875 --> 00:01:56,582
+22
+00:01:19,661 --> 00:01:23,368
 Christofides algorithm it is mainly determined by the step of finding
 
-31
-00:01:56,682 --> 00:01:59,782
+23
+00:01:23,468 --> 00:01:26,568
 a minimum perfect matching, which is n to the third power.
 

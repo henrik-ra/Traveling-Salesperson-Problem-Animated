@@ -30,7 +30,7 @@ class AzureExample(VoiceoverScene):
 
         # self.lower_bound()
 
-        # self.christofides_algorithm()  
+        self.christofides_algorithm()  
 
     def symmetric_vs_asymmetric(self):
         with self.voiceover(text="There are symmetrical and asymmetrical TSPs.") as tracker:
@@ -420,46 +420,46 @@ class AzureExample(VoiceoverScene):
             self.play(FadeOut(approximated_text), FadeOut(greater_than_3), FadeOut(lower_bound_text))
 
     def christofides_algorithm(self):
-        with self.voiceover(text="In the following we will explain the christofides algorithm. This is an approximated algorithm to solve the TSP. This algorithm guarantees a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
+        with self.voiceover(text="In the following we will explain the christofides algorithm. This is an approximated algorithm to solve the TSP and it guarantees to find a solution that is at most fifthy percent longer than the optimal round trip.") as tracker:
             title = Text("Christofides Algorithm").to_edge(UP)
             self.play(Write(title))
 
-        with self.voiceover(text="First we will create a minimal spanning tree with every node.") as tracker:
-            #O(n log n) 
-            line1 = Text("1. Find a minimum spanning tree T of a graph G.", font_size=24).to_edge(LEFT).move_to(UP)
-            self.play(Write(line1))
+        # with self.voiceover(text="First we will create a minimal spanning tree with every node.") as tracker:
+        #     #O(n log n) 
+        #     line1 = Text("1. Find a minimum spanning tree T of a graph G.", font_size=24).to_edge(LEFT).move_to(UP)
+        #     self.play(Write(line1))
 
-        with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges.") as tracker:
-            #O(n^3) n = node
-            line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN, buff=0.5)
-            self.play(Write(line2))
+        # with self.voiceover(text="Then we search for every node in the graph with an odd degree, meaning an odd number of edges.") as tracker:
+        #     #O(n^3) n = node
+        #     line2 = Text("2. Let V_odd be the set of vertices with odd degree in T.", font_size=24).to_edge(LEFT).next_to(line1, DOWN, buff=0.5)
+        #     self.play(Write(line2))
 
-        with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching, so we need to find edges with minimum weight so every node gets an even degree.") as tracker:
-            #O(n)
-            line3 = Text("3. Find a minimum perfect matching M in the subgraph induced by V_odd.", font_size=24).to_edge(LEFT).next_to(line2, DOWN, buff=0.5)
-            self.play(Write(line3))
+        # with self.voiceover(text="After finding all the nodes with an odd degree we need to find a minimum perfect matching, so we need to find edges with minimum weight for every node to get an even degree.") as tracker:
+        #     #O(n)
+        #     line3 = Text("3. Find a minimum perfect matching M in the subgraph induced by V_odd.", font_size=24).to_edge(LEFT).next_to(line2, DOWN, buff=0.5)
+        #     self.play(Write(line3))
 
-        with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
-            #O(n)
-            line4 = Text("4. Combine the edges of M and T to form a multigraph H.", font_size=24).to_edge(LEFT).next_to(line3, DOWN, buff=0.5)
-            self.play(Write(line4))
+        # with self.voiceover(text="Then we need to combine the minimum spanning tree with the perfect matching to obtain a multigraph in which every vertex has an even degree.") as tracker:
+        #     #O(n)
+        #     line4 = Text("4. Combine the edges of M and T to form a multigraph H.", font_size=24).to_edge(LEFT).next_to(line3, DOWN, buff=0.5)
+        #     self.play(Write(line4))
         
-        with self.voiceover(text="Since every vertex has an even degree, there exists an Eulerian circuit in this graph which we need to find. An Eulerian circuit is a path that visits each edge exactly once.") as tracker:
-            #O(n)
-            line5 = Text("5. Find an Eulerian circuit in H.", font_size=24).to_edge(LEFT).next_to(line4, DOWN, buff=0.5)
-            self.play(Write(line5))
+        # with self.voiceover(text="Since every vertex has an even degree, we can find an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once.") as tracker:
+        #     #O(n)
+        #     line5 = Text("5. Find an Eulerian circuit in H.", font_size=24).to_edge(LEFT).next_to(line4, DOWN, buff=0.5)
+        #     self.play(Write(line5))
 
-        with self.voiceover(text="Now we convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.") as tracker:
-            #O(n)
-            line6 = Text("6. Convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.", font_size=24).to_edge(LEFT).next_to(line5, DOWN, buff=0.5)
-            self.play(Write(line6))
+        # with self.voiceover(text="Now we convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.") as tracker:
+        #     #O(n)
+        #     line6 = Text("6. Convert the Eulerian circuit to a Hamiltonian circuit by skipping repeated vertices.", font_size=24).to_edge(LEFT).next_to(line5, DOWN, buff=0.5)
+        #     self.play(Write(line6))
         
         with self.voiceover(text= "Let's take a look at the graph to visualize this algorithm.") as tracker:
 
             # On3 = Text(r"O($\bm{O(n^3)}$)", font_size=36).next_to(title, DOWN)
 
-            group = VGroup(line1, line2, line3, line4, line5, line6)
-            self.play(FadeOut(group))
+            # group = VGroup(line1, line2, line3, line4, line5, line6)
+            # self.play(FadeOut(group))
 
             positions_mst = {
             0: LEFT * 4 + UP * 2,
@@ -482,7 +482,7 @@ class AzureExample(VoiceoverScene):
             self.add(labels_mst)
             self.play(FadeIn(labels_mst), run_time=0.5)
         
-        with self.voiceover(text= "Like explained before we create a minimal spanning tree.") as tracker:
+        with self.voiceover(text= "First we will create a minimal spanning tree with every node.") as tracker:
             # Kanten definieren, die einen MST bilden 
             edges_mst = [
             (0, 1), (1, 9), (9, 5), (5, 6), 
@@ -527,7 +527,7 @@ class AzureExample(VoiceoverScene):
 
                 self.play(Create(line_mst), run_time=0.2)
         
-        with self.voiceover(text= "Now we point out every node with an odd degree") as tracker:
+        with self.voiceover(text= "Then we search for every node in the graph with an odd degree, meaning an odd number of edges.") as tracker:
             highlight_nodes = [0, 9, 6, 4, 3, 8]  # Knoten, die hervorgehoben werden sollen
 
             circles = VGroup()
@@ -543,7 +543,7 @@ class AzureExample(VoiceoverScene):
 
                 
         
-        with self.voiceover(text= "We can now point out the minimal perfect matching, so we add edges with the minimum weight until every node has an even degree.") as tracker:
+        with self.voiceover(text= "After finding all the nodes with an odd degree we need to find a minimum perfect matching, so we need to find edges with minimum weight for every node to get an even degree. Then we combine them to obtain a multigraph in which every vertex has an even degree.") as tracker:
             self.play(FadeOut(circles), run_time=0.2)
             edges_mst_2 = [
             (0, 3), (9, 4), (6, 8),  
@@ -561,7 +561,7 @@ class AzureExample(VoiceoverScene):
 
                 self.play(Create(line_mst), run_time=0.5)
         
-        with self.voiceover(text= "Now we are going to find an eulerian tour which hits every edge exact once.") as tracker:
+        with self.voiceover(text= "Since every vertex has an even degree, we can find an Eulerian circuit in this graph. An Eulerian circuit is a path that visits each edge exactly once. So as you can see we go through our multigraph and note down every visited node. ") as tracker:
             # Kanten, die hervorgehoben werden sollen
             highlight_edges = [(0, 3), (3, 2), (2, 4), (4,7), (7,8), (8, 6), (6, 5), (5,9), (9,4), (4,9), (9, 1), (1,0)]
             
@@ -609,7 +609,7 @@ class AzureExample(VoiceoverScene):
 
                 self.play(FadeOut(highlight_line), run_time=0.5)
         
-        with self.voiceover(text= "The last step will be to convert the euleric circle into a hamilton circle, so we have to delete all edges which make the circle visit a node which we have seen before. In our case these are the edges between 9 and 4.") as tracker:
+        with self.voiceover(text= "The last step will be to convert the euleric circle into a hamilton circle, so we have to delete all edges which we have already seen before. In our case these are the edges between 9 and 4. There we got our solution!") as tracker:
             
             # Positionen definieren
             position_x1 = np.array([3.45, -3, 0])  # Links oben
@@ -672,7 +672,7 @@ class AzureExample(VoiceoverScene):
             # self.play(FadeIn(exp2_tag))
 
             # self.play(FadeIn(On3))
-            self.wait(2)
+            self.wait(9)
             self.clear()
             # self.play(FadeOut(On3), FadeOut(title))
            
