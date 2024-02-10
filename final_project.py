@@ -189,7 +189,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(Write(conditions))
             self.wait(3)
         
-        self.wait(2)
+        self.wait(1)
         self.clear()
 
 #  # ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -352,7 +352,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             box2 = Rectangle(width=3, height=1, fill_color=DARK_BLUE, fill_opacity=1).shift(RIGHT*2.5)
             box2_text = Text("Approximation", color=WHITE).scale(0.5)
             box2_text.move_to(box2.get_center())
-            box2_label = Text("kNN\n\nChristofides", color=WHITE, font_size=40).scale(0.5)
+            box2_label = Text("Christofides\n\nkNN", color=WHITE, font_size=40).scale(0.5)
             box2_label.next_to(box2, DOWN)
 
             # Animate both categories
@@ -366,7 +366,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.wait(3)
             self.add(box1_label)
 
-        with self.voiceover(text="Moving on to the Approximation approach, we'll explain the algorithms k nearest neighbors (kNN) and Christofides. But let's start with the optimal solutions first."):
+        with self.voiceover(text="Moving on to the Approximation approach, we'll explain the algorithms Christofides and k nearest neighbors (kNN). But let's start with the optimal solutions first."):
             self.wait(3)
             self.add(box2_label)
 
@@ -487,43 +487,53 @@ class TSP(MovingCameraScene, VoiceoverScene):
         self.clear()
         self.wait(1)
        
-       # time complexity
-        with self.voiceover(text="This is because we got an exponential time complexity."):
+#        # time complexity
+        with self.voiceover(text="So we got a factorial time complexity for the Brute Force algorithm."):
             
-            # define and add graph
             axes = Axes(
-                x_range=[0, 20], 
-                y_range=[0, 300],
+                x_range=[0, 20],  
+                y_range=[0, 720], 
                 y_length=5,
                 x_length=8,
                 tips=False,  
                 axis_config={"include_ticks": False, "color": WHITE},
             )
-            self.add(axes)
+
+            # Erstellen der x-Achsenbeschriftung
+            x_label = Tex("nodes/cities")
+            x_label.next_to(axes.x_axis.get_end(), DOWN + LEFT, buff=0.2).scale(0.7)  # Positionierung unter der x-Achse, rechtsbündig
+
+            # Erstellen der y-Achsenbeschriftung
+            y_label = Tex("time\_complexity").rotate(PI / 2, about_point=ORIGIN).scale(0.7)  # Drehung um 90 Grad
+            y_label.next_to(axes.y_axis, LEFT, buff=0.2)  # Positionierung links neben der y-Achse
+            self.add(axes, x_label, y_label)
+
             self.wait(2)
 
-            # add exponential line and tag
             bold_template = TexTemplate()
             bold_template.add_to_preamble(r"\usepackage{bm}")
 
             def plot_function(function, color, label, position=RIGHT, range=[0,20]):
                 function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
                 return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
-            
-            exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
-            self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-            self.play(FadeIn(exp_tag))
+    
+            fact, fact_tag  = plot_function(lambda x: gamma(x) if x > 1 else x**2, YELLOW, r"$\bm{O(n!)}$\\Brute Force", range=[0,7], position=LEFT)
+            self.play(LaggedStart(fact.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(fact_tag))
+
             self.wait(1)
-            self.play(FadeOut(axes), FadeOut(exp, exp_tag))
+
+            self.play(FadeOut(axes), FadeOut(fact, fact_tag, x_label, y_label))
+            self.wait(1)
 
             self.clear()
             self.wait(1)
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+# # ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         
-        # self.next_section("Branch and Bound") # Branch and Bound
+#         # self.next_section("Branch and Bound") # Branch and Bound
         
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+# # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
     
 
         # the graph class expects a list of vertices and edges
@@ -703,7 +713,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
             
 
-        with self.voiceover(text="At the same time we can tranform the graph on the right to a tree with node one as the root. This tree will show all the possible routes that the salesperson can use. As explained, starting with node one the next possible nodes could be node 2, 3, 4 or 5.") as tracker:
+        with self.voiceover(text="At the same time we can transform the graph on the right to a tree with node one as the root. This tree will show all the possible routes that the salesperson can use. As explained, starting with node one the next possible nodes could be node 2, 3, 4 or 5.") as tracker:
 
             self.wait(3)
             
@@ -3010,12 +3020,15 @@ class TSP(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="That means the algorithm does not have to calculate every route untill the end. Nevertheless, in the worst case the algorithm has to calculate every possible route untill the end and the time complexity is the same as the brute force method."):
             None
             
+        with self.voiceover(text="Thats it for the optimal solutions so far."):
+            None
+
         self.play(
                 *[FadeOut(mob)for mob in self.mobjects]
             )
         self.play(Restore(self.camera.frame))
-
-        with self.voiceover(text="Thats it for the optimal solutions so far. For the approximation methods, one problem is to evaluate how good the algorithm performed."):
+        
+        with self.voiceover(text="For the approximation methods, one problem is to evaluate how good the algorithm performed."):
             None
 
         #     self.wait(5)
@@ -3030,7 +3043,6 @@ class TSP(MovingCameraScene, VoiceoverScene):
         #     )
 
         #         # Hinzufügen der Achsen und des Graphen zur Szene
-        #     self.add(axes)
         #     # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
         #     self.wait()  # Warten am Ende der Animation
 
@@ -3074,7 +3086,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         # self.next_section("kNN") # kNN
         
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        self.clear()
         def distance(p1, p2): # calculate distance between 2 points
             return np.linalg.norm(p1.get_center() - p2.get_center())
 
@@ -3157,18 +3169,25 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.wait(1)
 
         # kNN complexity
-        with self.voiceover(text="For a dataset with n cities, the time complexity of applying kNN to TSP is O of n squared. Even though it's better than using Branch and Bound with O of 2 to the power of n - 1 in most cases we won't find the optimal shortest path. Still it performs better then the christofides algorithm."):
+        with self.voiceover(text="For a dataset with n cities, the time complexity of applying kNN to TSP is O of n squared. For kNN, time complexity is a bit better compared to O of n to the power of 3 by using Christofides. Both are faster than using Brute Force with a factorial time complexity, but in most cases we won't find the optimal shortest path."):
 
             axes = Axes(
                 x_range=[0, 20],  
-                y_range=[0, 3000], 
+                y_range=[0, 720], 
                 y_length=5,
                 x_length=8,
                 tips=False,  
                 axis_config={"include_ticks": False, "color": WHITE},
             )
 
-            self.add(axes)
+            # Erstellen der x-Achsenbeschriftung
+            x_label = Tex("nodes/cities")
+            x_label.next_to(axes.x_axis.get_end(), DOWN + LEFT, buff=0.2).scale(0.7)  # Positionierung unter der x-Achse, rechtsbündig
+
+            # Erstellen der y-Achsenbeschriftung
+            y_label = Tex("time\_complexity").rotate(PI / 2, about_point=ORIGIN).scale(0.7)  # Drehung um 90 Grad
+            y_label.next_to(axes.y_axis, LEFT, buff=0.2)  # Positionierung links neben der y-Achse
+            self.add(axes, x_label, y_label)
             self.wait(2)
 
             bold_template = TexTemplate()
@@ -3179,34 +3198,27 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
     
             # quadratic
-            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$", range=[0,17.32])
+            quad, quad_tag  = plot_function(lambda x: x**2, YELLOW, r"$\bm{O(n^2)}$ kNN", range=[0,20])
             self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(quad_tag))
 
             self.wait(5)
-
-            exp2, exp2_tag  = plot_function(lambda x: math.factorial(int(x)), GREEN, r"$\bm{O(n^4)}$", position=RIGHT, range=[0,18])
-            self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
-            self.play(FadeIn(exp2_tag))
             
             # Christofides
-            chris, chris_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,13.44])
+            chris, chris_tag  = plot_function(lambda x: x**3, ORANGE, r"$\bm{O(n^3)}$ Christofides", range=[0,8.96])
             self.play(LaggedStart(chris.animate.set_stroke(opacity=0.3)))
             self.play(FadeIn(chris_tag))
 
-            # exponential Branch and Bound
-            # exp, exp_tag  = plot_function(lambda x: 2**x-1, BLUE, r"$\bm{O(2^{n-1})}$", position=LEFT, range=[0,16])
-            # self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-            # self.play(FadeIn(exp_tag))
+            self.wait(4)
+
+            fact, fact_tag  = plot_function(lambda x: gamma(x) if x > 1 else x**2, DARK_BLUE, r"$\bm{O(n!)}$\\Brute Force", range=[0,7], position=LEFT)
+            self.play(LaggedStart(fact.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(fact_tag))
 
             self.wait(1)
 
-            # Christofides
-            # quad, quad_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$", range=[0,17.32])
-            # self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
-            # self.play(FadeIn(quad_tag))
-
-        self.play(FadeOut(axes), FadeOut(chris, chris_tag, exp2, exp2_tag, quad, quad_tag))
+        self.play(FadeOut(axes, x_label, y_label), FadeOut(chris, chris_tag, quad, quad_tag, fact, fact_tag))
+        self.clear()
         self.wait(1)
 
         # Ending
@@ -3265,8 +3277,6 @@ class TSP(MovingCameraScene, VoiceoverScene):
             self.play(FadeIn(like))
 
         
-
-    
     def symmetric_vs_asymmetric(self):
 
         with self.voiceover(text = "This isn't really accurate in real life because of conditions of the landscape or construction sites.") as tracker:
@@ -3280,11 +3290,11 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="The TSP is called asymmetrical if there are two edges between every node and they don't have the same weight. As you can see the graph is then directed. This is way more accurate to the real world, but this is also more complex to solve then the symmetrical. In this video we will only show you ways of solving the symmetrical TSP.") as tracker:
             positions_asym = {
-            0: LEFT * 2 + UP,
-            1: ORIGIN + UP * 2,
-            2: RIGHT * 2 + UP,
-            3: RIGHT  + DOWN,
-            4: LEFT  + DOWN,
+            0: LEFT * 2,
+            1: ORIGIN + UP,
+            2: RIGHT * 2,
+            3: RIGHT  + DOWN*2,
+            4: LEFT  + DOWN*2,
             }
              
             graph_asym = CustomGraph(list(positions_asym.keys()), [], layout=positions_asym)
@@ -3765,28 +3775,35 @@ class TSP(MovingCameraScene, VoiceoverScene):
             # Zeichnen der "X"-Zeichen
             self.play(Create(x_mark_1), Create(x_mark_2), FadeOut(lines_to_remove))
 
-        with self.voiceover(text="If we take a look at the time complexity of the Christofides algorithm it is mainly determined by the step of finding a minimum perfect matching, which is n to the third power.") as tracker:
-            self.play(FadeOut(graph_mst), 
-                      FadeOut(all_texts), 
-                              FadeOut(x_mark_1), 
-                              FadeOut(x_mark_2),
-                              FadeOut(lines_mst),
-                              FadeOut(labels_mst)
-                              )
+        with self.voiceover(text="If we take a look at the time complexity of the Christofides algorithm it is mainly determined by the step of finding a minimum perfect matching, which is n to the third power. If time complexity is important, it could be preferable than using Brute Force or Branch and Bound.") as tracker:
+            # self.play(FadeOut(graph_mst), 
+            #           FadeOut(all_texts), 
+            #                   FadeOut(x_mark_1), 
+            #                   FadeOut(x_mark_2),
+            #                   FadeOut(lines_mst),
+            #                   FadeOut(labels_mst)
+            #                   )
             
+            self.clear()
+
             axes = Axes(
-                x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
-                y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
+                x_range=[0, 20],  
+                y_range=[0, 720], 
                 y_length=5,
                 x_length=8,
                 tips=False,  
-                axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
+                axis_config={"include_ticks": False, "color": WHITE},
             )
 
-            # Hinzufügen der Achsen und des Graphen zur Szene
-            self.add(axes)
-            # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
-            self.wait()  # Warten am Ende der Animation
+            # Erstellen der x-Achsenbeschriftung
+            x_label = Tex("nodes/cities")
+            x_label.next_to(axes.x_axis.get_end(), DOWN + LEFT, buff=0.2).scale(0.7)  # Positionierung unter der x-Achse, rechtsbündig
+
+            # Erstellen der y-Achsenbeschriftung
+            y_label = Tex("time\_complexity").rotate(PI / 2, about_point=ORIGIN).scale(0.7)  # Drehung um 90 Grad
+            y_label.next_to(axes.y_axis, LEFT, buff=0.2)  # Positionierung links neben der y-Achse
+            self.add(axes, x_label, y_label)
+            self.wait(2)
 
             bold_template = TexTemplate()
             bold_template.add_to_preamble(r"\usepackage{bm}")
@@ -3794,29 +3811,24 @@ class TSP(MovingCameraScene, VoiceoverScene):
             def plot_function(function, color, label, position=RIGHT, range=[0,20]):
                 function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
                 return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
+    
+            self.wait(5)
             
             # Christofides
-            quad, quad_tag  = plot_function(lambda x: x**3, YELLOW, r"$\bm{O(n^3)}$ Christofides", range=[0,6.72])
-            self.play(LaggedStart(quad.animate.set_stroke(opacity=0.3)))
-            self.play(FadeIn(quad_tag))
+            chris, chris_tag  = plot_function(lambda x: x**3, ORANGE, r"$\bm{O(n^3)}$ Christofides", range=[0,8.96])
+            self.play(LaggedStart(chris.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(chris_tag))
 
-            # self.wait(5)
-            # # exponential
-            # exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
-            # self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-            # self.play(FadeIn(exp_tag))
+            fact, fact_tag  = plot_function(lambda x: gamma(x) if x > 1 else x**2, YELLOW, r"$\bm{O(n!)}$\\Brute Force", range=[0,7], position=LEFT)
+            self.play(LaggedStart(fact.animate.set_stroke(opacity=0.3)))
+            self.play(FadeIn(fact_tag))
 
-            # # diagram = VGroup(axes, exp_tag, exp)
-        
-            # self.wait(3)
-            # # exponential but a little bit faster
-            # exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^{n-1})}$", position=RIGHT, range=[0,9.229])
-            # self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
-            # self.play(FadeIn(exp2_tag))
+            self.wait(1)
+
+        self.play(FadeOut(axes, x_label, y_label), FadeOut(chris, chris_tag, fact, fact_tag))
 
             # self.play(FadeIn(On3))
-            self.wait(9)
-            self.clear()
+            
             # self.play(FadeOut(On3), FadeOut(title))
            
     def create_x_mark(self, position):
@@ -3826,4 +3838,4 @@ class TSP(MovingCameraScene, VoiceoverScene):
             return VGroup(line1, line2)
       
 if __name__ == "__main__":
-    os.system(f"manim --disable_caching --save_sections -pql {__file__} TSP")
+    os.system(f"manim --disable_caching --save_sections -pqh {__file__} TSP")
