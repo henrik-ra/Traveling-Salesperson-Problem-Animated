@@ -1,4 +1,0 @@
-Traveling Salesperson Problem
-
-Einführung
-Geschichte

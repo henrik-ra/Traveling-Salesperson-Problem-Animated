@@ -3,22 +3,15 @@ from manim_svg_animations import *
 
 import os
 import random
-from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.recorder import RecorderService
-from manim_voiceover.services.gtts import GTTSService
 from itertools import permutations
 
-from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
-from basics import CustomGraph
+from custom_graph import CustomGraph
 
 from scipy.special import gamma
-import math
 
 # voices: https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts
-
-DARK_BLUE_COLOR = "#00008b"
 
 class TSP(MovingCameraScene, VoiceoverScene):
     def construct(self):
@@ -54,7 +47,8 @@ class TSP(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="Imagine we have a traveling salesperson - tasked with selling your products in various cities."):
 
             # Salesperson
-            salesperson = ImageMobject("Salesman.png").scale(0.3)
+
+            salesperson = ImageMobject("./pics/Salesman.png").scale(0.3)
             start_pos = salesperson.get_center()
             self.add(salesperson)
 
@@ -70,7 +64,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="Alex has to sell products in various cities and wants to take the shortest route to save time. But how does Alex figure out the best route? Let's dive in and help Alex solve this puzzle."):
 
-            svg_object = SVGMobject("world.svg").scale(3).set_color(WHITE)
+            svg_object = SVGMobject("./pics/world.svg").scale(3).set_color(WHITE)
             self.add(svg_object)
             self.add(salesperson)
 
@@ -94,7 +88,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="Let's say he needs to visit 4 cities."):
     
             # add warehouses to map
-            warehouse_png = "warehouse.png"
+            warehouse_png = "./pics/warehouse.png"
             points0 = [
                 ImageMobject(warehouse_png).scale(0.2).move_to(np.array([0, 0.5, 0])), # DE
                 ImageMobject(warehouse_png).scale(0.2).move_to(np.array([3, -1.75, 0])), # Australia
@@ -120,11 +114,11 @@ class TSP(MovingCameraScene, VoiceoverScene):
                 line = Line(points0[start_index].get_center(), points0[end_index].get_center(), color=BLUE)
                 lines.append(line)
 
-                temp_plane = salesperson.copy()
-                temp_plane.move_to(points0[start_index].get_center())
+                temp_alex = salesperson.copy()
+                temp_alex.move_to(points0[start_index].get_center())
 
-                self.play(Create(line), MoveAlongPath(temp_plane, line), run_time=0.5)
-                self.play(FadeOut(temp_plane), run_time=0.05)
+                self.play(Create(line), MoveAlongPath(temp_alex, line), run_time=0.5)
+                self.play(FadeOut(temp_alex), run_time=0.05)
 
             self.wait(4)
 
@@ -677,10 +671,10 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
             # new positions for the nodes
             positions = [
-                    LEFT  + UP * 2.25,  # node 2
-                    RIGHT + UP * 2.25,  # node 3
-                    RIGHT * 3 + UP * 2.25,  # node 4
-                    RIGHT * 5 + UP * 2.25  # node 5
+                    LEFT  + UP * 2.25,  
+                    RIGHT + UP * 2.25,  
+                    RIGHT * 3 + UP * 2.25,  
+                    RIGHT * 5 + UP * 2.25 
             ]
             for i, node in enumerate([2, 3, 4, 5], start=0):
                 self.play(vertex_groups[node].animate.move_to(positions[i]))
@@ -2623,50 +2617,6 @@ class TSP(MovingCameraScene, VoiceoverScene):
         
         with self.voiceover(text="For the approximation methods, one problem is to evaluate how good the algorithm performed."):
             None
-
-        #     self.wait(5)
-            
-        #     axes = Axes(
-        #         x_range=[0, 20],  # x-Achsenbereich von 0 bis 5
-        #         y_range=[0, 300], # y-Achsenbereich von 0 bis 32, um die Kurve im Diagramm zu halten
-        #         y_length=5,
-        #         x_length=8,
-        #         tips=False,  
-        #         axis_config={"include_ticks": False, "color": WHITE},  # Achsenfarbe
-        #     )
-
-        #         # Hinzufügen der Achsen und des Graphen zur Szene
-        #     # self.play(Create(exponential_curve), Write(exponential_label).next_to(exponential_curve, UP, buff=0.1))
-        #     self.wait()  # Warten am Ende der Animation
-
-        #     bold_template = TexTemplate()
-        #     bold_template.add_to_preamble(r"\usepackage{bm}")
-
-        #     def plot_function(function, color, label, position=RIGHT, range=[0,20]):
-        #         function0 = axes.plot(function, x_range=range).set_stroke(width=3).set_color(color)
-        #         return function0, Tex(label, tex_template=bold_template).set_color(color).scale(0.6).next_to(function0.point_from_proportion(1), position)
-
-
-        #     self.wait(5)
-        #     # exponential
-        #     exp, exp_tag  = plot_function(lambda x: 2**x, BLUE, r"$\bm{O(2^n)}$", position=LEFT, range=[0,8.229])
-        #     self.play(LaggedStart(exp.animate.set_stroke(opacity=0.3)))
-        #     self.play(FadeIn(exp_tag))
-
-        #     # diagram = VGroup(axes, exp_tag, exp)
-
-        #     # self.wait(2)
-        #     # self.play(diagram.animate.shift(LEFT*2).scale(0.6))
-        #     # self.wait(2)
-        #     # self.play(FadeOut(axes), FadeOut(exp, exp_tag))
-        #     # self.wait(2)
-
-        # with self.voiceover(text="However the algorithm performs very well in practice and it is mostly better than the brute force method. For that reason the time complexity of the branch and bound method is mostly better then the brute force algorithm, but still exponential."):
-        #     self.wait(3)
-        #     # exponential but a little bit faster
-        #     exp2, exp2_tag  = plot_function(lambda x: 2**(x-1), GREEN, r"$\bm{O(2^{n-1})}$", position=RIGHT, range=[0,9.229])
-        #     self.play(LaggedStart(exp2.animate.set_stroke(opacity=0.3)))
-        #     self.play(FadeIn(exp2_tag))
         
         self.clear()
 
@@ -2739,8 +2689,8 @@ class TSP(MovingCameraScene, VoiceoverScene):
         # kNN visualized
         with self.voiceover(text="We start at a specific city (any city can be the starting point). Then we check the shortest path and add this point to the tour. Same for the next node and so on ... we repeat this until there is no unvisited node."):
             
-            points = create_points(10)  # Erstelle Punkte
-            self.add(*points)  # Füge Punkte der Szene hinzu
+            points = create_points(10) 
+            self.add(*points)
             connect_points(points)
 
         with self.voiceover(text="Finally, we draw a connection back to the starting point."):
@@ -2815,8 +2765,7 @@ class TSP(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
         # Ending
-
-        bf = ImageMobject("pics\/brute_force.png").scale(0.3).move_to(LEFT * 3 + UP * 2)
+        bf = ImageMobject("./pics/brute_force.png").scale(0.3).move_to(LEFT * 3 + UP * 2)
         bab = ImageMobject("./pics/bab.png").scale(0.3).move_to(RIGHT * 3 + UP * 2)
         ch = ImageMobject("./pics/christofides.png").scale(0.3).move_to(LEFT * 3 + DOWN * 2)
         knn = ImageMobject("./pics/knn.png").scale(0.3).move_to(RIGHT * 3 + DOWN * 2)
@@ -2839,7 +2788,6 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="The Christofides algorithm is a heuristic algorithm, which means it is not guaranteed to find the optimal solution, but it is much faster than the previous solutions."):
 
-
             self.play(ch.animate.scale(1.5))
             self.wait(7)
             self.play(ch.animate.scale(1/1.5))
@@ -2852,16 +2800,9 @@ class TSP(MovingCameraScene, VoiceoverScene):
 
             self.wait(5)
 
-
-
         with self.voiceover(text="Thanks for joining us today! If you enjoyed the video and learned something new, please give it a thumbs up"):
             None
-            # self.wait(3)
-            # self.wait(2)
-            # salesperson = ImageMobject("Salesman.png").scale(0.6)
-            # self.add(salesperson)
-            # self.wait(2)
-            # self.remove(salesperson)
+
         self.clear()
         self.wait(0.5)
         with self.voiceover(text="Don't forget to subscribe and hit the bell so you won't miss our next adventure. Until next time, stay curious and take care. Bye!"):
