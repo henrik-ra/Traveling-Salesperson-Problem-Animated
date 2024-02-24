@@ -16,7 +16,7 @@ Please note that the project uses audio generation features that require an Azur
 ## Setting Up Azure Cognitive Services
 1. Create a new Azure Cognitive Services resource in the Azure Portal.
 2. Copy the Endpoint and Key from the resource you created.
-3. Create a .env file in the root directory of this project and add the following lines, replacing YOUR_SUBSCRIPTION_KEYand YOUR_SERVICE_REGION with your actual values:
+3. Create a .env file in the root directory of this project and add the following lines, replacing YOUR_SUBSCRIPTION_KEY and YOUR_SERVICE_REGION with your actual values:
     
     AZURE_SUBSCRIPTION_KEY=YOUR_SUBSCRIPTION_KEY # insert Key 1 here
     AZURE_SERVICE_REGION=YOUR_SERVICE_REGION # e.g."germanywestcentral"
