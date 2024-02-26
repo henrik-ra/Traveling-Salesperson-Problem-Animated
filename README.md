@@ -1,4 +1,4 @@
-# Traveling Salesperson Person
+# Traveling Salesperson Problem
 This repository contains the code for generating the explanation video for the traveling salesperson problem using manim.
 
 Contributors:
