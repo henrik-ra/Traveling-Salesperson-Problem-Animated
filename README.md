@@ -1,5 +1,5 @@
-# Traveling Salesperson visualized in manim
-This repository contains the code for generating an explanation video for the traveling salesperson problem using manim.
+# Traveling Salesperson Person
+This repository contains the code for generating the explanation video for the traveling salesperson problem using manim.
 
 Contributors:
 1. Ahmet Korkmaz
@@ -9,7 +9,7 @@ Contributors:
 ## Requirements
 The project dependencies are listed in the requirements.txt file. You can install them using the following command:
 
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 
 Please note that the project uses audio generation features that require an Azure Cognitive Services API key. The key used in the original project is expired, so you need to get a new one to generate the video with audio.
 
